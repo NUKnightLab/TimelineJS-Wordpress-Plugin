@@ -16,6 +16,9 @@ Supports custom width and height, custom map styles by Stamen (http://stamen.com
 
 Checkout how to create your amazing Timeline at http://timeline.verite.co/
 
+To embed the Timeline on your post just use this shortcode:
+`[timeline width="800" height="600" src="Your source url here" maptype="toner"]`
+
 == Installation ==
 
 1. Install the plugin on your plugin directory.

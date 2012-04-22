@@ -1,4 +1,4 @@
-=== Timeline Verite Shortcode ===
+=== Verite Timeline ===
 Contributors: miguelpeixe
 Donate link: http://cardume.art.br/
 Tags: timeline, shortcode, stamen, timeline.verite.co, verite, html5

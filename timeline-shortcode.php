@@ -3,7 +3,7 @@
 Plugin Name: Verite Timeline
 Plugin URI: http://cardume.art.br/
 Description: A simple shortcode to display the Timeline from http://timeline.verite.co/.
-Version: 0.8
+Version: 0.9
 Author: Cardume
 Author URI: http://cardume.art.br
 License: AGPLv3
@@ -45,6 +45,39 @@ function timeline_verite_shortcode($atts, $content=null) {
 
 	if(!$src) return false;
 
+	$wp_language = get_bloginfo('language');
+	switch($wp_language) {
+		case 'pt-BR':
+		case 'pt-PT':
+			$timeline_src = 'http://veritetimeline.appspot.com/latest/locale/pt-br.js';
+			break;
+		case 'es-ES':
+		case 'es-PE':
+			$timeline_src = 'http://veritetimeline.appspot.com/latest/locale/es.js';
+			break;
+		case 'ko-KR':
+			$timeline_src = 'http://veritetimeline.appspot.com/latest/locale/kr.js';
+			break;
+		case 'de-DE':
+			$timeline_src = 'http://veritetimeline.appspot.com/latest/locale/de.js';
+			break;
+		case 'it-IT':
+			$timeline_src = 'http://veritetimeline.appspot.com/latest/locale/it.js';
+			break;
+		case 'fr-FR':
+			$timeline_src = 'http://veritetimeline.appspot.com/latest/locale/fr.js';
+			break;
+		case 'zh-CN':
+			$timeline_src = 'http://veritetimeline.appspot.com/latest/locale/zh-ch.js';
+			break;
+		case 'zh-TW':
+			$timeline_src = 'http://veritetimeline.appspot.com/latest/locale/zh-tw.js';
+			break;
+		default:
+			$timeline_src = 'http://veritetimeline.appspot.com/latest/locale/en.js';
+			break;
+	}
+
 	$shortcode = '
 	<div id="timeline-embed"></div>
 	<script type="text/javascript">
@@ -53,7 +86,8 @@ function timeline_verite_shortcode($atts, $content=null) {
 			width: ' . $width . ', // OPTIONAL
 			height: ' . $height . ', // OPTIONAL
 			maptype: "' . $maptype . '", // OPTIONAL
-			source: "' . $src . '"
+			source: "' . $src . '",
+			js: "' . $timeline_src . '",
 		}
 	</script>
 	';

@@ -36,8 +36,8 @@ function timeline_verite_shortcode($atts, $content=null) {
 	extract(shortcode_atts(
 		array(
 			'title' => '',
-			'width'=> 700,
-			'height'=> 800,
+			'width'=> '100%',
+			'height'=> 650,
 			'maptype'=> 'toner',
 			'src'=> false,
 		), $atts

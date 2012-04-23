@@ -16,10 +16,10 @@ Supports custom width and height, [custom map styles by Stamen](http://maps.stam
 
 Checkout how to create your amazing Timeline at http://timeline.verite.co/
 
-**To embed the Timeline on your post just use this shortcode:**
+**Embed the Timeline on your post using this shortcode:**
 `[timeline src="Your source url here"]`
 
-**Extra tip** - If you want do embed outside of a post, use the following code:
+**TIP** - If you want to embed outside of a post, use the following code:
 `<?php echo do_shortcode('[timeline src="Your source url here"]'); ?>`
 
 **Supported languages**

@@ -3,7 +3,7 @@
 Plugin Name: Verite Timeline
 Plugin URI: http://cardume.art.br/
 Description: A simple shortcode to display the Timeline from http://timeline.verite.co/.
-Version: 0.9
+Version: 0.9.1
 Author: Cardume
 Author URI: http://cardume.art.br
 License: AGPLv3
@@ -83,11 +83,11 @@ function timeline_verite_shortcode($atts, $content=null) {
 	<script type="text/javascript">
 		var $ = jQuery;
 		var timeline_config = {
-			width: ' . $width . ', // OPTIONAL
-			height: ' . $height . ', // OPTIONAL
+			width: "' . $width . '", // OPTIONAL
+			height: "' . $height . '", // OPTIONAL
 			maptype: "' . $maptype . '", // OPTIONAL
 			source: "' . $src . '",
-			js: "' . $timeline_src . '",
+			js: "' . $timeline_src . '"
 		}
 	</script>
 	';

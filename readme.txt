@@ -3,8 +3,8 @@ Contributors: miguelpeixe
 Donate link: http://cardume.art.br/
 Tags: timeline, shortcode, stamen, timeline.verite.co, verite, html5
 Requires at least: 2.0.2
-Tested up to: 3.3.1
-Stable tag: 0.9.2
+Tested up to: 3.3.2
+Stable tag: 0.9.3
 
 Use the incredible HTML5 Timeline developed by Vérité on your website. As easy as writing a shortcode.
 

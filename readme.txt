@@ -47,6 +47,10 @@ Checkout how to create your amazing Timeline at http://timeline.verite.co/
 
 == Changelog ==
 
+= 0.9.3 =
+* l18n support for TinyMCE
+* Brazilian Portuguese translation for TinyMCE
+
 = 0.9.2 =
 * Added TinyMCE button
 

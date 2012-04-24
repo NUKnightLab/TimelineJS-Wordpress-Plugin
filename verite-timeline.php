@@ -3,7 +3,7 @@
 Plugin Name: Verite Timeline
 Plugin URI: http://cardume.art.br/
 Description: A simple shortcode to display the Timeline from http://timeline.verite.co/.
-Version: 0.9.1
+Version: 0.9.2
 Author: Cardume
 Author URI: http://cardume.art.br
 License: AGPLv3
@@ -24,15 +24,16 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-add_action('init', 'timeline_verite_scripts');
-function timeline_verite_scripts() {
+define( 'VERITETIMELINE_PATH', plugin_dir_url(__FILE__) );
+
+add_action('init', 'verite_timeline_scripts');
+function verite_timeline_scripts() {
 	wp_enqueue_script('jquery');
-	wp_register_script('timeline-verite-embed', 'http://veritetimeline.appspot.com/latest/timeline-embed.js', array('jquery'), false, TRUE);
-	wp_enqueue_script('timeline-verite-embed');
+	wp_register_script('verite-timeline-embed', 'http://veritetimeline.appspot.com/latest/timeline-embed.js', array('jquery'), false, TRUE);
 }
 
-add_shortcode('timeline', 'timeline_verite_shortcode');
-function timeline_verite_shortcode($atts, $content=null) {
+add_shortcode('timeline', 'verite_timeline_shortcode');
+function verite_timeline_shortcode($atts, $content=null) {
 	extract(shortcode_atts(
 		array(
 			'title' => '',
@@ -44,6 +45,8 @@ function timeline_verite_shortcode($atts, $content=null) {
 	));
 
 	if(!$src) return false;
+
+	wp_enqueue_script('verite-timeline-embed');
 
 	$wp_language = get_bloginfo('language');
 	switch($wp_language) {
@@ -93,4 +96,89 @@ function timeline_verite_shortcode($atts, $content=null) {
 	';
 
 	return $shortcode;
+}
+
+/*
+	TinyMCE
+*/
+
+add_action('media_buttons_context', 'verite_timeline_tinymce_button');
+global $pagenow;
+if($pagenow == 'post.php' || $pagenow == 'page.php' || $pagenow == 'page-new.php' || $pagenow == 'post-new.php') {
+	add_action('admin_footer', 'verite_timeline_tinymce');
+}
+
+function verite_timeline_tinymce_button($context){
+	global $pagenow;
+    $is_post_edit_page = in_array($pagenow, array('post.php', 'page.php', 'page-new.php', 'post-new.php'));
+    if(!$is_post_edit_page)
+        return $context;
+
+    $image_btn = VERITETIMELINE_PATH . "/images/button-tinymce.png";
+    $out = '<a href="#TB_inline?width=200&height=200&inlineId=add_timeline_form" class="thickbox" id="add_timeline" title="' . __('Insert Timeline', 'verite-timeline') . '"><img src="'.$image_btn.'" alt="' . __('Insert Timeline', 'verite-timeline') . '" /></a>';
+    return $context . $out;
+}
+
+// TinyMCE Button for the shortcode
+function verite_timeline_tinymce(){
+    ?>
+    <script type="text/javascript">
+        function insertTimeline(){
+            var data_src = jQuery('#timeline_data_src').val();
+            var width = jQuery('#timeline_width').val();
+            var height = jQuery('#timeline_height').val();
+            var maptype = jQuery('#timeline_maptype').val();
+
+            window.send_to_editor("[timeline src=\"" + data_src + "\" width=\"" + width + "\" height=\"" + height + "\" maptype=\"" + maptype + "\"]");
+        }
+    </script>
+
+    <div id="add_timeline_form" style="display:none;">
+        <div class="wrap">
+            <div>
+                <div style="padding:15px 15px 0 15px;">
+                    <h3 style="color:#5A5A5A!important; font-family:Georgia,Times New Roman,Times,serif!important; font-size:1.8em!important; font-weight:normal!important;"><?php _e('Insert Timeline', 'verite-timeline'); ?></h3>
+                    <span>
+                        <?php _e('Configurate your Timeline and add it to your post', 'verite-timeline'); ?>
+                    </span>
+                </div>
+                <div style="padding:15px 15px 0 15px;">
+                	<table>
+                		<tbody>
+                			<tr>
+                				<td valign="top" style="padding: 0 15px 5px 0;"><label for="timeline_data_src"><?php _e('Data source', 'verite-timeline'); ?></label></td>
+                				<td style="padding: 0 0 10px;"><input type="text" id="timeline_data_src" size="75" /><br/>
+                					<small><a href="http://timeline.verite.co/#fileformat" target="_blank"><?php _e('Learn how to create your timeline', 'verite-timeline'); ?></a></small></td>
+                			</tr>
+                			<tr>
+                				<td valign="top" style="padding: 0 15px 5px 0;"><label for="timeline_width"><?php _e('Width'); ?></label></td>
+                				<td style="padding: 0 0 10px;"><input type="text" id="timeline_width" size="5" value="100%" /></td>
+                			</tr>
+                			<tr>
+                				<td valign="top" style="padding: 0 15px 5px 0;"><label for="timeline_height"><?php _e('Height'); ?></label></td>
+                				<td style="padding: 0 0 10px;"><input type="text" id="timeline_height" size="5" value="650" /></td>
+                			</tr>
+                			<tr>
+                				<td valign="top" style="padding: 0 15px 5px 0;"><label for="timeline_maptype"><?php _e('Maptype', 'verite-timeline'); ?></label></td>
+                				<td style="padding: 0 0 10px;">
+                					<select id="timeline_maptype">
+                						<option value="toner">toner</option>
+                						<option value="watercolor">watercolor</option>
+                						<option value="terrain">terrain</option>
+                					</select><br/>
+                					<small><a href="http://maps.stamen.com/" target="_blank"><?php _e('Learn more about the map styles', 'verite-timeline'); ?></a></small></td>
+                				</td>
+                			</tr>
+                		</tbody>
+                	</table>
+                </div>
+                <div style="padding:15px;">
+					<input type="button" class="button-primary" value="<?php _e('Insert Timeline', 'verite-timeline'); ?>" onclick="insertTimeline();"/>
+					<a class="button" style="color:#bbb;" href="#" onclick="tb_remove(); return false;"><?php _e('Cancel'); ?></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <?php
 }

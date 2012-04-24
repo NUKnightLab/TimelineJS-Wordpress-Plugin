@@ -4,7 +4,7 @@ Donate link: http://cardume.art.br/
 Tags: timeline, shortcode, stamen, timeline.verite.co, verite, html5
 Requires at least: 2.0.2
 Tested up to: 3.3.1
-Stable tag: 0.9.1
+Stable tag: 0.9.2
 
 Use the incredible HTML5 Timeline developed by Vérité on your website. As easy as writing a shortcode.
 
@@ -46,6 +46,9 @@ Checkout how to create your amazing Timeline at http://timeline.verite.co/
 
 
 == Changelog ==
+
+= 0.9.2 =
+* Added TinyMCE button
 
 = 0.9.1 =
 * Small bugfix for default width/height

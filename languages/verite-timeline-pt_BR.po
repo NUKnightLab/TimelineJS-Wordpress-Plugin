@@ -1,0 +1,57 @@
+# Copyright (C) 2012 
+# This file is distributed under the same license as the  package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Verite Timeline 0.9.3\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/timeline-verite-shortcode\n"
+"POT-Creation-Date: 2012-04-24 05:30:28+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2012-04-24 03:31-0300\n"
+"Last-Translator: Miguel Peixe <miguspeixe@gmail.com>\n"
+"Language-Team: Cardume <miguel@cardume.art.br>\n"
+"X-Poedit-Language: Portuguese\n"
+"X-Poedit-Country: BRAZIL\n"
+"X-Poedit-KeywordsList: _e;__\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: verite-timeline.php:118
+#: verite-timeline.php:140
+#: verite-timeline.php:176
+msgid "Insert Timeline"
+msgstr "Inserir Timeline"
+
+#: verite-timeline.php:142
+msgid "Configurate your Timeline and add it to your post"
+msgstr "Configure sua Timeline e adicione ao seu post"
+
+#: verite-timeline.php:149
+msgid "Data source"
+msgstr "URL de origem dos dados"
+
+#: verite-timeline.php:151
+msgid "Learn how to create your timeline"
+msgstr "Aprenda a criar sua timeline"
+
+#: verite-timeline.php:154
+msgid "Width"
+msgstr "Largura"
+
+#: verite-timeline.php:158
+msgid "Height"
+msgstr "Altura"
+
+#: verite-timeline.php:162
+msgid "Maptype"
+msgstr "Estilo do mapa"
+
+#: verite-timeline.php:169
+msgid "Learn more about the map styles"
+msgstr "Saiba mais sobre os estilos de mapa"
+
+#: verite-timeline.php:177
+msgid "Cancel"
+msgstr "Cancelar"
+

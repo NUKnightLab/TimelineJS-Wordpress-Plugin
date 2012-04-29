@@ -3,7 +3,7 @@
 Plugin Name: Verite Timeline
 Plugin URI: http://cardume.art.br/
 Description: A simple shortcode to display the Timeline from http://timeline.verite.co/.
-Version: 0.9.3
+Version: 0.9.4
 Author: Cardume
 Author URI: http://cardume.art.br
 License: AGPLv3
@@ -30,7 +30,7 @@ define( 'VERITETIMELINE_URL', plugin_dir_url(__FILE__) );
 add_action('init', 'verite_timeline_scripts');
 function verite_timeline_scripts() {
 	wp_enqueue_script('jquery');
-	wp_register_script('verite-timeline-embed', 'http://veritetimeline.appspot.com/latest/timeline-embed.js', array('jquery'), false, TRUE);
+	wp_register_script('verite-timeline-embed', plugin_dir_url( __FILE__).'js/timeline-embed.js', array('jquery'), false, TRUE);
 }
 
 add_action('init', 'verite_timeline_textdomain');
@@ -54,52 +54,55 @@ function verite_timeline_shortcode($atts, $content=null) {
 	if(!$src) return false;
 
 	wp_enqueue_script('verite-timeline-embed');
-
+	
+	$timeline_css = plugin_dir_url( __FILE__).'css/timeline.css';
+	
 	$wp_language = get_bloginfo('language');
 	switch($wp_language) {
 		case 'pt-BR':
 		case 'pt-PT':
-			$timeline_src = 'http://veritetimeline.appspot.com/latest/locale/pt-br.js';
+			$timeline_src = plugin_dir_url( __FILE__).'js/locale/pt-br.js';
 			break;
 		case 'es-ES':
 		case 'es-PE':
-			$timeline_src = 'http://veritetimeline.appspot.com/latest/locale/es.js';
+			$timeline_src = plugin_dir_url( __FILE__).'js/locale/es.js';
 			break;
 		case 'ko-KR':
-			$timeline_src = 'http://veritetimeline.appspot.com/latest/locale/kr.js';
+			$timeline_src = plugin_dir_url( __FILE__).'js/locale/kr.js';
 			break;
 		case 'de-DE':
-			$timeline_src = 'http://veritetimeline.appspot.com/latest/locale/de.js';
+			$timeline_src = plugin_dir_url( __FILE__).'js/locale/de.js';
 			break;
 		case 'it-IT':
-			$timeline_src = 'http://veritetimeline.appspot.com/latest/locale/it.js';
+			$timeline_src = plugin_dir_url( __FILE__).'js/locale/it.js';
 			break;
 		case 'fr-FR':
-			$timeline_src = 'http://veritetimeline.appspot.com/latest/locale/fr.js';
+			$timeline_src = plugin_dir_url( __FILE__).'js/locale/fr.js';
 			break;
 		case 'zh-CN':
-			$timeline_src = 'http://veritetimeline.appspot.com/latest/locale/zh-ch.js';
+			$timeline_src = plugin_dir_url( __FILE__).'js/locale/zh-ch.js';
 			break;
 		case 'zh-TW':
-			$timeline_src = 'http://veritetimeline.appspot.com/latest/locale/zh-tw.js';
+			$timeline_src = plugin_dir_url( __FILE__).'js/locale/zh-tw.js';
 			break;
 		default:
-			$timeline_src = 'http://veritetimeline.appspot.com/latest/locale/en.js';
+			$timeline_src = plugin_dir_url( __FILE__).'js/locale/en.js';
 			break;
 	}
 
 	$shortcode = '
 	<div id="timeline-embed"></div>
-	<script type="text/javascript">
+	<script type="text/javascript">// <![CDATA[
 		var $ = jQuery;
 		var timeline_config = {
 			width: "' . $width . '", // OPTIONAL
 			height: "' . $height . '", // OPTIONAL
 			maptype: "' . $maptype . '", // OPTIONAL
 			source: "' . $src . '",
+			css: "' . $timeline_css . '",
 			js: "' . $timeline_src . '"
 		}
-	</script>
+	// ]]></script>
 	';
 
 	return $shortcode;
@@ -169,9 +172,15 @@ function verite_timeline_tinymce(){
                 				<td valign="top" style="padding: 0 15px 5px 0;"><label for="timeline_maptype"><?php _e('Maptype', 'verite-timeline'); ?></label></td>
                 				<td style="padding: 0 0 10px;">
                 					<select id="timeline_maptype">
-                						<option value="toner">toner</option>
-                						<option value="watercolor">watercolor</option>
-                						<option value="terrain">terrain</option>
+                						<option value="toner">Stamen Maps: Toner</option>
+                						<option value="toner-lines">Stamen Maps: Toner Lines</option>
+                						<option value="toner-labels">Stamen Maps: Toner Labels</option>
+                						<option value="watercolor">Stamen Maps: Watercolor</option>
+                						<option value="sterrain">Stamen Maps: Terrain</option>
+                						<option value="SATELLITE">Google Maps: Stallite</option>
+                						<option value="ROADMAP">Google Maps: Roadmap</option>
+                						<option value="TERRAIN">Google Maps: Terrain</option>
+                						<option value="HYBRID">Google Maps: Hybrid</option>
                 					</select><br/>
                 					<small><a href="http://maps.stamen.com/" target="_blank"><?php _e('Learn more about the map styles', 'verite-timeline'); ?></a></small></td>
                 				</td>

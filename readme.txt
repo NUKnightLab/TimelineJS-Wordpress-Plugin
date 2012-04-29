@@ -4,7 +4,7 @@ Donate link: http://cardume.art.br/
 Tags: timeline, shortcode, stamen, timeline.verite.co, verite, html5
 Requires at least: 2.0.2
 Tested up to: 3.3.2
-Stable tag: 0.9.3
+Stable tag: 0.9.4
 
 Use the incredible HTML5 Timeline developed by Vérité on your website. As easy as writing a shortcode.
 
@@ -16,7 +16,9 @@ Supports custom width and height, [custom map styles by Stamen](http://maps.stam
 
 Checkout how to create your amazing Timeline at http://timeline.verite.co/
 
-**Embed the Timeline on your post using this shortcode:**
+To embed your timeline use the button located at the post content editor (TinyMCE).
+
+**You can also embed the Timeline on your post using this shortcode :**
 `[timeline src="Your source url here"]`
 
 **TIP** - If you want to embed outside of a post, use the following code:
@@ -46,6 +48,10 @@ Checkout how to create your amazing Timeline at http://timeline.verite.co/
 
 
 == Changelog ==
+
+= 0.9.4 =
+* Local storing Timeline files
+* Adding more map style options for TinyMCE
 
 = 0.9.3 =
 * l18n support for TinyMCE
@@ -78,4 +84,6 @@ Checkout how to create your amazing Timeline at http://timeline.verite.co/
 *	**src**: Data source url, based on [Verite Timeline File Formats](http://timeline.verite.co/#fileformat "Learn how to create your data source"). **[required]**
 *	**width**: Custom width *(default is 100%)*
 *	**height**: Custom height *(default is 650)*
-*	**maptype**: Custom maptype, based on [Stamen custom map styles](http://maps.stamen.com/#content "Check his website for all the styles"). Possibilities are: `toner`, `terrain` and `watercolor` *(default is `toner`)*
+*	**maptype**: Custom maptype, based on [Stamen custom map styles](http://maps.stamen.com/#content "Check his website for all the styles") and Google Maps default tiles. Possibilities are:
+*	* Stamen Maps: `toner`, `toner-lines`, `toner-labels`, `sterrain` and `watercolor` *(default is `toner`)*
+*	* Google Maps: `ROADMAP`, `TERRAIN`, `HYBRID`, `SATELLITE`

@@ -85,5 +85,5 @@ To embed your timeline use the button located at the post content editor (TinyMC
 *	**width**: Custom width *(default is 100%)*
 *	**height**: Custom height *(default is 650)*
 *	**maptype**: Custom maptype, based on [Stamen custom map styles](http://maps.stamen.com/#content "Check his website for all the styles") and Google Maps default tiles. Possibilities are:
-*	* Stamen Maps: `toner`, `toner-lines`, `toner-labels`, `sterrain` and `watercolor` *(default is `toner`)*
-*	* Google Maps: `ROADMAP`, `TERRAIN`, `HYBRID`, `SATELLITE`
+	* Stamen Maps: `toner`, `toner-lines`, `toner-labels`, `sterrain` and `watercolor` *(default is `toner`)*
+	* Google Maps: `ROADMAP`, `TERRAIN`, `HYBRID`, `SATELLITE`

@@ -49,6 +49,9 @@ To embed your timeline use the button located at the post content editor (TinyMC
 
 == Changelog ==
 
+= 0.9.5 =
+* Update Timeline to the latest version
+
 = 0.9.4 =
 * Local storing Timeline files
 * Adding more map style options for TinyMCE

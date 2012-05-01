@@ -105,7 +105,7 @@ function verite_timeline_shortcode($atts, $content=null) {
 	// ]]></script>
 	';
 
-	return $shortcode;
+	return escape_cdata_close($shortcode);
 }
 
 /*

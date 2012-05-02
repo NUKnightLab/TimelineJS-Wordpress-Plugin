@@ -1,6 +1,7 @@
-=== Verite Timeline ===
+Verite Timeline
+===============
+
 Contributors: miguelpeixe
-Donate link: http://cardume.art.br/
 Tags: timeline, shortcode, stamen, timeline.verite.co, verite, html5
 Requires at least: 2.0.2
 Tested up to: 3.3.2
@@ -8,7 +9,8 @@ Stable tag: 0.9.5
 
 Use the incredible HTML5 Timeline developed by Vérité on your website. As easy as writing a shortcode.
 
-== Description ==
+Description
+-----------
 
 A simple shortcode plugin to add the Timeline made by Vérité.
 
@@ -24,7 +26,7 @@ To embed your timeline use the button located at the post content editor (TinyMC
 **TIP** - If you want to embed outside of a post, use the following code:
 `<?php echo do_shortcode('[timeline src="Your source url here"]'); ?>`
 
-**Supported languages**
+### Supported languages ###
 
 *	English
 *	Brazilian Portuguese
@@ -36,7 +38,8 @@ To embed your timeline use the button located at the post content editor (TinyMC
 *	Chinese
 *	Taiwanese
 
-== Installation ==
+Installation
+------------
 
 1. Upload the plugin to the `/wp-content/plugins/` directory
 1. Activate the plugin through the 'Plugins' menu in WordPress
@@ -47,26 +50,40 @@ To embed your timeline use the button located at the post content editor (TinyMC
 `<?php echo do_shortcode('[timeline src="Your source url here"]'); ?>`
 
 
-== Changelog ==
+Shortcode options
+-----------------
 
-= 0.9.5 =
+`[timeline width="800" height="600" maptype="watercolor" src="Your source url here"]`
+
+* **src**: Data source url, based on [Verite Timeline File Formats](http://timeline.verite.co/#fileformat "Learn how to create your data source"). **[required]**
+* **width**: Custom width *(default is 100%)*
+* **height**: Custom height *(default is 650)*
+* **maptype**: Custom maptype, based on [Stamen custom map styles](http://maps.stamen.com/#content "Check his website for all the styles") and Google Maps default tiles. Possibilities are:
+  * Stamen Maps: `toner`, `toner-lines`, `toner-labels`, `sterrain` and `watercolor` *(default is `toner`)*
+  * Google Maps: `ROADMAP`, `TERRAIN`, `HYBRID`, `SATELLITE`
+
+
+Changelog
+---------
+
+### 0.9.5 ###
 * Update Timeline to the latest version
 
-= 0.9.4 =
+### 0.9.4 ###
 * Local storing Timeline files
 * Adding more map style options for TinyMCE
 
-= 0.9.3 =
+### 0.9.3 ###
 * l18n support for TinyMCE
 * Brazilian Portuguese translation for TinyMCE
 
-= 0.9.2 =
+### 0.9.2 ###
 * Added TinyMCE button
 
-= 0.9.1 =
+### 0.9.1 ###
 * Small bugfix for default width/height
 
-= 0.9 =
+### 0.9 ###
 * Language support based on WordPress locale:
   * Brazilian Portuguese
   * French
@@ -77,16 +94,5 @@ To embed your timeline use the button located at the post content editor (TinyMC
   * Chinese
   * Taiwanese
 
-= 0.8 =
+### 0.8 ###
 * First stable release.
-
-== Shortcode options ==
-
-`[timeline width="800" height="600" maptype="watercolor" src="Your source url here"]`
-
-*	**src**: Data source url, based on [Verite Timeline File Formats](http://timeline.verite.co/#fileformat "Learn how to create your data source"). **[required]**
-*	**width**: Custom width *(default is 100%)*
-*	**height**: Custom height *(default is 650)*
-*	**maptype**: Custom maptype, based on [Stamen custom map styles](http://maps.stamen.com/#content "Check his website for all the styles") and Google Maps default tiles. Possibilities are:
-	* Stamen Maps: `toner`, `toner-lines`, `toner-labels`, `sterrain` and `watercolor` *(default is `toner`)*
-	* Google Maps: `ROADMAP`, `TERRAIN`, `HYBRID`, `SATELLITE`

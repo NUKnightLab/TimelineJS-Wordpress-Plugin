@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: Verite Timeline
+Plugin Name: VeriteCo Timeline
 Plugin URI: http://cardume.art.br/
 Description: A simple shortcode to display the Timeline from http://timeline.verite.co/.
 Version: 0.9.6

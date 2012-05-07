@@ -7,12 +7,12 @@ Requires at least: 2.0.2
 Tested up to: 3.3.2
 Stable tag: 0.9.6
 
-Use the incredible HTML5 Timeline developed by Vérité on your website. As easy as writing a shortcode.
+Use the incredible HTML5 Timeline developed by VéritéCo on your website. As easy as writing a shortcode.
 
 Description
 -----------
 
-A simple shortcode plugin to add the Timeline made by Vérité.
+A simple shortcode plugin to add the Timeline made by [VéritéCo](http://verite.co/).
 
 Supports custom width and height, [custom map styles by Stamen](http://maps.stamen.com/#content "Check the website for all the possible styles"), [Google Spreadsheet and JSON data sources](http://timeline.verite.co/#fileformat "Learn how to create your data source") and many more.
 

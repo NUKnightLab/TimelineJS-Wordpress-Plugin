@@ -3,7 +3,7 @@
 Plugin Name: Verite Timeline
 Plugin URI: http://cardume.art.br/
 Description: A simple shortcode to display the Timeline from http://timeline.verite.co/.
-Version: 0.9.6
+Version: 0.9.5
 Author: Cardume
 Author URI: http://cardume.art.br
 License: AGPLv3

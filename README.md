@@ -1,4 +1,4 @@
-VeriteCo Timeline
+VéritéCo Timeline
 ===============
 
 Contributors: miguelpeixe, zachwise

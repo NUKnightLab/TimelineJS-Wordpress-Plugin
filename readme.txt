@@ -1,10 +1,10 @@
 === Verite Timeline ===
-Contributors: miguelpeixe
+Contributors: miguelpeixe, zachwise
 Donate link: http://cardume.art.br/
 Tags: timeline, shortcode, stamen, timeline.verite.co, verite, html5
 Requires at least: 2.0.2
 Tested up to: 3.3.2
-Stable tag: 0.9.5
+Stable tag: 0.9.6
 
 Use the incredible HTML5 Timeline developed by Vérité on your website. As easy as writing a shortcode.
 
@@ -48,6 +48,9 @@ To embed your timeline use the button located at the post content editor (TinyMC
 
 
 == Changelog ==
+
+= 0.9.6 =
+* Update Timeline to the latest version
 
 = 0.9.5 =
 * Update Timeline to the latest version

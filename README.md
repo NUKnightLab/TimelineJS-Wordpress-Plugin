@@ -5,7 +5,7 @@ Contributors: miguelpeixe, zachwise
 Tags: timeline, shortcode, stamen, timeline.verite.co, verite, html5
 Requires at least: 2.0.2
 Tested up to: 3.3.2
-Stable tag: 0.9.6
+Stable tag: 0.9.7
 
 Use the incredible HTML5 Timeline developed by VéritéCo on your website. As easy as writing a shortcode.
 
@@ -65,6 +65,9 @@ Shortcode options
 
 Changelog
 ---------
+
+### 0.9.7 ###
+* Update Timeline to the latest version
 
 ### 0.9.6 ###
 * Update Timeline to the latest version

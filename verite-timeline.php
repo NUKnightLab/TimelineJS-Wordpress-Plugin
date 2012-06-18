@@ -29,7 +29,6 @@ define( 'VERITETIMELINE_URL', plugin_dir_url(__FILE__) );
 
 add_action('init', 'verite_timeline_scripts');
 function verite_timeline_scripts() {
-	wp_enqueue_script('jquery');
 	wp_register_script('verite-timeline-embed', plugin_dir_url( __FILE__).'js/timeline-embed.js', array('jquery'), false, TRUE);
 }
 

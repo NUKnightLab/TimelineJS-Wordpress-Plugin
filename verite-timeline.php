@@ -26,17 +26,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 define( 'VERITETIMELINE_URL', plugin_dir_url(__FILE__) );
+define( 'VERITETIMELINE_DIR', plugin_dir_path(__FILE__) );
 
 add_action('init', 'verite_timeline_scripts');
 function verite_timeline_scripts() {
 	wp_enqueue_script('jquery');
-	wp_register_script('verite-timeline-embed', plugin_dir_url( __FILE__).'js/timeline-embed.js', array('jquery'), false, TRUE);
+	wp_register_script('verite-timeline-embed', VERITETIMELINE_URL . 'js/timeline-embed.js', array('jquery'), false, TRUE);
 }
 
 add_action('init', 'verite_timeline_textdomain');
 function verite_timeline_textdomain() {
-	$plugin_dir = basename(dirname(__FILE__));
-	load_plugin_textdomain('verite-timeline', false, $plugin_dir . '/languages/');
+	load_plugin_textdomain('verite-timeline', false, VERITETIMELINE_DIR . '/languages/');
 }
 
 add_shortcode('timeline', 'verite_timeline_shortcode');
@@ -55,38 +55,38 @@ function verite_timeline_shortcode($atts, $content=null) {
 
 	wp_enqueue_script('verite-timeline-embed');
 	
-	$timeline_css = plugin_dir_url( __FILE__).'css/timeline.css';
+	$timeline_css = VERITETIMELINE_URL .'css/timeline.css';
 	
 	$wp_language = get_bloginfo('language');
 	switch($wp_language) {
 		case 'pt-BR':
 		case 'pt-PT':
-			$timeline_src = plugin_dir_url( __FILE__).'js/locale/pt-br.js';
+			$timeline_src = VERITETIMELINE_URL . 'js/locale/pt-br.js';
 			break;
 		case 'es-ES':
 		case 'es-PE':
-			$timeline_src = plugin_dir_url( __FILE__).'js/locale/es.js';
+			$timeline_src = VERITETIMELINE_URL . 'js/locale/es.js';
 			break;
 		case 'ko-KR':
-			$timeline_src = plugin_dir_url( __FILE__).'js/locale/kr.js';
+			$timeline_src = VERITETIMELINE_URL . 'js/locale/kr.js';
 			break;
 		case 'de-DE':
-			$timeline_src = plugin_dir_url( __FILE__).'js/locale/de.js';
+			$timeline_src = VERITETIMELINE_URL . 'js/locale/de.js';
 			break;
 		case 'it-IT':
-			$timeline_src = plugin_dir_url( __FILE__).'js/locale/it.js';
+			$timeline_src = VERITETIMELINE_URL . 'js/locale/it.js';
 			break;
 		case 'fr-FR':
-			$timeline_src = plugin_dir_url( __FILE__).'js/locale/fr.js';
+			$timeline_src = VERITETIMELINE_URL . 'js/locale/fr.js';
 			break;
 		case 'zh-CN':
-			$timeline_src = plugin_dir_url( __FILE__).'js/locale/zh-ch.js';
+			$timeline_src = VERITETIMELINE_URL . 'js/locale/zh-ch.js';
 			break;
 		case 'zh-TW':
-			$timeline_src = plugin_dir_url( __FILE__).'js/locale/zh-tw.js';
+			$timeline_src = VERITETIMELINE_URL . 'js/locale/zh-tw.js';
 			break;
 		default:
-			$timeline_src = plugin_dir_url( __FILE__).'js/locale/en.js';
+			$timeline_src = VERITETIMELINE_URL . 'js/locale/en.js';
 			break;
 	}
 
@@ -198,3 +198,49 @@ function verite_timeline_tinymce(){
 
     <?php
 }
+
+/**
+ * Creating our custom post type. No cats/tags,
+ * But kept publicly queryable.
+ */
+
+add_action( 'init', 'timeline_init' );
+
+function timeline_init()  {
+
+	add_theme_support( 'post-thumbnails' );
+	$labels = array(
+		'name' 							=> 'Timeline',
+		'singular_name' 				=> 'Timeline Entry',
+		'add_new' 						=> 'Add Entry',
+		'add_new_item' 					=> 'Add Entry',
+		'edit_item' 					=> 'Edit Entry',
+		'new_item' 						=> 'New Entry',
+		'view_item' 					=> 'View Entry',
+		'search_items' 					=> 'Search Entries',
+		'not_found' 					=> 'No entries found',
+		'not_found_in_trash'			=> 'No entries found in Trash',
+		'parent_item_colon'				=>  '',
+		'menu_name' 					=> 'Business Directory'
+		);
+
+	$args = array(
+		'labels'						=> $labels,
+		'public'			 			=> true,
+		'publicly_queryable' 			=> true,
+		'show_ui'			 			=> true, 
+		'show_in_menu'	   	 			=> false, 
+		'query_var'		     			=> false,
+		'capability_type'	 			=> 'post',
+		'has_archive'		 			=> 'timeline', 
+		'hierarchical'	   	 			=> false,
+		'menu_position'	  	 			=> null,
+		'supports'		   	 			=> array( 'title', 'thumbnail', 'editor', 'custom-fields' ),
+		'menu_position'	  	 			=> 24,
+		'taxonomies'		 			=> false
+		);
+
+	register_post_type( 'timeline', $args );
+}
+
+require('timeline-metabox.php');

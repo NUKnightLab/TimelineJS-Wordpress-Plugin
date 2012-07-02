@@ -244,3 +244,37 @@ function timeline_init()  {
 }
 
 require('timeline-metabox.php');
+
+function timeline_json() {
+	global $timeline_mb;
+
+	$timeline['timeline'] = 'timeline';
+	$timeline['timeline']['headline'] = get_option( 'timeline-headline', true );
+	$timeline['timeline']['type'] = get_option( 'timeline-headline', true);
+	$timeline['timeline']['startDate'] = get_option( 'timeline-startDate', true );
+	$timeline['timeline']['text'] = get_option( 'timeline-text', true );
+
+	$timeline_args = array( 
+		'post_type' => 'timeline'
+		);
+
+	$timeline_query = new WP_Query( $timeline_args ); 
+
+	if ( $timeline_query->have_posts() ) : 
+		while ( $timeline_query->have_posts() ) : 
+			$timeline_query->the_post();
+			$new_item = $timeline_mb->the_meta();
+			$new_item['asset'] = array(
+				'media' => $new_item['media'],
+				'credit' => $new_item['credit'],
+				'caption' => $new_item['caption'],
+				);
+			unset($new_item['media']);
+			unset($new_item['credit']);
+			unset($new_item['caption']);
+			$timeline['timeline']['date'][] = $new_item;
+		endwhile;
+	endif;
+
+	return enconde_json( $timeline );
+}

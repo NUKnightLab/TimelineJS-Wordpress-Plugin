@@ -23,29 +23,39 @@ global $wpalchemy_media_access;
 <div id="timeline-wrap" class="timeline-metabox">
 	<div class="content">
 		<p>
-			<?php $mb->the_field( 'headline' ); ?>
-			<input name="<?php $mb->the_name(); ?>" value="<?php $mb->the_value();?>" />
-		</p>
-		<p>
+			<label>Text</label>
 			<?php 
 			$mb->the_field( 'text' ); 
 			wp_editor( 
 				$mb->get_the_value(),
-				$step_count.'stepeditor',
+				'timeline-entry-editor',
 				array( "textarea_name" => $mb->get_the_name() )
 			);
 			?>
 		</p>
 		<p>
+			<label>Start Date</label>
+			<?php $mb->the_field( 'startDate' ); ?>
+			<input name="<?php $mb->the_name(); ?>" value="<?php $mb->the_value(); ?>" />			
+		</p>
+		<p>
+			<label>End Date</label>
+			<?php $mb->the_field( 'endDate' ); ?>
+			<input name="<?php $mb->the_name(); ?>" value="<?php $mb->the_value(); ?>" />			
+		</p>
+		<p>
+			<label>Media</label>
 			<?php $mb->the_field( 'media' ); ?>
 			<?php $wpalchemy_media_access->setGroupName( 'n' . $mb->get_the_index() )->setInsertButtonLabel( 'Insert Media' ); ?>
 			<?php echo $wpalchemy_media_access->getField( array( 'name' => $mb->get_the_name(), 'value' => $mb->get_the_value() ) ); ?>
 		</p>
 		<p>
+			<label>Credit</label>
 			<?php $mb->the_field( 'credit' ); ?>
 			<input name="<?php $mb->the_name(); ?>" value="<?php $mb->the_value(); ?>" />
 		</p>
 		<p>
+			<label>Caption</label>
 			<?php $mb->the_field( 'caption' ); ?>
 			<input name="<?php $mb->the_name(); ?>" value="<?php $mb->the_value(); ?>" />
 		</p>

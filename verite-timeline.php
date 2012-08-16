@@ -23,7 +23,7 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+*/	
 
 define( 'VERITETIMELINE_URL', plugin_dir_url(__FILE__) );
 define( 'VERITETIMELINE_DIR', plugin_dir_path(__FILE__) );
@@ -31,6 +31,7 @@ define( 'VERITETIMELINE_DIR', plugin_dir_path(__FILE__) );
 add_action('init', 'verite_timeline_scripts');
 function verite_timeline_scripts() {
 	wp_enqueue_script('jquery');
+	wp_register_script('verite-timeline-min', VERITETIMELINE_URL . 'js/timeline-min.js', array('jquery'), false, true);
 	wp_register_script('verite-timeline-embed', VERITETIMELINE_URL . 'js/timeline-embed.js', array('jquery'), false, TRUE);
 }
 
@@ -51,9 +52,8 @@ function verite_timeline_shortcode($atts, $content=null) {
 		), $atts
 	));
 
-	if(!$src) return false;
-
 	wp_enqueue_script('verite-timeline-embed');
+	//wp_enqueue_script('verite-timeline-min');
 	
 	$timeline_css = VERITETIMELINE_URL .'css/timeline.css';
 	
@@ -90,9 +90,11 @@ function verite_timeline_shortcode($atts, $content=null) {
 			break;
 	}
 
+	$src = admin_url( 'admin-ajax.php?action=timeline', 'relative' );
 	$shortcode = '
 	<div id="timeline-embed"></div>
 	<script type="text/javascript">// <![CDATA[
+		// VMM.debug = true;
 		var $ = jQuery;
 		var timeline_config = {
 			width: "' . $width . '", // OPTIONAL
@@ -221,7 +223,7 @@ function timeline_init()  {
 		'not_found' 					=> 'No entries found',
 		'not_found_in_trash'			=> 'No entries found in Trash',
 		'parent_item_colon'				=>  '',
-		'menu_name' 					=> 'Business Directory'
+		'menu_name' 					=> 'Timeline'
 		);
 
 	$args = array(
@@ -229,30 +231,84 @@ function timeline_init()  {
 		'public'			 			=> true,
 		'publicly_queryable' 			=> true,
 		'show_ui'			 			=> true, 
-		'show_in_menu'	   	 			=> false, 
+		'show_in_menu'	   	 			=> true, 
 		'query_var'		     			=> false,
 		'capability_type'	 			=> 'post',
 		'has_archive'		 			=> 'timeline', 
 		'hierarchical'	   	 			=> false,
 		'menu_position'	  	 			=> null,
-		'supports'		   	 			=> array( 'title', 'thumbnail', 'editor', 'custom-fields' ),
+		'supports'		   	 			=> array( 'title' ),
 		'menu_position'	  	 			=> 24,
-		'taxonomies'		 			=> false
 		);
 
 	register_post_type( 'timeline', $args );
 }
 
-require('timeline-metabox.php');
+// Include metabox for CPT.
+require( 'timeline-metabox.php' );
+
+add_action( 'admin_menu', 'timeline_option_page' );
+
+function timeline_option_page() {
+	add_submenu_page( 'edit.php?post_type=timeline', 'Timeline Options', 'Timeline Options', 'manage_options', 'timeline-options', 'timeline_options');
+}
+function timeline_options() {
+	if( isset( $_POST['timeline_action'] ) && $_POST['timeline_action'] === 'save_options') {
+		update_option( 'verite-timeline-headline', strip_tags( $_POST['timeline_headline'] ) );
+		update_option( 'verite-timeline-text', wp_kses_post( $_POST['timeline_text'] ) );
+		update_option( 'verite-timeline-startDate', intval( $_POST['timeline_startDate'] ) );
+	} 
+	?>
+	<div class="wrap">
+		<div id="icon-edit" class="icon32">
+			<br />
+		</div>
+		<h2><?php _e('Vertie Timeline Options', 'verite-timeline' ); ?></h2>
+		<br class="clear" />
+		<div id="col-container">
+			<div id="col-left">
+				<div class="col-wrap">
+					<div class="form-wrap">
+						<h3><?php _e('Configure Options', 'verite-timeline' ); ?></h3>
+						<form method="post" action="">
+							<fieldset>
+							<input type="hidden" name="timeline_action" value="save_options" />
+								<div class="form-field">
+											<label for="timeline_headline"><strong><?php _e('Timeline Intro Headline', 'verite-timeline' ); ?></strong></label>
+											<input id="timeline_headline" type="text" name="timeline_headline" value="<?php echo get_option( 'verite-timeline-headline', true ); ?>">
+								</div>
+								<div class="form-field">
+											<label for="timeline_text"><strong><?php _e('Timeline Intro Text', 'verite-timeline' ); ?></strong></label>
+											<input id="timeline_text" type="text" name="timeline_text" value="<?php echo get_option( 'verite-timeline-text', true ); ?>">
+								</div>
+								<div class="form-field">
+											<label for="timeline_startDate"><strong><?php _e('Timeline Intro Start Year', 'verite-timeline' ); ?></strong></label>
+											<input id="timeline_startDate" type="text" name="timeline_startDate" value="<?php echo get_option( 'verite-timeline-startDate', true ); ?>">
+								</div>
+								<p class="submit">
+									<input type="submit" class="button-primary" value="<?php _e('Save Options', 'verite-timeline' ); ?> &rarr;" />
+								</p>
+							</fieldset>
+						</form>
+					</div>
+				</div>
+			</div><!-- /col-left -->
+		</div><!-- /col-container -->
+	</div><!-- /wrap -->
+	<?php
+}
+
+add_action( 'wp_ajax_timeline', 'timeline_json' );
+add_action( 'wp_ajax_nopriv_timeline', 'timeline_json' );
 
 function timeline_json() {
+	header('Content-Type: application/json');
 	global $timeline_mb;
 
-	$timeline['timeline'] = 'timeline';
-	$timeline['timeline']['headline'] = get_option( 'timeline-headline', true );
-	$timeline['timeline']['type'] = get_option( 'timeline-headline', true);
-	$timeline['timeline']['startDate'] = get_option( 'timeline-startDate', true );
-	$timeline['timeline']['text'] = get_option( 'timeline-text', true );
+	$timeline['timeline']['type'] = "default";
+	$timeline['timeline']['headline'] = get_option( 'verite-timeline-headline', true );
+	$timeline['timeline']['startDate'] = get_option( 'verite-timeline-startDate', true );
+	$timeline['timeline']['text'] = get_option( 'verite-timeline-text', true );
 
 	$timeline_args = array( 
 		'post_type' => 'timeline'
@@ -276,5 +332,5 @@ function timeline_json() {
 		endwhile;
 	endif;
 
-	return enconde_json( $timeline );
+	die( json_encode( $timeline, JSON_PRETTY_PRINT ) );
 }

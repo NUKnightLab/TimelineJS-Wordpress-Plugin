@@ -42,16 +42,19 @@ function verite_timeline_textdomain() {
 
 add_shortcode('timeline', 'verite_timeline_shortcode');
 function verite_timeline_shortcode($atts, $content=null) {
-	$src = admin_url( 'admin-ajax.php?action=timeline', 'relative' );
+	$ajax = admin_url( 'admin-ajax.php?action=timeline', 'relative' );
 	extract(shortcode_atts(
 		array(
 			'title' => '',
 			'width'=> '100%',
 			'height'=> 650,
 			'maptype'=> 'toner',
-			'src'=> $src,
+			'src'=> $ajax,
 		), $atts
 	));
+
+	if ( $src ==  '' || $src == " " )
+		$src = $ajax;
 
 	wp_enqueue_script('verite-timeline-embed');
 	
@@ -93,7 +96,6 @@ function verite_timeline_shortcode($atts, $content=null) {
 	$shortcode = '
 	<div id="timeline-embed"></div>
 	<script type="text/javascript">// <![CDATA[
-		// VMM.debug = true;
 		var $ = jQuery;
 		var timeline_config = {
 			width: "' . $width . '", // OPTIONAL
@@ -268,6 +270,7 @@ $timeline_mb = new WPAlchemy_Metabox( array(
 	'id' => '_timeline_mb',
 	'title' => __( 'Timeline', 'verite-timeline' ),
 	'types' => array( 'timeline' ),
+	'autosave' => FALSE,
 	'template' => VERITETIMELINE_DIR . '/metabox/metabox-timeline.php'
 ));
 

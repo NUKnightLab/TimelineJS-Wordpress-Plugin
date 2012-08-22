@@ -209,18 +209,18 @@ function verite_timeline_tinymce(){
 add_action( 'init', 'timeline_init' );
 function timeline_init()  {
 	$labels = array(
-		'name'               => 'Timeline',
-		'singular_name'      => 'Timeline Entry',
-		'add_new'            => 'Add Entry',
-		'add_new_item'       => 'Add Entry',
-		'edit_item'          => 'Edit Entry',
-		'new_item'           => 'New Entry',
-		'view_item'          => 'View Entry',
-		'search_items'       => 'Search Entries',
-		'not_found'          => 'No entries found',
-		'not_found_in_trash' => 'No entries found in Trash',
+		'name'               => __('Timeline', 'verite-timeline'),
+		'singular_name'      => __('Timeline Entry', 'verite-timeline'),
+		'add_new'            => __('Add Entry', 'verite-timeline'),
+		'add_new_item'       => __('Add Entry', 'verite-timeline'),
+		'edit_item'          => __('Edit Entry', 'verite-timeline'),
+		'new_item'           => __('New Entry', 'verite-timeline'),
+		'view_item'          => __('View Entry', 'verite-timeline'),
+		'search_items'       => __('Search Entries', 'verite-timeline'),
+		'not_found'          => __('No entries found', 'verite-timeline'),
+		'not_found_in_trash' => __('No entries found in Trash', 'verite-timeline'),
 		'parent_item_colon'  =>  '',
-		'menu_name'          => 'Timeline'
+		'menu_name'          => __('Timeline', 'verite-timeline'),
 	);
 
 	$args = array(

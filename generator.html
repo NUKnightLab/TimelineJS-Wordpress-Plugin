@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en"><!--
+  	 
+  	88888888888 d8b                        888 d8b                888888   d8888b  
+  	    888     Y8P                        888 Y8P                   88b d88P  Y88b 
+  	    888                                888                       888 Y88b
+  	    888     888 88888b d88b     d88b   888 888 88888b     d88b   888   Y888b
+  	    888     888 888  888  88b d8P  Y8b 888 888 888  88b d8P  Y8b 888      Y88b
+  	    888     888 888  888  888 88888888 888 888 888  888 88888888 888        888 
+  	    888     888 888  888  888 Y8b      888 888 888  888 Y8b      88P Y88b  d88P 
+  	    888     888 888  888  888   Y8888  888 888 888  888   Y8888  888   Y8888P
+  	                                                                d88P            
+  	                                                              d88P             
+  	                                                            888P              
+  	 -->
+  <head>
+    <title>TimelineJS Embed Generator</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Timeline JS Embed Generator">
+    <!-- CSS-->
+    <link href="css/timeline-generator.css" rel="stylesheet">
+    <!-- JavaScript-->
+    <script type="text/javascript" src="js/storyjs-embed-generator.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script>
+      $(document).ready(function() {
+       updateEmbedCode();
+       $("#embed_code").click(function() { $(this).select(); });
+       $('#embed-width').change(function(evt) { updateEmbedCode(evt); });
+       $('#embed-wordpressplugin').change(function(evt) { updateEmbedCode(evt); });
+       $('#embed-font').change(function(evt) { updateEmbedCode(evt); });
+       $('#embed-height').change(function(evt) { updateEmbedCode(evt); });
+       $('#embed-maptype').change(function(evt) { updateEmbedCode(evt); });
+       $('#embed-googlemapkey').change(function(evt) { updateEmbedCode(evt); });
+       $('#embed-source-url').change(function(evt) { updateEmbedCode(evt); });
+       $('#embed-language').change(function(evt) { updateEmbedCode(evt); });
+       $('#embed-startatend').change(function(evt) { updateEmbedCode(evt); });
+       $('#embed-hashbookmark').change(function(evt) { updateEmbedCode(evt); });
+       $('#embed-startatslide').change(function(evt) { updateEmbedCode(evt); });
+       $('#embed-startzoomadjust').change(function(evt) { updateEmbedCode(evt); });
+       $('#embed-debug').change(function(evt) { updateEmbedCode(evt); });
+      });
+      
+    </script>
+  </head>
+  <body>
+    <!-- Embed Generator-->
+    <section id="embed" class="embed-form">
+      <div class="container">
+        <h2> <span class="verite-brand">Timeline<span class="verite-brand-ext">JS</span></span> Embed Generator
+        </h2>
+        <p class="lead">On your site or blog in no time.</p>
+        <div class="row">
+          <div class="span7">
+            <form class="form-horizontal">
+              <fieldset>
+                <!-- Required elements for embed-->
+                <!-- Embed Source-->
+                <div class="control-group">
+                  <label class="control-label"> <a href="https://docs.google.com/a/digitalartwork.net/previewtemplate?id=0AppSVxABhnltdEhzQjQ4MlpOaldjTmZLclQxQWFTOUE&amp;mode=public" target="_blank">Google Spreadsheet</a> or other data source URL</label>
+                  <div class="controls">
+                    <input type="text" id="embed-source-url" class="span4">
+                    <p class="help-inline">Make sure you've published it.</p>
+                  </div>
+                </div>
+                <!-- Size-->
+                <div class="control-group">
+                  <label class="control-label">Size</label>
+                  <div class="controls">
+                    <div class="input-prepend"><span class="add-on">Width</span>
+                      <input type="text" value="900" placeholder="900" id="embed-width" class="input-mini">
+                    </div>
+                    <div class="input-prepend"><span class="add-on">Height</span>
+                      <input type="text" value="650" placeholder="650" id="embed-height" class="input-mini">
+                    </div>
+                  </div>
+                </div>
+                <!-- Optional elements for embed-->
+                <div class="well">
+                  <h4>Optional</h4>
+                  <!-- Language-->
+                  <div class="control-group">
+                    <label class="control-label">Language</label>
+                    <div class="controls">
+                      <select id="embed-language">
+                        <option value="en">English</option>
+                        <option value="fr">French</option>
+                        <option value="es">Spanish</option>
+                        <option value="de">German / Deutsch</option>
+                        <option value="pt">Portuguese</option>
+                        <option value="pt-br">Brazilian Portuguese</option>
+                        <option value="nl">Dutch</option>
+                        <option value="it">Italian</option>
+                        <option value="is">Icelandic</option>
+                        <option value="no">Norwegian</option>
+                        <option value="bg">Bulgarian</option>
+                        <option value="si">Slovenian</option>
+                        <option value="hu">Hungarian</option>
+                        <option value="fo">Faroese</option>
+                        <option value="cz">Czech</option>
+                        <option value="dk">Danish</option>
+                        <option value="id">Indonesian</option>
+                        <option value="pl">Polish</option>
+                        <option value="ru">Russian</option>
+                        <option value="ja">Japanese</option>
+                        <option value="kr">Korean</option>
+                        <option value="zh-ch">Chinese</option>
+                        <option value="zh-tw">Taiwanese</option>
+                        <option value="el">Greek</option>
+                        <option value="ta">Tamil</option>
+                        <option value="ar">Arabic</option>
+                      </select>
+                    </div>
+                  </div>
+                  <!-- Map Type-->
+                  <div class="control-group">
+                    <label class="control-label">Map Type</label>
+                    <div class="controls">
+                      <select id="embed-maptype">
+                        <option value="toner">Stamen Maps: Toner</option>
+                        <option value="toner-lines">Stamen Maps: Toner Lines</option>
+                        <option value="toner-labels">Stamen Maps: Toner Labels</option>
+                        <option value="watercolor">Stamen Maps: Watercolor</option>
+                        <option value="sterrain">Stamen Maps: Terrain</option>
+                        <option value="ROADMAP">Google Maps: Roadmap</option>
+                        <option value="TERRAIN">Google Maps: Terrain</option>
+                        <option value="HYBRID">Google Maps: Hybrid</option>
+                        <option value="SATELLITE">Google Maps: Satellite</option>
+                      </select>
+                      <input type="text" placeholder="Google Maps API Key" id="embed-googlemapkey">
+                      <p class="help-block">Due to recent changes to the Google Maps API, you need a <a href="https://developers.google.com/places/documentation/#Authentication" target="_blank">API Key</a> in order to use custom map types.</p>
+                    </div>
+                  </div>
+                  <!-- Fonts-->
+                  <div class="control-group">
+                    <label class="control-label">Fonts</label>
+                    <div class="controls">
+                      <select id="embed-font">
+                        <option value="Bevan-PotanoSans">Bevan & Potano Sans</option>
+                        <option value="Merriweather-NewsCycle">Merriweather & News Cycle</option>
+                        <option value="NewsCycle-Merriweather">News Cycle & Merriweather</option>
+                        <option value="PoiretOne-Molengo">Poiret One & Molengo</option>
+                        <option value="Arvo-PTSans">Arvo & PT Sans</option>
+                        <option value="PTSerif-PTSans">PT Serif & PT Sans</option>
+                        <option value="DroidSerif-DroidSans">Droid Serif & Droid Sans</option>
+                        <option value="Lekton-Molengo">Lekton & Molengo</option>
+                        <option value="NixieOne-Ledger">Nixie One & Ledger</option>
+                        <option value="AbrilFatface-Average">Abril Fatface & Average</option>
+                        <option value="PlayfairDisplay-Muli">Playfair Display & Muli</option>
+                        <option value="Rancho-Gudea">Rancho & Gudea</option>
+                        <option value="BreeSerif-OpenSans">Bree Serif & Open Sans</option>
+                        <option value="SansitaOne-Kameron">Sansita One & Kameron</option>
+                        <option value="Pacifico-Arimo">Pacifico & Arimo</option>
+                        <option value="PT">PT Sans & PT Narrow & PT Serif</option>
+                      </select>
+                    </div>
+                  </div>
+                  <!-- Wordpress Plugin-->
+                  <div class="control-group">
+                    <label class="control-label">Misc</label>
+                    <div class="controls">
+                      <label class="checkbox">
+                        <input id="embed-wordpressplugin" type="checkbox" value="option1">Wordpress Plugin<span class="help-inline">Is the embed for the <a href="https://github.com/VeriteCo/Timeline-Wordpress-Plugin" target="_blank">Wordpress Plugin</a>?</span>
+                      </label>
+                      <!-- Start at End?-->
+                      <label class="checkbox">
+                        <input id="embed-startatend" type="checkbox" value="option1">Start at the End?<span class="help-inline">The most recent event will be shown first.</span>
+                      </label>
+                      <!-- Hash Bookmarks-->
+                      <label class="checkbox">
+                        <input id="embed-hashbookmark" type="checkbox" value="option1">Hash Bookmarks<span class="help-inline">On each slide change, a # will be added to the end of the url in the url bar. These urls are bookmarkable so you can share or return to the same place in the timeline</span>
+                      </label>
+                      <!-- Debug-->
+                      <label class="checkbox">
+                        <input id="embed-debug" type="checkbox" value="option1">Debug<span class="help-inline">In debug mode, you will see console logs.</span>
+                      </label>
+                    </div>
+                  </div>
+                  <!-- Start Zoom Adjust-->
+                  <div class="control-group">
+                    <label class="control-label">Adjust the default calculated zoom level</label>
+                    <div class="controls">
+                      <input id="embed-startzoomadjust" type="text" value="0" placeholder="0" class="input-mini">
+                      <p class="help-block">This will tweak the default zoom level. Equivilent to pressing the zoom in or zoom out button the specified number of times. Negative numbers zoom out.</p>
+                    </div>
+                  </div>
+                  <!-- Start at Slide-->
+                  <div class="control-group">
+                    <label class="control-label">Start at specific slide number?</label>
+                    <div class="controls">
+                      <div class="input-prepend"><span class="add-on">Slide</span>
+                        <input id="embed-startatslide" type="text" value="0" placeholder="0" class="input-mini">
+                      </div>
+                      <p class="help-block">You can tell TimelineJS to start at a specific slide number</p>
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+            </form>
+          </div>
+          <!-- Embed Copy and Paste-->
+          <div class="span5">
+            <form class="form-horizontal">
+              <fieldset>
+                <h4>Embed Code</h4>
+                <p>Copy this code and paste it where you want your <span class="verite-brand">Timeline<span class="verite-brand-ext">JS</span></span> to appear.<br>
+                </p>
+                <textarea readonly="readonly" style="width: 100%; height: 160px; min-height: 110px; max-height: 300px; resize: none; font-family: Menlo,Monaco,'Courier New',monospace; font-size: 11px;" id="embed_code"><iframe src='http://embed.verite.co/timeline/?source=0Agl_Dv6iEbDadHdKcHlHcTB5bzhvbF9iTWwyMmJHdkE&font=Bevan-PotanoSans&maptype=toner&width=600&height=600' width='600' height='600' frameborder='0'></iframe></textarea>
+              </fieldset>
+            </form>
+            <div style="text-align:center;"><a href="#preview-embed-iframe" id="iframe-preview-button" class="btn btn-primary">Preview</a>&nbsp;<a href="#embed" target="_blank" id="preview-embed-link" class="btn">Link to Preview</a></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="background-fabric">
+      <div class="container">
+        <h2>Preview</h2>
+        <div class="row">
+          <div id="preview-embed-iframe" class="span12"></div>
+        </div><br><br>
+      </div>
+    </section>
+    <!-- Footer-->
+    <footer>
+      <div class="container">
+        <p>&copy; VéritéCo 2012</p>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,8 +1,8 @@
 <?php
 /*
-Plugin Name: VeriteCo Timeline
-Plugin URI: http://cardume.art.br/
-Description: A simple shortcode to display the Timeline from http://timeline.verite.co/.
+Plugin Name: VeriteCo TimelineS
+Plugin URI: http://timeline.verite.co
+Description: A simple shortcode to display TimelineJS.
 Version: 0.9.7
 Author: Cardume
 Author URI: http://cardume.art.br
@@ -30,7 +30,7 @@ define( 'VERITETIMELINE_URL', plugin_dir_url(__FILE__) );
 add_action('init', 'verite_timeline_scripts');
 function verite_timeline_scripts() {
 	wp_enqueue_script('jquery');
-	wp_register_script('verite-timeline-embed', plugin_dir_url( __FILE__).'js/timeline-embed.js', array('jquery'), false, TRUE);
+	wp_register_script('verite-timeline-embed', plugin_dir_url( __FILE__).'js/storyjs-embed.js', array('jquery'), false, TRUE);
 }
 
 add_action('init', 'verite_timeline_textdomain');
@@ -43,11 +43,18 @@ add_shortcode('timeline', 'verite_timeline_shortcode');
 function verite_timeline_shortcode($atts, $content=null) {
 	extract(shortcode_atts(
 		array(
-			'title' => '',
-			'width'=> '100%',
-			'height'=> 650,
-			'maptype'=> 'toner',
-			'src'=> false,
+            'title' => '',
+            'width' => '100%',
+            'height' => 650,
+            'font' => '',
+            'maptype' => 'toner',
+            'lang' => 'en',
+            'src'=> false,
+            'start_at_end' => 'false',
+            'hash_bookmark' => 'false',
+            'debug' => 'false',
+            'start_at_slide' => null,
+            'start_zoom_adjust' => null,
 		), $atts
 	));
 
@@ -91,20 +98,26 @@ function verite_timeline_shortcode($atts, $content=null) {
 	}
 
 	$shortcode = '
-	<div id="timeline-embed"></div>
-	<script type="text/javascript">// <![CDATA[
-		var $ = jQuery;
-		var timeline_config = {
-			width: "' . $width . '", // OPTIONAL
-			height: "' . $height . '", // OPTIONAL
-			maptype: "' . $maptype . '", // OPTIONAL
-			source: "' . $src . '",
-			css: "' . $timeline_css . '",
-			js: "' . $timeline_src . '"
-		}
+    <div id="timeline-embed"></div>
+    <script type="text/javascript">// <![CDATA[
+        var timeline_config = {
+            width: "' . $width .'",
+            height: "' . $height . '",
+            source: "' . $src . '",
+            embed_id: "timeline-embed",
+            start_at_end: ' . $start_at_end . ',
+            start_at_slide: "' . $start_at_slide . '",
+            start_zoom_adjust: "' . $start_zoom_adjust . '",
+            hash_bookmark: ' . $hash_bookmark .',
+            font: "' . $font . '",
+            debug: ' . $debug . ',
+            lang: "' . $lang . '",
+            maptype: "' . $maptype . '",
+            css: "' . $timeline_css . '",
+            js: "' . $timeline_src . '"
+        }
 	// ]]></script>
 	';
-
 	return $shortcode;
 }
 
@@ -124,7 +137,7 @@ function verite_timeline_tinymce_button($context){
     if(!$is_post_edit_page)
         return $context;
 
-    $image_btn = VERITETIMELINE_URL . "/images/button-tinymce.png";
+    $image_btn = VERITETIMELINE_URL . "/button-tinymce.png";
     $out = '<a href="#TB_inline?inlineId=add_timeline_form" class="thickbox" id="add_timeline" title="' . __('Insert Timeline', 'verite-timeline') . '"><img src="'.$image_btn.'" alt="' . __('Insert Timeline', 'verite-timeline') . '" /></a>';
     return $context . $out;
 }

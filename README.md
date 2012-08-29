@@ -177,7 +177,20 @@ Due to recent changes to the Google Maps API, you need a [API Key](https://devel
 ####Font Combination Preview:
 ![Font Combination Preview](http://timeline.verite.co/gfx/font-options.png)
   
+## Best practices
+
+Tips and tricks to best utilize TimelineJS
+
+  1. Keep it light - don’t get bogged down by text or other elements
+  2. Pick stories that have a strong chronological narrative. It does not work well for stories that need to jump around in the timeline.
+  3. Include events that build up to major occurrences, not just the major events.
+  4. Don't overwhelm the user. A timeline with hundreds of events is probably not the best use of the format.
   
+## License
+This Source Code Form is subject to the terms of the Mozilla Public
+License, v. 2.0. If a copy of the MPL was not distributed with this
+file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
 ## Changelog
 ### 2.11.1 ###
 * Update Timeline to the latest version

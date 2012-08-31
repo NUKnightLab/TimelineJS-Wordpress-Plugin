@@ -48,41 +48,6 @@ function verite_timeline_shortcode($atts, $content=null) {
 
 	wp_enqueue_script('verite-timeline-embed');
 	
-	$timeline_css = plugin_dir_url( __FILE__).'css/timeline.css';
-	
-	$wp_language = get_bloginfo('language');
-	switch($wp_language) {
-		case 'pt-BR':
-		case 'pt-PT':
-			$timeline_src = plugin_dir_url( __FILE__).'js/locale/pt-br.js';
-			break;
-		case 'es-ES':
-		case 'es-PE':
-			$timeline_src = plugin_dir_url( __FILE__).'js/locale/es.js';
-			break;
-		case 'ko-KR':
-			$timeline_src = plugin_dir_url( __FILE__).'js/locale/kr.js';
-			break;
-		case 'de-DE':
-			$timeline_src = plugin_dir_url( __FILE__).'js/locale/de.js';
-			break;
-		case 'it-IT':
-			$timeline_src = plugin_dir_url( __FILE__).'js/locale/it.js';
-			break;
-		case 'fr-FR':
-			$timeline_src = plugin_dir_url( __FILE__).'js/locale/fr.js';
-			break;
-		case 'zh-CN':
-			$timeline_src = plugin_dir_url( __FILE__).'js/locale/zh-ch.js';
-			break;
-		case 'zh-TW':
-			$timeline_src = plugin_dir_url( __FILE__).'js/locale/zh-tw.js';
-			break;
-		default:
-			$timeline_src = plugin_dir_url( __FILE__).'js/locale/en.js';
-			break;
-	}
-
 	$shortcode = '
     <div id="timeline-embed"></div>
     <script type="text/javascript">// <![CDATA[
@@ -99,8 +64,6 @@ function verite_timeline_shortcode($atts, $content=null) {
             debug: ' . $debug . ',
             lang: "' . $lang . '",
             maptype: "' . $maptype . '",
-            css: "' . $timeline_css . '",
-            js: "' . $timeline_src . '"
         }
 	// ]]></script>
 	';

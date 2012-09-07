@@ -1,6 +1,6 @@
 /*!
 	TimelineJS
-	Version 2.11
+	Version 2.15
 	Designed and built by Zach Wise at VéritéCo
 
 	This Source Code Form is subject to the terms of the Mozilla Public
@@ -179,6 +179,13 @@ if (typeof VMM == 'undefined') {
 		},
 		
 		vimeo: {
+			active:			false,
+			array:			[],
+			api_loaded:		false,
+			que:			[]
+		},
+		
+		webthumb: {
 			active:			false,
 			array:			[],
 			api_loaded:		false,
@@ -1287,6 +1294,29 @@ if(typeof VMM != 'undefined' && typeof VMM.Date == 'undefined') {
 					if (	date_array[2]			) {	date.setFullYear(		date_array[2]);			}
 					if (	date_array[0]	> 1		) {	date.setMonth(			date_array[0] - 1);		}
 					if (	date_array[1]	> 1		) {	date.setDate(			date_array[1]);			}
+				} else if (d.match("now")) {
+					var now = new Date();					
+					date.setFullYear(now.getFullYear());
+					date.setMonth(now.getMonth());
+					date.setDate(now.getDate());
+					if (d.match("hours")) {
+						date.setHours(now.getHours());
+					}
+					if (d.match("minutes")) {
+						date.setHours(now.getHours());
+						date.setMinutes(now.getMinutes());
+					}
+					if (d.match("seconds")) {
+						date.setHours(now.getHours());
+						date.setMinutes(now.getMinutes());
+						date.setSeconds(now.getSeconds());
+					}
+					if (d.match("milliseconds")) {
+						date.setHours(now.getHours());
+						date.setMinutes(now.getMinutes());
+						date.setSeconds(now.getSeconds());
+						date.setMilliseconds(now.getMilliseconds());
+					}
 				} else if (d.length <= 5) {
 					date.setFullYear(parseInt(d, 10));
 					date.setMonth(0);
@@ -2608,6 +2638,9 @@ if(typeof VMM != 'undefined' && typeof VMM.ExternalAPI == 'undefined') {
 			if (VMM.master_config.flickr.active) {
 				VMM.ExternalAPI.flickr.pushQue();
 			}
+			if (VMM.master_config.webthumb.active) {
+				VMM.ExternalAPI.webthumb.pushQue();
+			}
 		},
 		
 		twitter: {
@@ -2886,11 +2919,9 @@ if(typeof VMM != 'undefined' && typeof VMM.ExternalAPI == 'undefined') {
 			get: function(m) {
 				var timer, 
 					api_key,
-					map_vars,
-					map_url,
-					map;
+					map_url;
 				
-				map_vars = VMM.Util.getUrlVars(m.id);
+				m.vars = VMM.Util.getUrlVars(m.id);
 				
 				if (VMM.ExternalAPI.keys.google != "") {
 					api_key = VMM.ExternalAPI.keys.google;
@@ -2899,12 +2930,11 @@ if(typeof VMM != 'undefined' && typeof VMM.ExternalAPI == 'undefined') {
 				}
 				
 				map_url = "http://maps.googleapis.com/maps/api/js?key=" + api_key + "&libraries=places&sensor=false&callback=VMM.ExternalAPI.googlemaps.onMapAPIReady";
-				map = { url: m.id, vars: map_vars, id: m.uid };
 				
 				if (VMM.master_config.googlemaps.active) {
-					VMM.master_config.googlemaps.que.push(map);
+					VMM.master_config.googlemaps.que.push(m);
 				} else {
-					VMM.master_config.googlemaps.que.push(map);
+					VMM.master_config.googlemaps.que.push(m);
 					
 					if (VMM.master_config.googlemaps.api_loaded) {
 						
@@ -2917,26 +2947,19 @@ if(typeof VMM != 'undefined' && typeof VMM.ExternalAPI == 'undefined') {
 			},
 			
 			create: function(m) {
-				trace(m.url);
 				VMM.ExternalAPI.googlemaps.createAPIMap(m);
-				if (m.url[0].match("msid")) {
-					//VMM.ExternalAPI.googlemaps.createAPIMap(m);
-				} else {
-					//VMM.ExternalAPI.googlemaps.createiFrameMap(m);
-				} 
-				
 			},
 			
 			createiFrameMap: function(m) {
-				var embed_url		= m.url + "&output=embed",
+				var embed_url		= m.id + "&output=embed",
 					mc				= "",
-					unique_map_id	= m.id.toString() + "_gmap";
+					unique_map_id	= m.uid.toString() + "_gmap";
 					
 				mc				+= "<div class='google-map' id='" + unique_map_id + "' style='width=100%;height=100%;'>";
 				mc				+= "<iframe width='100%' height='100%' frameborder='0' scrolling='no' marginheight='0' marginwidth='0' src='" + embed_url + "'></iframe>";
 				mc				+= "</div>";
 				
-				VMM.attachElement("#" + m.id, mc);
+				VMM.attachElement("#" + m.uid, mc);
 				
 			},
 			
@@ -2945,7 +2968,7 @@ if(typeof VMM != 'undefined' && typeof VMM.ExternalAPI == 'undefined') {
 					layer,
 					map,
 					map_options,
-					unique_map_id			= m.id.toString() + "_gmap",
+					unique_map_id			= m.uid.toString() + "_gmap",
 					map_attribution_html	= "",
 					location				= new google.maps.LatLng(41.875696,-87.624207),
 					latlong,
@@ -3013,19 +3036,19 @@ if(typeof VMM != 'undefined' && typeof VMM.ExternalAPI == 'undefined') {
 				}
 				
 				
-				if (type.of(VMM.Util.getUrlVars(m.url)["ll"]) == "string") {
+				if (type.of(VMM.Util.getUrlVars(m.id)["ll"]) == "string") {
 					has_location			= true;
-					latlong					= VMM.Util.getUrlVars(m.url)["ll"].split(",");
+					latlong					= VMM.Util.getUrlVars(m.id)["ll"].split(",");
 					location				= new google.maps.LatLng(parseFloat(latlong[0]),parseFloat(latlong[1]));
 					
-				} else if (type.of(VMM.Util.getUrlVars(m.url)["sll"]) == "string") {
-					latlong					= VMM.Util.getUrlVars(m.url)["sll"].split(",");
+				} else if (type.of(VMM.Util.getUrlVars(m.id)["sll"]) == "string") {
+					latlong					= VMM.Util.getUrlVars(m.id)["sll"].split(",");
 					location				= new google.maps.LatLng(parseFloat(latlong[0]),parseFloat(latlong[1]));
 				} 
 				
-				if (type.of(VMM.Util.getUrlVars(m.url)["z"]) == "string") {
+				if (type.of(VMM.Util.getUrlVars(m.id)["z"]) == "string") {
 					has_zoom				=	true;
-					zoom					=	parseFloat(VMM.Util.getUrlVars(m.url)["z"]);
+					zoom					=	parseFloat(VMM.Util.getUrlVars(m.id)["z"]);
 				}
 				
 				map_options = {
@@ -3044,7 +3067,7 @@ if(typeof VMM != 'undefined' && typeof VMM.ExternalAPI == 'undefined') {
 				    }
 				}
 				
-				VMM.attachElement("#" + m.id, "<div class='google-map' id='" + unique_map_id + "' style='width=100%;height=100%;'></div>");
+				VMM.attachElement("#" + m.uid, "<div class='google-map' id='" + unique_map_id + "' style='width=100%;height=100%;'></div>");
 				
 				map		= new google.maps.Map(document.getElementById(unique_map_id), map_options);
 				
@@ -3058,11 +3081,11 @@ if(typeof VMM != 'undefined' && typeof VMM.ExternalAPI == 'undefined') {
 				}
 				
 				// DETERMINE IF KML IS POSSIBLE
-				if (m.url[0].match("msid")) {
+				if (m.id[0].match("msid")) {
 					loadKML();
 				} else {
 					//loadPlaces();
-					if (type.of(VMM.Util.getUrlVars(m.url)["q"]) == "string") {
+					if (type.of(VMM.Util.getUrlVars(m.id)["q"]) == "string") {
 						geocodePlace();
 					} 
 				}
@@ -3073,7 +3096,7 @@ if(typeof VMM != 'undefined' && typeof VMM.ExternalAPI == 'undefined') {
 
 					
 					var geocoder	= new google.maps.Geocoder(),
-						address		= VMM.Util.getUrlVars(m.url)["q"],
+						address		= VMM.Util.getUrlVars(m.id)["q"],
 						marker;
 						
 					if (address.match("loc:")) {
@@ -3141,8 +3164,8 @@ if(typeof VMM != 'undefined' && typeof VMM.ExternalAPI == 'undefined') {
 						types:		['country', 'neighborhood', 'political', 'locality', 'geocode']
 					};
 					
-					if (type.of(VMM.Util.getUrlVars(m.url)["q"]) == "string") {
-						search_request.query	= VMM.Util.getUrlVars(m.url)["q"];
+					if (type.of(VMM.Util.getUrlVars(m.id)["q"]) == "string") {
+						search_request.query	= VMM.Util.getUrlVars(m.id)["q"];
 					}
 					
 					if (has_location) {
@@ -3192,8 +3215,8 @@ if(typeof VMM != 'undefined' && typeof VMM.ExternalAPI == 'undefined') {
 								}
 							} else {
 								trace("USING SIMPLE IFRAME MAP EMBED");
-								if (m.url[0].match("https")) { 
-									m.url = m.url[0].replace("https", "http");
+								if (m.id[0].match("https")) { 
+									m.id = m.url[0].replace("https", "http");
 								}
 								VMM.ExternalAPI.googlemaps.createiFrameMap(m);
 							}
@@ -3236,8 +3259,8 @@ if(typeof VMM != 'undefined' && typeof VMM.ExternalAPI == 'undefined') {
 					
 					places_url		= "https://maps.googleapis.com/maps/api/place/textsearch/json?key=" + api_key + "&sensor=false&language=" + m.lang + "&";
 					
-					if (type.of(VMM.Util.getUrlVars(m.url)["q"]) == "string") {
-						places_url	+= "query=" + VMM.Util.getUrlVars(m.url)["q"];
+					if (type.of(VMM.Util.getUrlVars(m.id)["q"]) == "string") {
+						places_url	+= "query=" + VMM.Util.getUrlVars(m.id)["q"];
 					}
 					
 					if (has_location) {
@@ -3318,7 +3341,7 @@ if(typeof VMM != 'undefined' && typeof VMM.ExternalAPI == 'undefined') {
 				function loadKML() {
 					var kml_url, kml_layer, infowindow, text;
 					
-					kml_url				= m.url + "&output=kml";
+					kml_url				= m.id + "&output=kml";
 					kml_url				= kml_url.replace("&output=embed", "");
 					kml_layer			= new google.maps.KmlLayer(kml_url, {preserveViewport:true});
 					infowindow			= new google.maps.InfoWindow();
@@ -3582,19 +3605,18 @@ if(typeof VMM != 'undefined' && typeof VMM.ExternalAPI == 'undefined') {
 		googledocs: {
 			
 			get: function(m) {
-				var doc = {url: m.id, id: m.uid};
-				VMM.master_config.googledocs.que.push(doc);
+				VMM.master_config.googledocs.que.push(m);
 				VMM.master_config.googledocs.active = true;
 			},
 			
-			create: function(doc) {
+			create: function(m) {
 				var mediaElem = ""; 
-				if (doc.url.match(/docs.google.com/i)) {
-					mediaElem	=	"<iframe class='doc' frameborder='0' width='100%' height='100%' src='" + doc.url + "&amp;embedded=true'></iframe>";
+				if (m.id.match(/docs.google.com/i)) {
+					mediaElem	=	"<iframe class='doc' frameborder='0' width='100%' height='100%' src='" + m.id + "&amp;embedded=true'></iframe>";
 				} else {
-					mediaElem	=	"<iframe class='doc' frameborder='0' width='100%' height='100%' src='" + "http://docs.google.com/viewer?url=" + doc.url + "&amp;embedded=true'></iframe>";
+					mediaElem	=	"<iframe class='doc' frameborder='0' width='100%' height='100%' src='" + "http://docs.google.com/viewer?url=" + m.id + "&amp;embedded=true'></iframe>";
 				}
-				VMM.attachElement("#"+doc.id, mediaElem);
+				VMM.attachElement("#"+m.uid, mediaElem);
 			},
 			
 			pushQue: function() {
@@ -3610,27 +3632,26 @@ if(typeof VMM != 'undefined' && typeof VMM.ExternalAPI == 'undefined') {
 		flickr: {
 			
 			get: function(m) {
-				var flick = {mid: m.id, id: m.uid, link: m.link};
-				VMM.master_config.flickr.que.push(flick);
+				VMM.master_config.flickr.que.push(m);
 				VMM.master_config.flickr.active = true;
 			},
 			
-			create: function(flick, callback) {
+			create: function(m, callback) {
 				var api_key,
-					callback_timeout= setTimeout(callback, VMM.master_config.timers.api, flick);
+					callback_timeout= setTimeout(callback, VMM.master_config.timers.api, m);
 					
 				if (typeof VMM.master_config.Timeline != 'undefined' && VMM.master_config.Timeline.api_keys.flickr != "") {
 					api_key = VMM.master_config.Timeline.api_keys.flickr;
 				} else {
 					api_key = Aes.Ctr.decrypt(VMM.master_config.api_keys_master.flickr, VMM.master_config.vp, 256)
 				}
-				var the_url = "http://api.flickr.com/services/rest/?method=flickr.photos.getSizes&api_key=" + api_key + "&photo_id=" + flick.mid + "&format=json&jsoncallback=?";
+				var the_url = "http://api.flickr.com/services/rest/?method=flickr.photos.getSizes&api_key=" + api_key + "&photo_id=" + m.id + "&format=json&jsoncallback=?";
 				
 				VMM.getJSON(the_url, function(d) {
 					var flickr_id = d.sizes.size[0].url.split("photos\/")[1].split("/")[1];
 				
-					var flickr_large_id = "#" + flick.id,
-						flickr_thumb_id = "#" + flick.id + "_thumb";
+					var flickr_large_id = "#" + m.uid,
+						flickr_thumb_id = "#" + m.uid + "_thumb";
 						//flickr_thumb_id = "flickr_" + uid + "_thumb";
 				
 					var flickr_img_size,
@@ -3639,15 +3660,15 @@ if(typeof VMM != 'undefined' && typeof VMM.ExternalAPI == 'undefined') {
 						flickr_best_size = "Large";
 				
 					flickr_best_size = VMM.ExternalAPI.flickr.sizes(VMM.master_config.sizes.api.height);
-				
 					for(var i = 0; i < d.sizes.size.length; i++) {
 						if (d.sizes.size[i].label == flickr_best_size) {
+							
 							flickr_size_found = true;
 							flickr_img_size = d.sizes.size[i].source;
 						}
 					}
 					if (!flickr_size_found) {
-						flickr_img_size = d.sizes.size[d.sizes.size.length - 1].source;
+						flickr_img_size = d.sizes.size[d.sizes.size.length - 2].source;
 					}
 				
 					flickr_img_thumb = d.sizes.size[0].source;
@@ -3687,7 +3708,7 @@ if(typeof VMM != 'undefined' && typeof VMM.ExternalAPI == 'undefined') {
 				} else if (s <= 480) {
 					_size = "Medium 640";
 				} else if (s <= 600) {
-					_size = "Medium 800";
+					_size = "Large";
 				} else {
 					_size = "Large";
 				}
@@ -3698,11 +3719,11 @@ if(typeof VMM != 'undefined' && typeof VMM.ExternalAPI == 'undefined') {
 		},
 		
 		instagram: {
-			get: function(mid, thumb) {
+			get: function(m, thumb) {
 				if (thumb) {
-					return "http://instagr.am/p/" + mid + "/media/?size=t";
+					return "http://instagr.am/p/" + m.id + "/media/?size=t";
 				} else {
-					return "http://instagr.am/p/" + mid + "/media/?size=" + VMM.ExternalAPI.instagram.sizes(VMM.master_config.sizes.api.height);
+					return "http://instagr.am/p/" + m.id + "/media/?size=" + VMM.ExternalAPI.instagram.sizes(VMM.master_config.sizes.api.height);
 				}
 			},
 			
@@ -3723,15 +3744,14 @@ if(typeof VMM != 'undefined' && typeof VMM.ExternalAPI == 'undefined') {
 		soundcloud: {
 			
 			get: function(m) {
-				var sound = {mid: m.id, id: m.uid};
-				VMM.master_config.soundcloud.que.push(sound);
+				VMM.master_config.soundcloud.que.push(m);
 				VMM.master_config.soundcloud.active = true;
 			},
 			
-			create: function(sound, callback) {
-				var the_url = "http://soundcloud.com/oembed?url=" + sound.mid + "&format=js&callback=?";
+			create: function(m, callback) {
+				var the_url = "http://soundcloud.com/oembed?url=" + m.id + "&format=js&callback=?";
 				VMM.getJSON(the_url, function(d) {
-					VMM.attachElement("#"+sound.id, d.html);
+					VMM.attachElement("#"+m.uid, d.html);
 					callback();
 				});
 			},
@@ -3748,20 +3768,19 @@ if(typeof VMM != 'undefined' && typeof VMM.ExternalAPI == 'undefined') {
 		wikipedia: {
 			
 			get: function(m) {
-				var api_obj = {url: m.id, id: m.uid, lang: m.lang};
-				VMM.master_config.wikipedia.que.push(api_obj);
+				VMM.master_config.wikipedia.que.push(m);
 				VMM.master_config.wikipedia.active = true;
 			},
 			
-			create: function(api_obj, callback) {
-				var the_url = "http://" + api_obj.lang + ".wikipedia.org/w/api.php?action=query&prop=extracts&redirects=&titles=" + api_obj.url + "&exintro=1&format=json&callback=?";
-				callback_timeout= setTimeout(callback, VMM.master_config.timers.api, api_obj);
+			create: function(m, callback) {
+				var the_url = "http://" + m.lang + ".wikipedia.org/w/api.php?action=query&prop=extracts&redirects=&titles=" + m.id + "&exintro=1&format=json&callback=?";
+				callback_timeout= setTimeout(callback, VMM.master_config.timers.api, m);
 				
 				if ( VMM.Browser.browser == "Explorer" && parseInt(VMM.Browser.version, 10) >= 7 && window.XDomainRequest) {
-					var temp_text	=	"<h4><a href='http://" + VMM.master_config.language.api.wikipedia + ".wikipedia.org/wiki/" + api_obj.url + "' target='_blank'>" + api_obj.url + "</a></h4>";
+					var temp_text	=	"<h4><a href='http://" + VMM.master_config.language.api.wikipedia + ".wikipedia.org/wiki/" + m.id + "' target='_blank'>" + m.url + "</a></h4>";
 					temp_text		+=	"<span class='wiki-source'>" + VMM.master_config.language.messages.wikipedia + "</span>";
 					temp_text		+=	"<p>Wikipedia entry unable to load using Internet Explorer 8 or below.</p>";
-					VMM.attachElement("#"+api_obj.id, temp_text );
+					VMM.attachElement("#"+m.uid, temp_text );
 				}
 				
 				VMM.getJSON(the_url, function(d) {
@@ -3795,7 +3814,7 @@ if(typeof VMM != 'undefined' && typeof VMM.ExternalAPI == 'undefined') {
 						if (wiki_extract.match("REDIRECT")) {
 						
 						} else {
-							VMM.attachElement("#"+api_obj.id, _wiki );
+							VMM.attachElement("#"+m.uid, _wiki );
 						}
 					}
 					//callback();
@@ -3805,14 +3824,14 @@ if(typeof VMM != 'undefined' && typeof VMM.ExternalAPI == 'undefined') {
 					trace("WIKIPEDIA ERROR: " + textStatus + " " + jqXHR.responseText);
 					trace(errorThrown);
 					
-					VMM.attachElement("#"+api_obj.id, VMM.MediaElement.loadingmessage("<p>Wikipedia is not responding</p>"));
+					VMM.attachElement("#"+m.uid, VMM.MediaElement.loadingmessage("<p>Wikipedia is not responding</p>"));
 					// TRY AGAIN?
 					clearTimeout(callback_timeout);
 					if (VMM.master_config.wikipedia.tries < 4) {
 						trace("WIKIPEDIA ATTEMPT " + VMM.master_config.wikipedia.tries);
-						trace(api_obj);
+						trace(m);
 						VMM.master_config.wikipedia.tries++;
-						VMM.ExternalAPI.wikipedia.create(api_obj, callback);
+						VMM.ExternalAPI.wikipedia.create(m, callback);
 					} else {
 						callback();
 					}
@@ -3842,10 +3861,9 @@ if(typeof VMM != 'undefined' && typeof VMM.ExternalAPI == 'undefined') {
 		youtube: {
 			
 			get: function(m) {
-				var the_url = "http://gdata.youtube.com/feeds/api/videos/" + m.id + "?v=2&alt=jsonc&callback=?",
-					vid = {mid: m.id, id: m.uid, start: m.start, hd: m.hd};
+				var the_url = "http://gdata.youtube.com/feeds/api/videos/" + m.id + "?v=2&alt=jsonc&callback=?";
 					
-				VMM.master_config.youtube.que.push(vid);
+				VMM.master_config.youtube.que.push(m);
 				
 				if (!VMM.master_config.youtube.active) {
 					if (!VMM.master_config.youtube.api_loaded) {
@@ -3857,42 +3875,42 @@ if(typeof VMM != 'undefined' && typeof VMM.ExternalAPI == 'undefined') {
 				
 				// THUMBNAIL
 				VMM.getJSON(the_url, function(d) {
-					VMM.ExternalAPI.youtube.createThumb(d, vid)
+					VMM.ExternalAPI.youtube.createThumb(d, m)
 				});
 				
 			},
 			
-			create: function(vid) {
-				if (typeof(vid.start) != 'undefined') {
+			create: function(m) {
+				if (typeof(m.start) != 'undefined') {
 					
-					var vidstart			= vid.start.toString(),
+					var vidstart			= m.start.toString(),
 						vid_start_minutes	= 0,
 						vid_start_seconds	= 0;
 						
 					if (vidstart.match('m')) {
 						vid_start_minutes = parseInt(vidstart.split("m")[0], 10);
 						vid_start_seconds = parseInt(vidstart.split("m")[1].split("s")[0], 10);
-						vid.start = (vid_start_minutes * 60) + vid_start_seconds;
+						m.start = (vid_start_minutes * 60) + vid_start_seconds;
 					} else {
-						vid.start = 0;
+						m.start = 0;
 					}
 				} else {
-					vid.start = 0;
+					m.start = 0;
 				}
 				
 				var p = {
 					active: 				false,
 					player: 				{},
-					name:					vid.id,
+					name:					m.uid,
 					playing:				false,
 					hd:						false
 				};
 				
-				if (typeof(vid.hd) != 'undefined') {
+				if (typeof(m.hd) != 'undefined') {
 					p.hd = true;
 				}
 				
-				p.player[vid.id] = new YT.Player(vid.id, {
+				p.player[m.id] = new YT.Player(m.uid, {
 					height: 				'390',
 					width: 					'640',
 					playerVars: {
@@ -3900,10 +3918,10 @@ if(typeof VMM != 'undefined' && typeof VMM.ExternalAPI == 'undefined') {
 						color: 				'white',
 						showinfo:			0,
 						theme:				'light',
-						start:				vid.start,
+						start:				m.start,
 						rel:				0
 					},
-					videoId: vid.mid,
+					videoId: m.id,
 					events: {
 						'onReady': 			VMM.ExternalAPI.youtube.onPlayerReady,
 						'onStateChange': 	VMM.ExternalAPI.youtube.onStateChange
@@ -3913,12 +3931,12 @@ if(typeof VMM != 'undefined' && typeof VMM.ExternalAPI == 'undefined') {
 				VMM.master_config.youtube.array.push(p);
 			},
 			
-			createThumb: function(d, vid) {
+			createThumb: function(d, m) {
 				trace("CREATE THUMB");
 				trace(d);
-				trace(vid);
+				trace(m);
 				if (typeof d.data != 'undefined') {
-					var thumb_id = "#" + vid.id + "_thumb";
+					var thumb_id = "#" + m.uid + "_thumb";
 					VMM.attachElement(thumb_id, "<img src='" + d.data.thumbnail.sqDefault + "'>");
 					
 				}
@@ -3972,25 +3990,31 @@ if(typeof VMM != 'undefined' && typeof VMM.ExternalAPI == 'undefined') {
 		vimeo: {
 			
 			get: function(m) {
-				var vid = {mid: m.id, id: m.uid};
-				VMM.master_config.vimeo.que.push(vid);
+				VMM.master_config.vimeo.que.push(m);
 				VMM.master_config.vimeo.active = true;
 			},
 			
-			create: function(vid, callback) {
+			create: function(m, callback) {
 				trace("VIMEO CREATE");
+				
 				// THUMBNAIL
-				var the_url = "http://vimeo.com/api/v2/video/" + vid.mid + ".json";
-				VMM.getJSON(the_url, function(d) {
-					VMM.ExternalAPI.vimeo.createThumb(d, vid);
+				var thumb_url	= "http://vimeo.com/api/v2/video/" + m.id + ".json",
+					video_url	= "http://player.vimeo.com/video/" + m.id + "?title=0&amp;byline=0&amp;portrait=0&amp;color=ffffff";
+					
+				VMM.getJSON(thumb_url, function(d) {
+					VMM.ExternalAPI.vimeo.createThumb(d, m);
 					callback();
 				});
 				
+				
+				// VIDEO
+				VMM.attachElement("#" + m.uid, "<iframe autostart='false' frameborder='0' width='100%' height='100%' src='" + video_url + "'></iframe>");
+				
 			},
 			
-			createThumb: function(d, vid) {
+			createThumb: function(d, m) {
 				trace("VIMEO CREATE THUMB");
-				var thumb_id = "#" + vid.id + "_thumb";
+				var thumb_id = "#" + m.uid + "_thumb";
 				VMM.attachElement(thumb_id, "<img src='" + d[0].thumbnail_small + "'>");
 			},
 			
@@ -3999,14 +4023,51 @@ if(typeof VMM != 'undefined' && typeof VMM.ExternalAPI == 'undefined') {
 					VMM.ExternalAPI.vimeo.create(VMM.master_config.vimeo.que[0], VMM.ExternalAPI.vimeo.pushQue);
 					VMM.master_config.vimeo.que.remove(0);
 				}
-				/*
-				for(var i = 0; i < VMM.master_config.vimeo.que.length; i++) {
-					VMM.ExternalAPI.vimeo.create(VMM.master_config.vimeo.que[i]);
-				}
-				VMM.master_config.vimeo.que = [];
-				*/
 			}
 			
+		},
+		
+		webthumb: {
+			
+			get: function(m, thumb) {
+				VMM.master_config.webthumb.que.push(m);
+				VMM.master_config.webthumb.active = true;
+			},
+			
+			sizes: function(s) {
+				var _size = "";
+				if (s <= 150) {
+					_size = "t";
+				} else if (s <= 306) {
+					_size = "m";
+				} else {
+					_size = "l";
+				}
+				
+				return _size;
+			},
+			
+			create: function(m) {
+				trace("WEB THUMB CREATE");
+				//http://pagepeeker.com/t/{size}/{url}
+				//http://api.snapito.com/free/lc?url=
+				
+				var thumb_url	= "http://pagepeeker.com/t/";
+					url			= m.id.replace("http://", "");//.split("/")[0];
+					
+				// Main Image
+				VMM.attachElement("#" + m.uid, "<a href='" + m.id + "' target='_blank'><img src='" + thumb_url + "x/" + url + "'></a>");
+				
+				// Thumb
+				VMM.attachElement("#" + m.uid + "_thumb", "<a href='" + m.id + "' target='_blank'><img src='" + thumb_url + "t/" + url + "'></a>");
+			},
+			
+			pushQue: function() {
+				for(var i = 0; i < VMM.master_config.webthumb.que.length; i++) {
+					VMM.ExternalAPI.webthumb.create(VMM.master_config.webthumb.que[i]);
+				}
+				VMM.master_config.webthumb.que = [];
+			}
 		}
 	
 	}).init();
@@ -4112,7 +4173,7 @@ if(typeof VMM != 'undefined' && typeof VMM.MediaElement == 'undefined') {
 					}
 					return mediaElem;
 				} else if (m.type	==	"website") {
-					mediaElem		=	"<div class='thumbnail thumb-website'></div>";
+					mediaElem		=	"<div class='thumbnail thumb-website' id='" + uid + "_thumb'></div>";
 					return mediaElem;
 				} else {
 					mediaElem = "<div class='thumbnail thumb-plaintext'></div>";
@@ -4154,7 +4215,7 @@ if(typeof VMM != 'undefined' && typeof VMM.MediaElement == 'undefined') {
 					VMM.ExternalAPI.flickr.get(m);
 			// INSTAGRAM
 				} else if (m.type		==	"instagram") {
-					mediaElem			=	"<div class='media-image media-shadow'><a href='" + m.link + "' target='_blank'><img src='" + VMM.ExternalAPI.instagram.get(m.id) + "'></a></div>";
+					mediaElem			=	"<div class='media-image media-shadow'><a href='" + m.link + "' target='_blank'><img src='" + VMM.ExternalAPI.instagram.get(m) + "'></a></div>";
 					//VMM.ExternalAPI.instagram.get(m.id, uid);
 			// GOOGLE DOCS
 				} else if (m.type		==	"googledoc") {
@@ -4166,7 +4227,7 @@ if(typeof VMM != 'undefined' && typeof VMM.MediaElement == 'undefined') {
 					VMM.ExternalAPI.youtube.get(m);
 			// VIMEO
 				} else if (m.type		==	"vimeo") {
-					mediaElem			=	"<div class='media-shadow'><iframe class='media-frame video vimeo' autostart='false' frameborder='0' width='100%' height='100%' src='http://player.vimeo.com/video/" + m.id + "?title=0&amp;byline=0&amp;portrait=0&amp;color=ffffff'></iframe></div>";
+					mediaElem			=	"<div class='media-shadow media-frame video vimeo' id='" + m.uid + "'>" + loading_messege + "</div>";
 					VMM.ExternalAPI.vimeo.get(m);
 			// DAILYMOTION
 				} else if (m.type		==	"dailymotion") {
@@ -4214,10 +4275,10 @@ if(typeof VMM != 'undefined' && typeof VMM.MediaElement == 'undefined') {
 					mediaElem			=	"<div class='plain-text'><div class='container'>" + VMM.Util.properQuotes(m.id) + "</div></div>";
 			// WEBSITE
 				} else if (m.type		==	"website") { 
-					//mediaElem			=	"<div class='media-shadow'><iframe class='media-frame website' frameborder='0' autostart='false' width='100%' height='100%' scrolling='yes' marginheight='0' marginwidth='0' src='" + m.id + "'></iframe></div>";
-					//mediaElem			=	"<a href='" + m.id + "' target='_blank'>" + "<img src='http://api.snapito.com/free/lc?url=" + m.id + "'></a>";
 					
-					mediaElem			=	"<div class='media-shadow website'><a href='" + m.id + "' target='_blank'>" + "<img src='http://api1.thumbalizr.com/?url=" + m.id.replace(/[\./]$/g, "") + "&width=300' class='media-image'></a></div>";
+					mediaElem			=	"<div class='media-shadow website' id='" + m.uid + "'>" + loading_messege + "</div>";
+					VMM.ExternalAPI.webthumb.get(m);
+					//mediaElem			=	"<div class='media-shadow website'><a href='" + m.id + "' target='_blank'>" + "<img src='http://api1.thumbalizr.com/?url=" + m.id.replace(/[\./]$/g, "") + "&width=300' class='media-image'></a></div>";
 					
 			// NO MATCH
 				} else {
@@ -4705,7 +4766,8 @@ if(typeof VMM != 'undefined' && typeof VMM.Slider == 'undefined') {
 					content: {
 						width:		720, 
 						height:		400, 
-						padding:	130
+						padding:	120,
+						padding_default: 120
 					}, 
 					nav: {
 						width:		100, 
@@ -4817,6 +4879,13 @@ if(typeof VMM != 'undefined' && typeof VMM.Slider == 'undefined') {
 			current_width = config.slider.width;
 			
 			config.slider.nav.height = VMM.Lib.height(navigation.prevBtnContainer);
+			
+			// Handle smaller sizes
+			if (VMM.Browser.device == "mobile" || current_width <= 640) {
+				config.slider.content.padding	= 10;
+			} else {
+				config.slider.content.padding	= config.slider.content.padding_default;
+			}
 			
 			config.slider.content.width = current_width - (config.slider.content.padding *2);
 			
@@ -4995,6 +5064,7 @@ if(typeof VMM != 'undefined' && typeof VMM.Slider == 'undefined') {
 				layout_media			= ".slider-item .layout-media .media .media-container ",
 				layout_both				= ".slider-item .media .media-container",
 				layout_caption			= ".slider-item .media .media-container .media-shadow .caption",
+				is_skinny				= false,
 				mediasize = {
 					text_media: {
 						width: 			(config.slider.content.width/100) * 60,
@@ -5017,6 +5087,12 @@ if(typeof VMM != 'undefined' && typeof VMM.Slider == 'undefined') {
 						}
 					}
 				};
+				
+			// Handle smaller sizes
+			if (VMM.Browser.device == "mobile" || current_width <= 640) {
+				is_skinny = true;
+
+			} 
 			
 			VMM.master_config.sizes.api.width	= mediasize.media.width;
 			VMM.master_config.sizes.api.height	= mediasize.media.height;
@@ -5027,20 +5103,12 @@ if(typeof VMM != 'undefined' && typeof VMM.Slider == 'undefined') {
 			VMM.Lib.css(".slider-item", "width", config.slider.content.width );
 			VMM.Lib.height(".slider-item", config.slider.height);
 			
-			// HANDLE SMALLER SIZES
-			var is_skinny = false;
 			
-			if (current_width <= 640) {
-				is_skinny = true;
-			} else if (VMM.Browser.device == "mobile" && VMM.Browser.orientation == "portrait") {
-				is_skinny = true;
-			} else if (VMM.Browser.device == "tablet" && VMM.Browser.orientation == "portrait") {
-				//is_skinny = true;
-			}
 			
 			if (is_skinny) {
 				
-				mediasize.text_media.width = 	config.slider.content.width;
+				mediasize.text_media.width = 	config.slider.content.width - (config.slider.content.padding*2);
+				mediasize.media.width = 		config.slider.content.width - (config.slider.content.padding*2);
 				mediasize.text_media.height = 	((config.slider.height/100) * 50 ) - 50;
 				mediasize.media.height = 		((config.slider.height/100) * 70 ) - 40;
 				
@@ -5050,7 +5118,8 @@ if(typeof VMM != 'undefined' && typeof VMM.Slider == 'undefined') {
 				VMM.Lib.css(".slider-item .layout-text-media .text", "width", "100%" );
 				VMM.Lib.css(".slider-item .layout-text-media .text", "display", "block" );
 				VMM.Lib.css(".slider-item .layout-text-media .text .container", "display", "block" );
-				VMM.Lib.css(".slider-item .layout-text-media .text .container", "width", config.slider.content.width );
+				VMM.Lib.css(".slider-item .layout-text-media .text .container", "width", mediasize.media.width );
+				VMM.Lib.css(".slider-item .layout-text-media .text .container .start", "width", "auto" );
 				
 				VMM.Lib.css(".slider-item .layout-text-media .media", "float", "none" );
 				VMM.Lib.addClass(".slider-item .content-container", "pad-top");
@@ -5122,13 +5191,17 @@ if(typeof VMM != 'undefined' && typeof VMM.Slider == 'undefined') {
 			VMM.Lib.css(	layout_both + 		".soundcloud", 			"max-height", 	168 );
 			
 			// MAPS
-			VMM.Lib.height(	layout_text_media + ".map", 								mediasize.text_media.height);
-			VMM.Lib.css(	layout_media + 		".map", 				"max-height", 	mediasize.media.height);
-			VMM.Lib.width(	layout_media + 		".map", 								mediasize.media.width);
-
+			VMM.Lib.height(	layout_text_media	+ ".map", 								mediasize.text_media.height);
+			VMM.Lib.width(	layout_text_media	+ ".map", 								mediasize.text_media.width);
+			VMM.Lib.css(	layout_media		+ ".map", 				"max-height", 	mediasize.media.height);
+			VMM.Lib.width(	layout_media		+ ".map", 								mediasize.media.width);
+			
+			
 			// DOCS
 			VMM.Lib.height(	layout_text_media + ".doc", 								mediasize.text_media.height);
+			VMM.Lib.width(	layout_text_media	+ ".doc", 								mediasize.text_media.width);
 			VMM.Lib.height(	layout_media + 		".doc", 								mediasize.media.height);
+			VMM.Lib.width(	layout_media		+ ".doc", 								mediasize.media.width);
 			
 			// IE8 NEEDS THIS
 			VMM.Lib.width(	layout_media + 		".wikipedia", 							mediasize.media.width);
@@ -5136,9 +5209,14 @@ if(typeof VMM != 'undefined' && typeof VMM.Slider == 'undefined') {
 			VMM.Lib.width(	layout_media + 		".plain-text-quote", 					mediasize.media.width);
 			VMM.Lib.width(	layout_media + 		".plain-text", 							mediasize.media.width);
 			
+			VMM.Lib.css(	layout_both, 		"max-width", 							mediasize.media.width);
+			
+			
 			// CAPTION WIDTH
 			VMM.Lib.css( layout_text_media + 	".caption",	"max-width",	mediasize.text_media.video.width);
 			VMM.Lib.css( layout_media + 		".caption",	"max-width",	mediasize.media.video.width);
+			//VMM.Lib.css( layout_text_media + 	".caption",	"max-width",	mediasize.text_media.width);
+			//VMM.Lib.css( layout_media + 		".caption",	"max-width",	mediasize.media.width);
 			
 			// MAINTAINS VERTICAL CENTER IF IT CAN
 			for(i = 0; i < slides.length; i++) {
@@ -5208,44 +5286,53 @@ if(typeof VMM != 'undefined' && typeof VMM.Slider == 'undefined') {
 			if (ease != null && ease != "") {_ease = ease};
 			if (duration != null && duration != "") {_duration = duration};
 			
-			/* set proper nav titles and dates etc.
+			/*	NAVIGATION
+				set proper nav titles and dates etc.
 			================================================== */
-			if (is_first) {
+			// Handle smaller sizes
+			if (VMM.Browser.device == "mobile") {
+			//if (VMM.Browser.device == "mobile" || current_width <= 640) {
 				VMM.Lib.visible(navigation.prevBtn, false);
-			} else {
-				VMM.Lib.visible(navigation.prevBtn, true);
-				_title = VMM.Util.unlinkify(data[current_slide - 1].title)
-				if (config.type == "timeline") {
-					if(typeof data[current_slide - 1].date === "undefined") {
-						VMM.attachElement(navigation.prevDate, _title);
-						VMM.attachElement(navigation.prevTitle, "");
-					} else {
-						VMM.attachElement(navigation.prevDate, VMM.Date.prettyDate(data[current_slide - 1].startdate));
-						VMM.attachElement(navigation.prevTitle, _title);
-					}
-				} else {
-					VMM.attachElement(navigation.prevTitle, _title);
-				}
-				
-			}
-			if (is_last) {
 				VMM.Lib.visible(navigation.nextBtn, false);
 			} else {
-				VMM.Lib.visible(navigation.nextBtn, true);
-				_title = VMM.Util.unlinkify(data[current_slide + 1].title);
-				if (config.type == "timeline") {
-					if(typeof data[current_slide + 1].date === "undefined") {
-						VMM.attachElement(navigation.nextDate, _title);
-						VMM.attachElement(navigation.nextTitle, "");
-					} else {
-						VMM.attachElement(navigation.nextDate, VMM.Date.prettyDate(data[current_slide + 1].startdate) );
-						VMM.attachElement(navigation.nextTitle, _title);
-					}
+				if (is_first) {
+					VMM.Lib.visible(navigation.prevBtn, false);
 				} else {
-					VMM.attachElement(navigation.nextTitle,  _title);
-				}
+					VMM.Lib.visible(navigation.prevBtn, true);
+					_title = VMM.Util.unlinkify(data[current_slide - 1].title)
+					if (config.type == "timeline") {
+						if(typeof data[current_slide - 1].date === "undefined") {
+							VMM.attachElement(navigation.prevDate, _title);
+							VMM.attachElement(navigation.prevTitle, "");
+						} else {
+							VMM.attachElement(navigation.prevDate, VMM.Date.prettyDate(data[current_slide - 1].startdate));
+							VMM.attachElement(navigation.prevTitle, _title);
+						}
+					} else {
+						VMM.attachElement(navigation.prevTitle, _title);
+					}
 				
+				}
+				if (is_last) {
+					VMM.Lib.visible(navigation.nextBtn, false);
+				} else {
+					VMM.Lib.visible(navigation.nextBtn, true);
+					_title = VMM.Util.unlinkify(data[current_slide + 1].title);
+					if (config.type == "timeline") {
+						if(typeof data[current_slide + 1].date === "undefined") {
+							VMM.attachElement(navigation.nextDate, _title);
+							VMM.attachElement(navigation.nextTitle, "");
+						} else {
+							VMM.attachElement(navigation.nextDate, VMM.Date.prettyDate(data[current_slide + 1].startdate) );
+							VMM.attachElement(navigation.nextTitle, _title);
+						}
+					} else {
+						VMM.attachElement(navigation.nextTitle,  _title);
+					}
+				
+				}
 			}
+			
 			
 			/* ANIMATE SLIDE
 			================================================== */
@@ -6477,7 +6564,6 @@ if(typeof VMM != 'undefined' && typeof VMM.Timeline == 'undefined') {
 			timeline_id		= "#timelinejs";
 		}
 		
-		trace("VERSION " + version);
 		
 		/* CONFIG
 		================================================== */
@@ -6496,6 +6582,7 @@ if(typeof VMM != 'undefined' && typeof VMM.Timeline == 'undefined') {
 			touch:					false,
 			orientation: 			"normal", 
 			maptype: 				"toner",
+			version: 				"2.x", 
 			preload:				4,
 			current_slide:			0,
 			hash_bookmark:			false,
@@ -6556,7 +6643,8 @@ if(typeof VMM != 'undefined' && typeof VMM.Timeline == 'undefined') {
 				content: {
 					width: 			720,
 					height: 		400,
-					padding: 		130
+					padding: 		130,
+					padding_default:130
 				},
 				nav: {
 					width: 			100,
@@ -6630,6 +6718,9 @@ if(typeof VMM != 'undefined' && typeof VMM.Timeline == 'undefined') {
 			if (config.gmap_key != "") {
 				config.api_keys.google = config.gmap_key;
 			}
+			
+			trace("VERSION " + config.version);
+			version = config.version;
 		}
 		
 		/* CREATE TIMELINE STRUCTURE
@@ -6646,11 +6737,6 @@ if(typeof VMM != 'undefined' && typeof VMM.Timeline == 'undefined') {
 			$navigation	= VMM.appendAndGetElement($container, "<div>", "vco-navigation");
 			$feedback	= VMM.appendAndGetElement($timeline, "<div>", "vco-feedback", "");
 			
-			if (config.touch) {
-				VMM.Lib.addClass($timeline, "vco-touch");
-			} else {
-				VMM.Lib.addClass($timeline, "vco-notouch");
-			}
 			
 			if (typeof config.language.right_to_left != 'undefined') {
 				VMM.Lib.addClass($timeline, "vco-right-to-left");
@@ -6671,6 +6757,13 @@ if(typeof VMM != 'undefined' && typeof VMM.Timeline == 'undefined') {
 				VMM.Lib.height($timeline, config.height);
 			}
 			
+			if (config.touch) {
+				VMM.Lib.addClass($timeline, "vco-touch");
+			} else {
+				VMM.Lib.addClass($timeline, "vco-notouch");
+			}
+			
+			
 		}
 		
 		/* ON EVENT
@@ -6678,7 +6771,6 @@ if(typeof VMM != 'undefined' && typeof VMM.Timeline == 'undefined') {
 
 		function onDataReady(e, d) {
 			trace("onDataReady");
-			trace(d);
 			data = d.timeline;
 			
 			if (type.of(data.era) != "array") {
@@ -6857,10 +6949,13 @@ if(typeof VMM != 'undefined' && typeof VMM.Timeline == 'undefined') {
 		};
 		
 		this.reload = function(_d) {
-			trace("loadNewDates" + _d);
+			trace("Load new timeline data" + _d);
 			VMM.fireEvent(global, config.events.messege, config.language.messages.loading_timeline);
 			data = {};
 			VMM.Timeline.DataObj.getData(_d);
+			config.current_slide = 0;
+			slider.setSlide(0);
+			timenav.setMarker(0, config.ease,config.duration);
 		};
 		
 		/* DATA 
@@ -6961,12 +7056,28 @@ if(typeof VMM != 'undefined' && typeof VMM.Timeline == 'undefined') {
 			config.nav.width = config.width;
 			config.feature.width = config.width;
 			
-			if (VMM.Browser.device == "mobile") {
-				//config.feature.height = config.height;
-			} else {
-				//config.feature.height = config.height - config.nav.height - 3;
-			}
 			config.feature.height = config.height - config.nav.height - 3;
+			
+			if (VMM.Browser.device == "mobile") {
+				/*
+				if (VMM.Browser.orientation == "portrait") {
+					config.feature.height	= 480;
+					config.height			= 480 + config.nav.height;
+				} else if(VMM.Browser.orientation == "landscape") {
+					config.feature.height	= 320;
+					config.height			= 320 + config.nav.height;
+				} else {
+					config.feature.height = config.height - config.nav.height - 3;
+				}
+				*/
+			}
+			
+			if (config.width < 640) {
+				VMM.Lib.addClass($timeline, "vco-skinny");
+			} else {
+				VMM.Lib.removeClass($timeline, "vco-skinny");
+			}
+			
 		};
 		
 		// BUILD DATE OBJECTS
@@ -8377,7 +8488,7 @@ if(typeof VMM.Timeline != 'undefined' && typeof VMM.Timeline.TimeNav == 'undefin
 			$timenavline				= VMM.appendAndGetElement($timebackground, "<div>", "timenav-line");
 			$timenavindicator			= VMM.appendAndGetElement($timebackground, "<div>", "timenav-indicator");
 			$timeintervalbackground		= VMM.appendAndGetElement($timebackground, "<div>", "timenav-interval-background", "<div class='top-highlight'></div>");
-			$toolbar					= VMM.appendAndGetElement(layout, "<div>", "toolbar");
+			$toolbar					= VMM.appendAndGetElement(layout, "<div>", "vco-toolbar");
 			
 			
 			buildInterval();
@@ -8394,31 +8505,38 @@ if(typeof VMM.Timeline != 'undefined' && typeof VMM.Timeline.TimeNav == 'undefin
 			if (config.start_page) {
 				$backhome = VMM.appendAndGetElement($toolbar, "<div>", "back-home", "<div class='icon'></div>");
 				VMM.bindEvent(".back-home", onBackHome, "click");
-				VMM.Lib.css($toolbar, "top", 27);
 				VMM.Lib.attribute($backhome, "title", VMM.master_config.language.messages.return_to_title);
 				VMM.Lib.attribute($backhome, "rel", "tooltip");
 				
 			}
 			
-			$zoomin						= VMM.appendAndGetElement($toolbar, "<div>", "zoom-in", "<div class='icon'></div>");
-			$zoomout					= VMM.appendAndGetElement($toolbar, "<div>", "zoom-out", "<div class='icon'></div>");
 			
 			// MAKE TIMELINE DRAGGABLE/TOUCHABLE
 			$dragslide = new VMM.DragSlider;
 			$dragslide.createPanel(layout, $timenav, config.nav.constraint, config.touch);
 			
-			// ZOOM EVENTS
-			VMM.bindEvent($zoomin, onZoomIn, "click");
-			VMM.bindEvent($zoomout, onZoomOut, "click");
 			
-			if (!config.touch) {
-				
+			
+			if (config.touch && config.start_page) {
+				VMM.Lib.addClass($toolbar, "touch");
+				VMM.Lib.css($toolbar, "top", 55);
+				VMM.Lib.css($toolbar, "left", 10);
+			} else {
+				if (config.start_page) {
+					VMM.Lib.css($toolbar, "top", 27);
+				}
+				$zoomin		= VMM.appendAndGetElement($toolbar, "<div>", "zoom-in", "<div class='icon'></div>");
+				$zoomout	= VMM.appendAndGetElement($toolbar, "<div>", "zoom-out", "<div class='icon'></div>");
+				// ZOOM EVENTS
+				VMM.bindEvent($zoomin, onZoomIn, "click");
+				VMM.bindEvent($zoomout, onZoomOut, "click");
 				// TOOLTIP
 				VMM.Lib.attribute($zoomin, "title", VMM.master_config.language.messages.expand_timeline);
 				VMM.Lib.attribute($zoomin, "rel", "tooltip");
 				VMM.Lib.attribute($zoomout, "title", VMM.master_config.language.messages.contract_timeline);
 				VMM.Lib.attribute($zoomout, "rel", "tooltip");
 				$toolbar.tooltip({selector: "div[rel=tooltip]", placement: "right"});
+				
 				
 				// MOUSE EVENTS
 				VMM.bindEvent(layout, onMouseScroll, 'DOMMouseScroll');
@@ -8906,30 +9024,46 @@ if (typeof VMM.Timeline !== 'undefined' && typeof VMM.Timeline.DataObj == 'undef
 			googlespreadsheet: {
 				
 				getData: function(raw) {
-					var key, url, timeout;
+					var getjsondata, key, url, timeout, tries = 0;
 					
 					key	= VMM.Util.getUrlVars(raw)["key"];
 					url	= "https://spreadsheets.google.com/feeds/list/" + key + "/od6/public/values?alt=json";
 					
 					timeout = setTimeout(function() {
-						trace("Google Docs timeout");
-						VMM.fireEvent(global, VMM.Timeline.Config.events.messege, "Google Docs is not responding");
-					}, 6000);
+						trace("Google Docs timeout " + url);
+						trace(url);
+						if (tries < 3) {
+							VMM.fireEvent(global, VMM.Timeline.Config.events.messege, "Still waiting on Google Docs, trying again " + tries);
+							tries ++;
+							getjsondata.abort()
+							requestJsonData();
+						} else {
+							VMM.fireEvent(global, VMM.Timeline.Config.events.messege, "Google Docs is not responding");
+						}
+					}, 16000);
 					
-					VMM.getJSON(url, VMM.Timeline.DataObj.model.googlespreadsheet.buildData)
-						.error(function(jqXHR, textStatus, errorThrown) {
-							trace("Google Docs ERROR");
-							trace("Google Docs ERROR: " + textStatus + " " + jqXHR.responseText);
-						})
-						.success(function(d) {
+					function requestJsonData() {
+						getjsondata = VMM.getJSON(url, function(d) {
 							clearTimeout(timeout);
-						});
+							VMM.Timeline.DataObj.model.googlespreadsheet.buildData(d);
+						})
+							.error(function(jqXHR, textStatus, errorThrown) {
+								trace("Google Docs ERROR");
+								trace("Google Docs ERROR: " + textStatus + " " + jqXHR.responseText);
+							})
+							.success(function(d) {
+								clearTimeout(timeout);
+							});
+					}
+					
+					requestJsonData();
 				},
 				
 				buildData: function(d) {
-					var data_obj	= VMM.Timeline.DataObj.data_template_obj;
+					var data_obj	= VMM.Timeline.DataObj.data_template_obj,
+						is_valid	= false;
 					
-					VMM.fireEvent(global, VMM.Timeline.Config.events.messege, "Parsing Data");
+					VMM.fireEvent(global, VMM.Timeline.Config.events.messege, "Parsing Google Doc Data");
 					
 					function getGVar(v) {
 						if (typeof v != 'undefined') {
@@ -8938,57 +9072,257 @@ if (typeof VMM.Timeline !== 'undefined' && typeof VMM.Timeline.DataObj == 'undef
 							return "";
 						}
 					}
-
-					for(var i = 0; i < d.feed.entry.length; i++) {
-						var dd		= d.feed.entry[i],
-							dd_type	= "";
+					if (typeof d.feed.entry != 'undefined') {
+						is_valid = true;
 						
-						if (typeof dd.gsx$type != 'undefined') {
-							dd_type = dd.gsx$type.$t;
-						} else if (typeof dd.gsx$titleslide != 'undefined') {
-							dd_type = dd.gsx$titleslide.$t;
-						}
+						for(var i = 0; i < d.feed.entry.length; i++) {
+							var dd		= d.feed.entry[i],
+								dd_type	= "";
 						
-						if (dd_type.match("start") || dd_type.match("title") ) {
-							data_obj.timeline.startDate		= getGVar(dd.gsx$startdate);
-							data_obj.timeline.headline		= getGVar(dd.gsx$headline);
-							data_obj.timeline.asset.media	= getGVar(dd.gsx$media);
-							data_obj.timeline.asset.caption	= getGVar(dd.gsx$mediacaption);
-							data_obj.timeline.asset.credit	= getGVar(dd.gsx$mediacredit);
-							data_obj.timeline.text			= getGVar(dd.gsx$text);
-							data_obj.timeline.type			= "google spreadsheet";
-						} else if (dd_type.match("era")) {
-							var era = {
-								startDate:		getGVar(dd.gsx$startdate),
-								endDate:		getGVar(dd.gsx$enddate),
-								headline:		getGVar(dd.gsx$headline),
-								text:			getGVar(dd.gsx$text),
-								tag:			getGVar(dd.gsx$tag)
+							if (typeof dd.gsx$type != 'undefined') {
+								dd_type = dd.gsx$type.$t;
+							} else if (typeof dd.gsx$titleslide != 'undefined') {
+								dd_type = dd.gsx$titleslide.$t;
 							}
-							data_obj.timeline.era.push(era);
-						} else {
-							var date = {
-									type:			"google spreadsheet",
+						
+							if (dd_type.match("start") || dd_type.match("title") ) {
+								data_obj.timeline.startDate		= getGVar(dd.gsx$startdate);
+								data_obj.timeline.headline		= getGVar(dd.gsx$headline);
+								data_obj.timeline.asset.media	= getGVar(dd.gsx$media);
+								data_obj.timeline.asset.caption	= getGVar(dd.gsx$mediacaption);
+								data_obj.timeline.asset.credit	= getGVar(dd.gsx$mediacredit);
+								data_obj.timeline.text			= getGVar(dd.gsx$text);
+								data_obj.timeline.type			= "google spreadsheet";
+							} else if (dd_type.match("era")) {
+								var era = {
 									startDate:		getGVar(dd.gsx$startdate),
 									endDate:		getGVar(dd.gsx$enddate),
 									headline:		getGVar(dd.gsx$headline),
 									text:			getGVar(dd.gsx$text),
-									tag:			getGVar(dd.gsx$tag),
-									asset: {
-										media:		getGVar(dd.gsx$media),
-										credit:		getGVar(dd.gsx$mediacredit),
-										caption:	getGVar(dd.gsx$mediacaption),
-										thumbnail:	getGVar(dd.gsx$mediathumbnail)
-									}
-							};
+									tag:			getGVar(dd.gsx$tag)
+								}
+								data_obj.timeline.era.push(era);
+							} else {
+								var date = {
+										type:			"google spreadsheet",
+										startDate:		getGVar(dd.gsx$startdate),
+										endDate:		getGVar(dd.gsx$enddate),
+										headline:		getGVar(dd.gsx$headline),
+										text:			getGVar(dd.gsx$text),
+										tag:			getGVar(dd.gsx$tag),
+										asset: {
+											media:		getGVar(dd.gsx$media),
+											credit:		getGVar(dd.gsx$mediacredit),
+											caption:	getGVar(dd.gsx$mediacaption),
+											thumbnail:	getGVar(dd.gsx$mediathumbnail)
+										}
+								};
 							
-							data_obj.timeline.date.push(date);
-						}
-					};
-				
-					VMM.fireEvent(global, VMM.Timeline.Config.events.messege, "Finished Parsing Data");
+								data_obj.timeline.date.push(date);
+							}
+						};
+						
+					} else {
+						
+					}
 					
-					VMM.fireEvent(global, VMM.Timeline.Config.events.data_ready, data_obj);
+					
+					if (is_valid) {
+						VMM.fireEvent(global, VMM.Timeline.Config.events.messege, "Finished Parsing Data");
+						VMM.fireEvent(global, VMM.Timeline.Config.events.data_ready, data_obj);
+					} else {
+						VMM.fireEvent(global, VMM.Timeline.Config.events.messege, VMM.Language.messages.loading + " Google Doc Data (cells)");
+						trace("There may be too many entries. Still trying to load data. Now trying to load cells to avoid Googles limitation on cells");
+						VMM.Timeline.DataObj.model.googlespreadsheet.getDataCells(d.feed.link[0].href);
+					}
+				},
+				
+				getDataCells: function(raw) {
+					var getjsondata, key, url, timeout, tries = 0;
+					
+					key	= VMM.Util.getUrlVars(raw)["key"];
+					url	= "https://spreadsheets.google.com/feeds/cells/" + key + "/od6/public/values?alt=json";
+					
+					timeout = setTimeout(function() {
+						trace("Google Docs timeout " + url);
+						trace(url);
+						if (tries < 3) {
+							VMM.fireEvent(global, VMM.Timeline.Config.events.messege, "Still waiting on Google Docs, trying again " + tries);
+							tries ++;
+							getjsondata.abort()
+							requestJsonData();
+						} else {
+							VMM.fireEvent(global, VMM.Timeline.Config.events.messege, "Google Docs is not responding");
+						}
+					}, 16000);
+					
+					function requestJsonData() {
+						getjsondata = VMM.getJSON(url, function(d) {
+							clearTimeout(timeout);
+							VMM.Timeline.DataObj.model.googlespreadsheet.buildDataCells(d);
+						})
+							.error(function(jqXHR, textStatus, errorThrown) {
+								trace("Google Docs ERROR");
+								trace("Google Docs ERROR: " + textStatus + " " + jqXHR.responseText);
+							})
+							.success(function(d) {
+								clearTimeout(timeout);
+							});
+					}
+					
+					requestJsonData();
+				},
+				
+				buildDataCells: function(d) {
+					var data_obj	= VMM.Timeline.DataObj.data_template_obj,
+						is_valid	= false,
+						cellnames	= ["timeline"],
+						list 		= [],
+						max_row		= 0,
+						i			= 0,
+						k			= 0;
+					
+					VMM.fireEvent(global, VMM.Timeline.Config.events.messege, VMM.Language.messages.loading_timeline + " Parsing Google Doc Data (cells)");
+					
+					function getGVar(v) {
+						if (typeof v != 'undefined') {
+							return v.$t;
+						} else {
+							return "";
+						}
+					}
+					
+					if (typeof d.feed.entry != 'undefined') {
+						is_valid = true;
+						
+						// DETERMINE NUMBER OF ROWS
+						for(i = 0; i < d.feed.entry.length; i++) {
+							var dd				= d.feed.entry[i];
+							
+							if (parseInt(dd.gs$cell.row) > max_row) {
+								max_row = parseInt(dd.gs$cell.row);
+							}
+						}
+						
+						// CREATE OBJECT FOR EACH ROW
+						for(var i = 0; i < max_row + 1; i++) {
+							var date = {
+								type:			"",
+								startDate:		"",
+								endDate:		"",
+								headline:		"",
+								text:			"",
+								tag:			"",
+								asset: {
+									media:		"",
+									credit:		"",
+									caption:	"",
+									thumbnail:	""
+								}
+							};
+							list.push(date);
+						}
+						
+						// PREP GOOGLE DOC CELL DATA TO EVALUATE
+						for(i = 0; i < d.feed.entry.length; i++) {
+							var dd				= d.feed.entry[i],
+								dd_type			= "",
+								column_name		= "",
+								cell = {
+									content: 	getGVar(dd.gs$cell),
+									col: 		dd.gs$cell.col,
+									row: 		dd.gs$cell.row,
+									name: 		""
+								};
+								
+							//trace(cell);
+							
+							if (cell.row == 1) {
+								if (cell.content == "Start Date") {
+									column_name = "startDate";
+								} else if (cell.content == "End Date") {
+									column_name = "endDate";
+								} else if (cell.content == "Headline") {
+									column_name = "headline";
+								} else if (cell.content == "Text") {
+									column_name = "text";
+								} else if (cell.content == "Media") {
+									column_name = "media";
+								} else if (cell.content == "Media Credit") {
+									column_name = "credit";
+								} else if (cell.content == "Media Caption") {
+									column_name = "caption";
+								} else if (cell.content == "Media Thumbnail") {
+									column_name = "thumbnail";
+								} else if (cell.content == "Type") {
+									column_name = "type";
+								} else if (cell.content == "Tag") {
+									column_name = "tag";
+								}
+								
+								cellnames.push(column_name);
+								
+							} else {
+								cell.name = cellnames[cell.col];
+								list[cell.row][cell.name] = cell.content;
+							}
+							
+						};
+						
+
+						for(i = 0; i < list.length; i++) {
+							var date	= list[i];
+							
+							if (date.type.match("start") || date.type.match("title") ) {
+								data_obj.timeline.startDate		= date.startDate;
+								data_obj.timeline.headline		= date.headline;
+								data_obj.timeline.asset.media	= date.media;
+								data_obj.timeline.asset.caption	= date.caption;
+								data_obj.timeline.asset.credit	= date.credit;
+								data_obj.timeline.text			= date.text;
+								data_obj.timeline.type			= "google spreadsheet";
+							} else if (date.type.match("era")) {
+								var era = {
+									startDate:		date.startDate,
+									endDate:		date.endDate,
+									headline:		date.headline,
+									text:			date.text,
+									tag:			date.tag
+								}
+								data_obj.timeline.era.push(era);
+							} else {
+								var date = {
+										type:			"google spreadsheet",
+										startDate:		date.startDate,
+										endDate:		date.endDate,
+										headline:		date.headline,
+										text:			date.text,
+										tag:			date.tag,
+										asset: {
+											media:		date.media,
+											credit:		date.credit,
+											caption:	date.caption,
+											thumbnail:	date.thumbnail
+										}
+								};
+							
+								data_obj.timeline.date.push(date);
+							}
+							
+						}
+						
+						//trace(cellnames);
+						//trace(max_row);
+						//trace(list);
+						
+					}
+					
+					if (is_valid) {
+						VMM.fireEvent(global, VMM.Timeline.Config.events.messege, "Finished Parsing Data");
+						VMM.fireEvent(global, VMM.Timeline.Config.events.data_ready, data_obj);
+					} else {
+						VMM.fireEvent(global, VMM.Timeline.Config.events.messege, "Unable to load Google Doc data source");
+					}
 				}
 				
 			},

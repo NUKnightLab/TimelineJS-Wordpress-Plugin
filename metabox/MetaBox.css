@@ -1,0 +1,50 @@
+.timeline-metabox .w50 input[type="radio"] {
+  width: auto;
+}
+.timeline-metabox .w25 {
+  width: 25% !important;
+}
+.timeline-metabox .w33 {
+  width: 33.33% !important;
+}
+.timeline-metabox .w50 {
+  width: 48% !important;
+}
+.timeline-metabox .w66 {
+  width: 66.66% !important;
+}
+.timeline-metabox .w75 {
+  width: 75% !important;
+}
+.timeline-metabox .w100 {
+  width: 100% !important;
+}
+.timeline-metabox .f25 {
+  width: 25px !important;
+}
+.timeline-metabox .f33 {
+  width: 33px !important;
+}
+.timeline-metabox .f50 {
+  width: 50px !important;
+}
+.timeline-metabox .f67 {
+  width: 67px !important;
+}
+.timeline-metabox .f75 {
+  width: 75px !important;
+}
+.timeline-metabox .f100 {
+  width: 100px !important;
+}
+.timeline-metabox .left {
+  clear: none;
+  float: left;
+}
+.timeline-metabox .right {
+  clear: none;
+  float: right;
+}
+.timeline-metabox .textright {
+  text-align: right;
+}

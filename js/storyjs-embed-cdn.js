@@ -1,5 +1,5 @@
 /*
-	VéritéCo Timeline CDN 2.1
+	VéritéCo Timeline CDN 2.2
 	Designed and built by Zach Wise digitalartwork.net
 *//* 	CodeKit Import
 	http://incident57.com/codekit/

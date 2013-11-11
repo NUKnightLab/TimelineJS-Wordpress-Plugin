@@ -75,26 +75,28 @@ function verite_timeline_shortcode($atts, $content=null) {
 */
 
 add_action('media_buttons_context', 'verite_timeline_tinymce_button');
-global $pagenow;
-if($pagenow == 'post.php' || $pagenow == 'page.php' || $pagenow == 'page-new.php' || $pagenow == 'post-new.php') {
-    add_action('admin_footer', 'verite_timeline_tinymce');
-}
 
-function verite_timeline_tinymce_button($context){
-    global $pagenow;
-    $is_post_edit_page = in_array($pagenow, array('post.php', 'page.php', 'page-new.php', 'post-new.php'));
-    if(!$is_post_edit_page)
-        return $context;
-
-    $image_btn = VERITETIMELINE_URL . "/button-tinymce.png";
-    $out = '<a href="#TB_inline?inlineId=add_timeline_form" class="thickbox" id="add_timeline" title="' . __('Insert Timeline', 'verite-timeline') . '"><img src="'.$image_btn.'" alt="' . __('Insert Timeline', 'verite-timeline') . '" /></a>';
-    return $context . $out;
-}
+// Add content for creating a timeline
+add_action('admin_footer', 'verite_timeline_tinymce');
 
 // TinyMCE Button for the shortcode
-function verite_timeline_tinymce(){
-    ?>
-    <script type="text/javascript">
+function verite_timeline_tinymce_button($context) {
+  
+  $img = VERITETIMELINE_URL . "/button-tinymce.png";
+  $container_id = 'add_timeline_form';
+  $title = __('Insert Timeline', 'verite-timeline');
+
+  //append the icon
+  $context .= "<a class='thickbox' title='{$title}' id='add_timeline'
+    href='#TB_inline?width=400&inlineId={$container_id}'>
+    <img src='{$img}' /></a>";
+  
+  return $context;
+}
+
+function verite_timeline_tinymce() {
+?>
+<script type="text/javascript">
         function insertTimeline(){
             var data_src = jQuery('#timeline_data_src').val();
             var width = jQuery('#timeline_width').val();

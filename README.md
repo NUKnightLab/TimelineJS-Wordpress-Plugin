@@ -4,7 +4,7 @@ Contributors: miguelpeixe, zachwise
 Tags: timeline, shortcode, stamen, timeline.verite.co, VeriteCo, HTML5
 Requires at least: 2.0.2
 Tested up to: 3.3.2
-Stable tag: 2.11.1
+Stable tag: 2.26.3
 
 Use TimelineJS developed by VéritéCo for your Wordpress site. As easy as writing a shortcode.
 
@@ -83,31 +83,50 @@ Here are some of the options you can set in the config.
 ### Language
 `lang`
 Localization
-*default is en*
+*default is `en` English*
 Languages available:
-* `en` *English*
-* `fr` *Français*
-* `es` *Español*
-* `de` *Deutsch*
-* `it` *Italiano*
-* `pt-br` *Português Brazil*
-* `pt` *Português*
-* `nl` *Dutch*
+* `af` *Afrikaans*
+* `ar` *Arabic (beta)*
+* `bg` *Bulgarian*
+* `ca` *Catalan*
 * `cz` *Czech*
-* `dk` *Danish*
+* `da` *Danish*
+* `de` *German / Deutsch*
+* `el` *Greek*
+* `en` *English*
+* `es` *Spanish*
+* `eu` *Basque/ Euskara*
+* `fi` *Finnish*
+* `fo` *Faroese*
+* `fr` *French*
+* `gl` *Galician*
+* `hu` *Hungarian*
+* `hy` *Armenian*
 * `id` *Indonesian*
+* `is` *Icelandic*
+* `it` *Italian*
+* `iw` *Hebrew (beta)*
+* `ja` *Japanese*
+* `ka` *Georgian*
+* `ko` *Korean*
+* `lv` *Latvian*
+* `nl` *Dutch*
+* `no` *Norwegian*
 * `pl` *Polish*
-* `sl` *Slovenian*
+* `pt-br` *Brazilian Portuguese*
+* `pt` *Portuguese*
 * `ru` *Russian*
 * `sk` *Slovak*
-* `is` *Icelandic*
-* `fo` *Faroese*
-* `kr` *월요일*
-* `ja` *日本語*
-* `zh-ch` *中文*
-* `zh-tw` *Taiwanese Mandarin*
-* `ta` *தமிழ் - Tamil*
-* `ar` *Arabic* *May be issues with right to left (need some help here)* 
+* `sl` *Slovenian*
+* `sr-cy` *Serbian (Cyrillic)*
+* `sr` *Serbian (Latin)*
+* `sv` *Swedish*
+* `ta` *Tamil*
+* `tl` *Tagalog*
+* `tr` *Turkish*
+* `zh-cn` *Chinese*
+* `zh-tw` *Taiwanese*
+
 
 Help us add more. Grab a copy of a language file and replace it with your language [Example language file](https://github.com/VeriteCo/StoryJS-Core/blob/master/Language/locale/en.js) and find your language's [two letter code here](http://spreadsheets.google.com/pub?key=p9pdwsai2hDMsLkXsoM05KQ&gid=1)
 
@@ -192,6 +211,9 @@ License, v. 2.0. If a copy of the MPL was not distributed with this
 file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 ## Changelog
+### 2.26.3 ###
+* Update Timeline to the latest version
+
 ### 2.11.1 ###
 * Update Timeline to the latest version
 

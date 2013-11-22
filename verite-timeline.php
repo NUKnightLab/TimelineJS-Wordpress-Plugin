@@ -102,8 +102,9 @@ function verite_timeline_tinymce() {
             var width = jQuery('#timeline_width').val();
             var height = jQuery('#timeline_height').val();
             var maptype = jQuery('#timeline_maptype').val();
+            var lang = jQuery('#timeline_lang').val();
 
-            window.send_to_editor("[timeline src=\"" + data_src + "\" width=\"" + width + "\" height=\"" + height + "\" maptype=\"" + maptype + "\"]");
+            window.send_to_editor("[timeline src=\"" + data_src + "\" width=\"" + width + "\" height=\"" + height + "\" maptype=\"" + maptype + "\" lang=\"" + lang + "\" ]");
         }
     </script>
 
@@ -147,6 +148,62 @@ function verite_timeline_tinymce() {
                                         <option value="HYBRID">Google Maps: Hybrid</option>
                                     </select><br/>
                                     <small><a href="http://maps.stamen.com/" target="_blank"><?php _e('Learn more about the map styles', 'verite-timeline'); ?></a></small></td>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td valign="top" style="padding: 0 15px 5px 0;"><label for="timeline_maptype"><?php _e('Maptype', 'verite-timeline'); ?></label></td>
+                                <td style="padding: 0 0 10px;">
+                                    <select id="timeline_lang">
+                                        <option value="en">English</option>
+                                        <option value="en-24hr">English (24-hour time)</option>
+                                        <option value="af">Afrikaans</option>
+                                        <option value="ar">Arabic</option>
+                                        <option value="hy">Armenian</option>
+                                        <option value="eu">Basque</option>
+                                        <option value="bg">Bulgarian</option>
+                                        <option value="ca">Catalan</option>
+                                        <option value="zh-ch">Chinese</option>
+                                        <option value="cz">Czech</option>
+                                        <option value="da">Danish</option>
+                                        <option value="nl">Dutch</option>
+                                        <option value="eo">Esperanto</option>
+                                        <option value="et">Estonian</option>
+                                        <option value="fo">Faroese</option>
+                                        <option value="fi">Finnish</option>
+                                        <option value="fr">French</option>
+                                        <option value="gl">Galician</option>
+                                        <option value="ka">Georgian</option>
+                                        <option value="de">German / Deutsch</option>
+                                        <option value="el">Greek</option>
+                                        <option value="he">Hebrew</option>
+                                        <option value="hu">Hungarian</option>
+                                        <option value="is">Icelandic</option>
+                                        <option value="id">Indonesian</option>
+                                        <option value="it">Italian</option>
+                                        <option value="ja">Japanese</option>
+                                        <option value="ko">Korean</option>
+                                        <option value="lv">Latvian</option>
+                                        <option value="lb">Luxembourgish</option>
+                                        <option value="ms">Malay</option>
+                                        <option value="no">Norwegian</option>
+                                        <option value="pl">Polish</option>
+                                        <option value="pt">Portuguese</option>
+                                        <option value="pt-br">Portuguese (Brazilian)</option>
+                                        <option value="rm">Romansh</option>
+                                        <option value="ru">Russian</option>
+                                        <option value="sr-cy">Serbian - Cyrillic</option>
+                                        <option value="sr">Serbian - Latin</option>
+                                        <option value="si">Sinhalese</option>
+                                        <option value="sk">Slovak</option>
+                                        <option value="sl">Slovenian</option>
+                                        <option value="es">Spanish</option>
+                                        <option value="sv">Swedish</option>
+                                        <option value="ta">Tamil</option>
+                                        <option value="tl">Tagalog</option>
+                                        <option value="te">Telugu</option>
+                                        <option value="tr">Turkish</option>
+                                        <option value="zh-tw">Taiwanese</option>
+                                    </select><br/>
                                 </td>
                             </tr>
                         </tbody>

@@ -1,20 +1,20 @@
-=== VéritéCo Timeline ===
-Contributors: miguelpeixe, zachwise
+=== Knight Lab Timeline ===
+Contributors: miguelpeixe, zachwise, KnightLab
 Donate link: http://cardume.art.br/
-Tags: timeline, shortcode, stamen, timeline.verite.co, verite, html5
+Tags: timeline, shortcode, stamen, timeline.verite.co, verite, html5, KnightLab
 Requires at least: 2.0.2
-Tested up to: 3.3.2
-Stable tag: 0.9.7
+Tested up to: 3.7.1
+Stable tag: 1.0.0
 
-Use the incredible HTML5 Timeline developed by VéritéCo on your website. As easy as writing a shortcode.
+Use the incredible HTML5 Timeline developed by Knight Lab on your website. As easy as writing a shortcode.
 
 == Description ==
 
-A simple shortcode plugin to add the Timeline made by [VéritéCo](http://verite.co/).
+A simple shortcode plugin to add the TimelineJS made by Knight Lab.
 
-Supports custom width and height, [custom map styles by Stamen](http://maps.stamen.com/#content "Check the website for all the possible styles"), [Google Spreadsheet and JSON data sources](http://timeline.verite.co/#fileformat "Learn how to create your data source") and many more.
+Supports custom width and height, [custom map styles by Stamen](http://maps.stamen.com/#content "Check the website for all the possible styles"), [Google Spreadsheet and JSON data sources](http://timeline.knightlab.com/ "Learn how to create your data source") and many more.
 
-Checkout how to create your amazing Timeline at http://timeline.verite.co/
+Checkout how to create your amazing Timeline at http://timeline.knightlab.com/
 
 To embed your timeline use the button located at the post content editor (TinyMCE).
 
@@ -25,22 +25,54 @@ To embed your timeline use the button located at the post content editor (TinyMC
 `<?php echo do_shortcode('[timeline src="Your source url here"]'); ?>`
 
 **Supported languages**
+* Afrikaans
+* Arabic (beta)
+* Bulgarian
+* Catalan
+* Czech
+* Danish
+* German / Deutsch
+* Greek
+* English
+* Spanish
+* Basque/ Euskara
+* Finnish
+* Faroese
+* French
+* Galician
+* Hungarian
+* Armenian
+* Indonesian
+* Icelandic
+* Italian
+* Hebrew (beta)
+* Japanese
+* Georgian
+* Korean
+* Latvian
+* Dutch
+* Norwegian
+* Polish
+* Brazilian Portuguese
+* Portuguese
+* Russian
+* Slovak
+* Slovenian
+* Serbian (Cyrillic)
+* Serbian (Latin)
+* Swedish
+* Tamil
+* Tagalog
+* Turkish
+* Chinese
+* Taiwanese
 
-*	English
-*	Brazilian Portuguese
-*	French
-*	Spanish
-*	German - Deutsch
-*	Italian
-*	Korean
-*	Chinese
-*	Taiwanese
 
 == Installation ==
 
 1. Upload the plugin to the `/wp-content/plugins/` directory
 1. Activate the plugin through the 'Plugins' menu in WordPress
-1. Learn how to create the Timeline source at http://timeline.verite.co/#fileformat
+1. Learn how to create the Timeline source at http://timeline.knightlab.com/
 1. Use the shortcode on your post/page: `[timeline src="Your source url here"]`
 
 **Extra tip** - If you want do embed outside of a post, use the following code on your template:
@@ -48,43 +80,9 @@ To embed your timeline use the button located at the post content editor (TinyMC
 
 
 == Changelog ==
+= 1.0.0 =
+* First stable release
 
-= 0.9.7 =
-* Update Timeline to the latest version
-
-= 0.9.6 =
-* Update Timeline to the latest version
-
-= 0.9.5 =
-* Update Timeline to the latest version
-
-= 0.9.4 =
-* Local storing Timeline files
-* Adding more map style options for TinyMCE
-
-= 0.9.3 =
-* l18n support for TinyMCE
-* Brazilian Portuguese translation for TinyMCE
-
-= 0.9.2 =
-* Added TinyMCE button
-
-= 0.9.1 =
-* Small bugfix for default width/height
-
-= 0.9 =
-* Language support based on WordPress locale:
-  * Brazilian Portuguese
-  * French
-  * Spanish
-  * German - Deutsch
-  * Italian
-  * Korean
-  * Chinese
-  * Taiwanese
-
-= 0.8 =
-* First stable release.
 
 == Shortcode options ==
 

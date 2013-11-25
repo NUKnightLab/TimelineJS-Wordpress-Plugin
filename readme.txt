@@ -78,6 +78,7 @@ To embed your timeline use the button located at the post content editor (TinyMC
 **Extra tip** - If you want do embed outside of a post, use the following code on your template:
 `<?php echo do_shortcode('[timeline src="Your source url here"]'); ?>`
 
+Alternatively, you can use the TinyMCE button to create your own shortcode as well. 
 
 == Changelog ==
 = 1.0.0 =

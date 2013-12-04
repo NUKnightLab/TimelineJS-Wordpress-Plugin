@@ -82,14 +82,13 @@ add_action('admin_footer', 'kl_timeline_tinymce');
 // TinyMCE Button for the shortcode
 function kl_timeline_tinymce_button($context) {
   
-  $img = KL_TIMELINE_URL . "/insert-button.png";
+  $img = KL_TIMELINE_URL . "knight-diamond.png";
   $container_id = 'add_timeline_form';
   $title = __('Insert Timeline', 'kl-timeline');
 
   //append the icon
-  $context .= "<a class='thickbox' title='{$title}' id='add_timeline'
-    href='#TB_inline?width=400&inlineId={$container_id}'>
-    <img src='{$img}' /></a>";
+  $context .= "<a class='thickbox button' style='background: url({$img}) no-repeat 3px 3px; padding-left: 20px' title='{$title}' id='add_timeline'
+    href='#TB_inline?width=400&inlineId={$container_id}'> Add Timeline</a>";
   
   return $context;
 }

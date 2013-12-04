@@ -1,12 +1,12 @@
 # TimelineJS 
 ## Document history with TimelineJS
 Contributors: miguelpeixe, zachwise
-Tags: timeline, shortcode, stamen, timeline.verite.co, VeriteCo, HTML5
+Tags: timeline, shortcode, KnightLab, NorthwesternUniversity
 Requires at least: 2.0.2
 Tested up to: 3.3.2
-Stable tag: 2.26.3
+Stable tag: 2.26.5
 
-Use TimelineJS developed by VéritéCo for your Wordpress site. As easy as writing a shortcode.
+Use the [Northwestern University Knight Lab](http://KnightLab.Northwestern.edu)'s [TimelineJS](http://timeline.knightlab.com) on your Wordpress site. As easy as writing a shortcode.
 
 ## Description
 
@@ -14,15 +14,13 @@ There are lots of timeline tools on the web but they are almost all either
 hard on the eyes or hard to use. Create timelines that are at the same time
 beautiful and intuitive for users
 
-TimelineJS is great for pulling in media from different sources. Just throw in a
-link from Twitter, YouTube, Flickr, Vimeo, Google Maps or SoundCloud and
+TimelineJS is great for pulling in media from different sources. Just throw in 
+a link from Twitter, YouTube, Flickr, Vimeo, Google Maps or SoundCloud and
 TimelineJS will format it to fit perfectly. More media types will be supported
 in the future.
 
-Creating one is as easy as filling in a Google spreadsheet or as detailed as
-JSON.
+Creating one is as easy as filling in a Google spreadsheet. If you want to take more control, you can write JSON configuration.
 
-A simple shortcode plugin to add the TimelineJS made by [VéritéCo](http://verite.co/).
 To embed your timeline use the button located at the post content editor (TinyMCE).
 
 **You can also embed the Timeline on your post using this shortcode :**
@@ -36,10 +34,10 @@ To embed your timeline use the button located at the post content editor (TinyMC
 
 1. Upload the plugin to the `/wp-content/plugins/` directory
 1. Activate the plugin through the 'Plugins' menu in WordPress
-1. Learn how to create the TimelineJS source at http://timeline.verite.co/#fileformat
+1. Learn how to create the TimelineJS source at http://timeline.knightlab.com
 1. Use the shortcode on your post/page: `[timeline src="Your source url here"]`
 
-**Extra tip** - If you want do embed outside of a post, use the following code on your template:
+**Extra tip** - If you want to embed outside of a post, use the following code on your template:
 `<?php echo do_shortcode('[timeline src="Your source url here"]'); ?>`
 
 ## File Formats
@@ -55,7 +53,11 @@ You can find the template here: [TimelineJS Google Spreadsheet Template](https:/
 There are only a couple things you need to know in order to create a timeline
 using Google Docs:
 
-  1. Make the spreadsheet public:   
+  1. Don't delete or change the header row in any way.
+  
+  2. Don't have any blank rows in your spreadsheet. 
+  
+  3. Make the spreadsheet public:   
 	Google Docs are automatically set to private but the spreadsheet must be
 	public.
 	
@@ -64,71 +66,22 @@ using Google Docs:
 	“Change...”. In the Visibility options window, choose “Public on the Web” and
 	save.
 
-  2. Publish to the Web  
+  4. Publish to the Web  
 	Under the File menu, select “Publish to the Web.”
 	
 	In the next window, check the box next to “Automatically republish when
 	changes are made.” Uncheck all other boxes. Click “start publishing.” This
 	will give you the URL to embed in your HTML file.
 
-  3. Copy/paste the Web URL into your TimelineJS HTML file  
+  5. Copy/paste the Web URL into the 'src' in your short code.
 	After you publish the spreadsheet, Google Docs will generate a link to the
 	file. Copy the link for the Web Page option (as opposed to PDF, HTML, XLS,
-	etc.), then paste it into the timeline’s HTML file (see [Add it to your site](#add-it-to-your-site) )
+	etc.), then paste it into the 'src' attribute in your shortcode.
 
 
 ## Shortcode Options
 Here are some of the options you can set in the config.
 
-### Language
-`lang`
-Localization
-*default is `en` English*
-Languages available:
-* `af` *Afrikaans*
-* `ar` *Arabic (beta)*
-* `bg` *Bulgarian*
-* `ca` *Catalan*
-* `cz` *Czech*
-* `da` *Danish*
-* `de` *German / Deutsch*
-* `el` *Greek*
-* `en` *English*
-* `es` *Spanish*
-* `eu` *Basque/ Euskara*
-* `fi` *Finnish*
-* `fo` *Faroese*
-* `fr` *French*
-* `gl` *Galician*
-* `hu` *Hungarian*
-* `hy` *Armenian*
-* `id` *Indonesian*
-* `is` *Icelandic*
-* `it` *Italian*
-* `iw` *Hebrew (beta)*
-* `ja` *Japanese*
-* `ka` *Georgian*
-* `ko` *Korean*
-* `lv` *Latvian*
-* `nl` *Dutch*
-* `no` *Norwegian*
-* `pl` *Polish*
-* `pt-br` *Brazilian Portuguese*
-* `pt` *Portuguese*
-* `ru` *Russian*
-* `sk` *Slovak*
-* `sl` *Slovenian*
-* `sr-cy` *Serbian (Cyrillic)*
-* `sr` *Serbian (Latin)*
-* `sv` *Swedish*
-* `ta` *Tamil*
-* `tl` *Tagalog*
-* `tr` *Turkish*
-* `zh-cn` *Chinese*
-* `zh-tw` *Taiwanese*
-
-
-Help us add more. Grab a copy of a language file and replace it with your language [Example language file](https://github.com/VeriteCo/StoryJS-Core/blob/master/Language/locale/en.js) and find your language's [two letter code here](http://spreadsheets.google.com/pub?key=p9pdwsai2hDMsLkXsoM05KQ&gid=1)
 
 ###Start at End 
 `start_at_end`
@@ -193,8 +146,67 @@ Due to recent changes to the Google Maps API, you need a [API Key](https://devel
 * `Pacifico-Arimo`
 * Or make your own
 
+### Language
+`lang`
+Localization
+*default is `en` English*
+Languages available:
+* `en` *English*
+* `en-24hr` *English (24-hour time)*
+* `af` *Afrikaans*
+* `ar` *Arabic*
+* `hy` *Armenian*
+* `eu` *Basque*
+* `bg` *Bulgarian*
+* `ca` *Catalan*
+* `zh-ch` *Chinese*
+* `cz` *Czech*
+* `da` *Danish*
+* `nl` *Dutch*
+* `eo` *Esperanto*
+* `et` *Estonian*
+* `fo` *Faroese*
+* `fi` *Finnish*
+* `fr` *French*
+* `gl` *Galician*
+* `ka` *Georgian*
+* `de` *German / Deutsch*
+* `el` *Greek*
+* `he` *Hebrew*
+* `hu` *Hungarian*
+* `is` *Icelandic*
+* `id` *Indonesian*
+* `it` *Italian*
+* `ja` *Japanese*
+* `ko` *Korean*
+* `lv` *Latvian*
+* `lb` *Luxembourgish*
+* `ms` *Malay*
+* `ne` *Nepali*
+* `no` *Norwegian*
+* `pl` *Polish*
+* `pt` *Portuguese*
+* `pt-br` *Portuguese (Brazilian)*
+* `rm` *Romansh*
+* `ru` *Russian*
+* `sr-cy` *Serbian - Cyrillic*
+* `sr` *Serbian - Latin*
+* `si` *Sinhalese*
+* `sk` *Slovak*
+* `sl` *Slovenian*
+* `es` *Spanish*
+* `sv` *Swedish*
+* `tl` *Tagalog*
+* `zh-tw` *Taiwanese*
+* `ta` *Tamil*
+* `te` *Telugu*
+* `tr` *Turkish*
+
+Help us add more. Grab a copy of a language file and replace it with your language [Example language file](https://github.com/NUKnightLab/TimelineJS/blob/master/source/js/Core/Language/locale/en.js) and find your language's [two letter code here](http://spreadsheets.google.com/pub?key=p9pdwsai2hDMsLkXsoM05KQ&gid=1)
+
+
 ####Font Combination Preview:
-![Font Combination Preview](http://timeline.verite.co/gfx/font-options.png)
+![Font Combination Preview](http://timeline.knightlab.com/static/img/make/font-options.png)
   
 ## Best practices
 

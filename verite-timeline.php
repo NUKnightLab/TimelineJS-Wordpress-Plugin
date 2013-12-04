@@ -1,7 +1,7 @@
 <?php
 /*
-Plugin Name: VeriteCo TimelineS
-Plugin URI: http://timeline.verite.co
+Plugin Name: TimelineJS from Northwestern University Knight Lab
+Plugin URI: http://timeline.knightlab.com
 Description: A simple shortcode to display TimelineJS.
 */
 
@@ -11,22 +11,22 @@ License, v. 2.0. If a copy of the MPL was not distributed with this
 file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
 
-define( 'VERITETIMELINE_URL', plugin_dir_url(__FILE__) );
+define( 'KL_TIMELINE_URL', plugin_dir_url(__FILE__) );
 
-add_action('init', 'verite_timeline_scripts');
-function verite_timeline_scripts() {
+add_action('init', 'kl_timeline_scripts');
+function kl_timeline_scripts() {
     wp_enqueue_script('jquery');
-    wp_register_script('verite-timeline-embed', plugin_dir_url( __FILE__).'js/storyjs-embed.js', array('jquery'), false, TRUE);
+    wp_register_script('kl-timeline-embed', plugin_dir_url( __FILE__).'js/storyjs-embed.js', array('jquery'), false, TRUE);
 }
 
-add_action('init', 'verite_timeline_textdomain');
-function verite_timeline_textdomain() {
+add_action('init', 'kl_timeline_textdomain');
+function kl_timeline_textdomain() {
     $plugin_dir = basename(dirname(__FILE__));
-    load_plugin_textdomain('verite-timeline', false, $plugin_dir . '/languages/');
+    load_plugin_textdomain('kl-timeline', false, $plugin_dir . '/languages/');
 }
 
-add_shortcode('timeline', 'verite_timeline_shortcode');
-function verite_timeline_shortcode($atts, $content=null) {
+add_shortcode('timeline', 'kl_timeline_shortcode');
+function kl_timeline_shortcode($atts, $content=null) {
         extract(shortcode_atts(
                 array(
             'title' => '',
@@ -46,7 +46,7 @@ function verite_timeline_shortcode($atts, $content=null) {
 
         if(!$src) return false;
 
-        wp_enqueue_script('verite-timeline-embed');
+        wp_enqueue_script('kl-timeline-embed');
         
         $shortcode = '
     <div id="timeline-embed"></div>
@@ -74,17 +74,17 @@ function verite_timeline_shortcode($atts, $content=null) {
     TinyMCE
 */
 
-add_action('media_buttons_context', 'verite_timeline_tinymce_button');
+add_action('media_buttons_context', 'kl_timeline_tinymce_button');
 
 // Add content for creating a timeline
-add_action('admin_footer', 'verite_timeline_tinymce');
+add_action('admin_footer', 'kl_timeline_tinymce');
 
 // TinyMCE Button for the shortcode
-function verite_timeline_tinymce_button($context) {
+function kl_timeline_tinymce_button($context) {
   
-  $img = VERITETIMELINE_URL . "/button-tinymce.png";
+  $img = KL_TIMELINE_URL . "/button-tinymce.png";
   $container_id = 'add_timeline_form';
-  $title = __('Insert Timeline', 'verite-timeline');
+  $title = __('Insert Timeline', 'kl-timeline');
 
   //append the icon
   $context .= "<a class='thickbox' title='{$title}' id='add_timeline'
@@ -94,7 +94,7 @@ function verite_timeline_tinymce_button($context) {
   return $context;
 }
 
-function verite_timeline_tinymce() {
+function kl_timeline_tinymce() {
 ?>
 <script type="text/javascript">
         function insertTimeline(){
@@ -112,29 +112,29 @@ function verite_timeline_tinymce() {
         <div class="wrap">
             <div>
                 <div style="padding:15px 15px 0 15px;">
-                    <h3 style="color:#5A5A5A!important; font-family:Georgia,Times New Roman,Times,serif!important; font-size:1.8em!important; font-weight:normal!important;"><?php _e('Insert Timeline', 'verite-timeline'); ?></h3>
+                    <h3 style="color:#5A5A5A!important; font-family:Georgia,Times New Roman,Times,serif!important; font-size:1.8em!important; font-weight:normal!important;"><?php _e('Insert Timeline', 'kl-timeline'); ?></h3>
                     <span>
-                        <?php _e('Configurate your Timeline and add it to your post', 'verite-timeline'); ?>
+                        <?php _e('Configurate your Timeline and add it to your post', 'kl-timeline'); ?>
                     </span>
                 </div>
                 <div style="padding:15px 15px 0 15px;">
                     <table>
                         <tbody>
                             <tr>
-                                <td valign="top" style="padding: 0 15px 5px 0;"><label for="timeline_data_src"><?php _e('Data source', 'verite-timeline'); ?></label></td>
+                                <td valign="top" style="padding: 0 15px 5px 0;"><label for="timeline_data_src"><?php _e('Data source', 'kl-timeline'); ?></label></td>
                                 <td style="padding: 0 0 10px;"><input type="text" id="timeline_data_src" size="75" /><br/>
-                                    <small><a href="http://timeline.verite.co/#fileformat" target="_blank"><?php _e('Learn how to create your timeline', 'verite-timeline'); ?></a></small></td>
+                                    <small><a href="http://timeline.verite.co/#fileformat" target="_blank"><?php _e('Learn how to create your timeline', 'kl-timeline'); ?></a></small></td>
                             </tr>
                             <tr>
-                                <td valign="top" style="padding: 0 15px 5px 0;"><label for="timeline_width"><?php _e('Width', 'verite-timeline'); ?></label></td>
+                                <td valign="top" style="padding: 0 15px 5px 0;"><label for="timeline_width"><?php _e('Width', 'kl-timeline'); ?></label></td>
                                 <td style="padding: 0 0 10px;"><input type="text" id="timeline_width" size="5" value="100%" /></td>
                             </tr>
                             <tr>
-                                <td valign="top" style="padding: 0 15px 5px 0;"><label for="timeline_height"><?php _e('Height', 'verite-timeline'); ?></label></td>
+                                <td valign="top" style="padding: 0 15px 5px 0;"><label for="timeline_height"><?php _e('Height', 'kl-timeline'); ?></label></td>
                                 <td style="padding: 0 0 10px;"><input type="text" id="timeline_height" size="5" value="650" /></td>
                             </tr>
                             <tr>
-                                <td valign="top" style="padding: 0 15px 5px 0;"><label for="timeline_maptype"><?php _e('Maptype', 'verite-timeline'); ?></label></td>
+                                <td valign="top" style="padding: 0 15px 5px 0;"><label for="timeline_maptype"><?php _e('Maptype', 'kl-timeline'); ?></label></td>
                                 <td style="padding: 0 0 10px;">
                                     <select id="timeline_maptype">
                                         <option value="toner">Stamen Maps: Toner</option>
@@ -147,11 +147,11 @@ function verite_timeline_tinymce() {
                                         <option value="TERRAIN">Google Maps: Terrain</option>
                                         <option value="HYBRID">Google Maps: Hybrid</option>
                                     </select><br/>
-                                    <small><a href="http://maps.stamen.com/" target="_blank"><?php _e('Learn more about the map styles', 'verite-timeline'); ?></a></small></td>
+                                    <small><a href="http://maps.stamen.com/" target="_blank"><?php _e('Learn more about the map styles', 'kl-timeline'); ?></a></small></td>
                                 </td>
                             </tr>
                             <tr>
-                                <td valign="top" style="padding: 0 15px 5px 0;"><label for="timeline_maptype"><?php _e('Maptype', 'verite-timeline'); ?></label></td>
+                                <td valign="top" style="padding: 0 15px 5px 0;"><label for="timeline_maptype"><?php _e('Maptype', 'kl-timeline'); ?></label></td>
                                 <td style="padding: 0 0 10px;">
                                     <select id="timeline_lang">
                                         <option value="en">English</option>
@@ -210,8 +210,8 @@ function verite_timeline_tinymce() {
                     </table>
                 </div>
                 <div style="padding:15px;">
-                    <input type="button" class="button-primary" value="<?php _e('Insert Timeline', 'verite-timeline'); ?>" onclick="insertTimeline();"/>
-                    <a class="button" style="color:#bbb;" href="#" onclick="tb_remove(); return false;"><?php _e('Cancel', 'verite-timeline'); ?></a>
+                    <input type="button" class="button-primary" value="<?php _e('Insert Timeline', 'kl-timeline'); ?>" onclick="insertTimeline();"/>
+                    <a class="button" style="color:#bbb;" href="#" onclick="tb_remove(); return false;"><?php _e('Cancel', 'kl-timeline'); ?></a>
                 </div>
             </div>
         </div>

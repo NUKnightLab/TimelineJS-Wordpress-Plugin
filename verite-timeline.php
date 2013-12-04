@@ -82,7 +82,7 @@ add_action('admin_footer', 'kl_timeline_tinymce');
 // TinyMCE Button for the shortcode
 function kl_timeline_tinymce_button($context) {
   
-  $img = KL_TIMELINE_URL . "/button-tinymce.png";
+  $img = KL_TIMELINE_URL . "/insert-button.png";
   $container_id = 'add_timeline_form';
   $title = __('Insert Timeline', 'kl-timeline');
 
@@ -103,8 +103,9 @@ function kl_timeline_tinymce() {
             var height = jQuery('#timeline_height').val();
             var maptype = jQuery('#timeline_maptype').val();
             var lang = jQuery('#timeline_lang').val();
+            var font = jQuery('#timeline_font').val();
 
-            window.send_to_editor("[timeline src=\"" + data_src + "\" width=\"" + width + "\" height=\"" + height + "\" maptype=\"" + maptype + "\" lang=\"" + lang + "\" ]");
+            window.send_to_editor("[timeline src=\"" + data_src + "\" width=\"" + width + "\" height=\"" + height + "\" font=\"" + font + "\" maptype=\"" + maptype + "\" lang=\"" + lang + "\" ]");
         }
     </script>
 

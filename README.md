@@ -3,7 +3,7 @@
 Contributors: miguelpeixe, zachwise
 Tags: timeline, shortcode, KnightLab, NorthwesternUniversity
 Requires at least: 2.0.2
-Tested up to: 3.3.2
+Tested up to: 3.7.1
 Stable tag: 2.26.5
 
 Use the [Northwestern University Knight Lab](http://KnightLab.Northwestern.edu)'s [TimelineJS](http://timeline.knightlab.com) on your Wordpress site. As easy as writing a shortcode.

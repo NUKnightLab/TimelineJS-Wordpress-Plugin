@@ -159,7 +159,7 @@ function kl_timeline_tinymce() {
                                         <option value="Pacifico-Arimo">Pacifico & Arimo</option>
                                         <option value="PT">PT Sans & PT Narrow & PT Serif</option>
                                     </select><br/>
-                                    <small><a href="http://maps.stamen.com/" target="_blank"><?php _e('Learn more about the map styles', 'kl-timeline'); ?></a></small></td>
+                                    <small><a href="http://timeline.knightlab.com/static/img/make/font-options.png" target="_blank"><?php _e('Preview the font combinations', 'kl-timeline'); ?></a></small></td>
                                 </td>
                             </tr>
                             <tr>

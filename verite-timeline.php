@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: TimelineJS from Northwestern University Knight Lab
+Plugin Name: Knight Lab TimelineJS
 Plugin URI: http://timeline.knightlab.com
 Description: A simple shortcode to display TimelineJS.
 */
@@ -134,6 +134,31 @@ function kl_timeline_tinymce() {
                                 <td style="padding: 0 0 10px;"><input type="text" id="timeline_height" size="5" value="650" /></td>
                             </tr>
                             <tr>
+                                <td valign="top" style="padding: 0 15px 5px 0;"><label for="timeline_font"><?php _e('Fonts', 'kl-timeline'); ?></label></td>
+                                <td style="padding: 0 0 10px;">
+                                    <select id="timeline_font">
+                                        <option value="Bevan-PotanoSans">Bevan & Potano Sans</option>
+                                        <option value="Georgia-Helvetica">Georgia & Helvetica Neue</option>
+                                        <option value="Merriweather-NewsCycle">Merriweather & News Cycle</option>
+                                        <option value="NewsCycle-Merriweather">News Cycle & Merriweather</option>
+                                        <option value="PoiretOne-Molengo">Poiret One & Molengo</option>
+                                        <option value="Arvo-PTSans">Arvo & PT Sans</option>
+                                        <option value="PTSerif-PTSans">PT Serif & PT Sans</option>
+                                        <option value="DroidSerif-DroidSans">Droid Serif & Droid Sans</option>
+                                        <option value="Lekton-Molengo">Lekton & Molengo</option>
+                                        <option value="NixieOne-Ledger">Nixie One & Ledger</option>
+                                        <option value="AbrilFatface-Average">Abril Fatface & Average</option>
+                                        <option value="PlayfairDisplay-Muli">Playfair Display & Muli</option>
+                                        <option value="Rancho-Gudea">Rancho & Gudea</option>
+                                        <option value="BreeSerif-OpenSans">Bree Serif & Open Sans</option>
+                                        <option value="SansitaOne-Kameron">Sansita One & Kameron</option>
+                                        <option value="Pacifico-Arimo">Pacifico & Arimo</option>
+                                        <option value="PT">PT Sans & PT Narrow & PT Serif</option>
+                                    </select><br/>
+                                    <small><a href="http://maps.stamen.com/" target="_blank"><?php _e('Learn more about the map styles', 'kl-timeline'); ?></a></small></td>
+                                </td>
+                            </tr>
+                            <tr>
                                 <td valign="top" style="padding: 0 15px 5px 0;"><label for="timeline_maptype"><?php _e('Maptype', 'kl-timeline'); ?></label></td>
                                 <td style="padding: 0 0 10px;">
                                     <select id="timeline_maptype">
@@ -142,7 +167,7 @@ function kl_timeline_tinymce() {
                                         <option value="toner-labels">Stamen Maps: Toner Labels</option>
                                         <option value="watercolor">Stamen Maps: Watercolor</option>
                                         <option value="sterrain">Stamen Maps: Terrain</option>
-                                        <option value="SATELLITE">Google Maps: Stallite</option>
+                                        <option value="SATELLITE">Google Maps: Satellite</option>
                                         <option value="ROADMAP">Google Maps: Roadmap</option>
                                         <option value="TERRAIN">Google Maps: Terrain</option>
                                         <option value="HYBRID">Google Maps: Hybrid</option>
@@ -151,7 +176,7 @@ function kl_timeline_tinymce() {
                                 </td>
                             </tr>
                             <tr>
-                                <td valign="top" style="padding: 0 15px 5px 0;"><label for="timeline_maptype"><?php _e('Maptype', 'kl-timeline'); ?></label></td>
+                                <td valign="top" style="padding: 0 15px 5px 0;"><label for="timeline_lang"><?php _e('Language', 'kl-timeline'); ?></label></td>
                                 <td style="padding: 0 0 10px;">
                                     <select id="timeline_lang">
                                         <option value="en">English</option>
@@ -185,6 +210,7 @@ function kl_timeline_tinymce() {
                                         <option value="lv">Latvian</option>
                                         <option value="lb">Luxembourgish</option>
                                         <option value="ms">Malay</option>
+                                        <option value="ne">Nepali</option>
                                         <option value="no">Norwegian</option>
                                         <option value="pl">Polish</option>
                                         <option value="pt">Portuguese</option>
@@ -198,11 +224,11 @@ function kl_timeline_tinymce() {
                                         <option value="sl">Slovenian</option>
                                         <option value="es">Spanish</option>
                                         <option value="sv">Swedish</option>
-                                        <option value="ta">Tamil</option>
                                         <option value="tl">Tagalog</option>
+                                        <option value="ta">Tamil</option>
+                                        <option value="zh-tw">Taiwanese</option>
                                         <option value="te">Telugu</option>
                                         <option value="tr">Turkish</option>
-                                        <option value="zh-tw">Taiwanese</option>
                                     </select><br/>
                                 </td>
                             </tr>

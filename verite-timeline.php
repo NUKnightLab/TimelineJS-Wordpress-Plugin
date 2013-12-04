@@ -35,7 +35,7 @@ function kl_timeline_shortcode($atts, $content=null) {
             'font' => '',
             'maptype' => 'roadmap',
             'lang' => 'en',
-            'src'=> $src,
+            'src'=> '',
             'start_at_end' => 'false',
             'hash_bookmark' => 'false',
             'debug' => 'false',
@@ -47,7 +47,9 @@ function kl_timeline_shortcode($atts, $content=null) {
         if(!$src) return false;
 
         wp_enqueue_script('kl-timeline-embed');
-        
+        $js_path = plugin_dir_url( __FILE__).'js/timeline-min.js';
+        $css_path = plugin_dir_url( __FILE__).'css/timeline.css';
+
         $shortcode = '
     <div id="timeline-embed"></div>
     <script type="text/javascript">// <![CDATA[
@@ -64,6 +66,8 @@ function kl_timeline_shortcode($atts, $content=null) {
             debug: ' . $debug . ',
             lang: "' . $lang . '",
             maptype: "' . $maptype . '",
+            css: "' . $css_path . '",
+            js: "' . $js_path . '"
         }
         // ]]></script>
         ';

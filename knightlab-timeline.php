@@ -212,6 +212,7 @@ function kl_timeline_tinymce() {
                                         <option value="ja">Japanese</option>
                                         <option value="ko">Korean</option>
                                         <option value="lv">Latvian</option>
+                                        <option value="lt">Lithuanian</option>
                                         <option value="lb">Luxembourgish</option>
                                         <option value="ms">Malay</option>
                                         <option value="ne">Nepali</option>

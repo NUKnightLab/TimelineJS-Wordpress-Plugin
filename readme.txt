@@ -1,6 +1,5 @@
 === Knight Lab Timeline ===
 Contributors: miguelpeixe, zachwise, KnightLab
-Donate link: http://cardume.art.br/
 Tags: timeline, shortcode, stamen, timeline.verite.co, verite, html5, KnightLab
 Requires at least: 2.0.2
 Tested up to: 3.7.1

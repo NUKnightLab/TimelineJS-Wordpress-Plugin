@@ -1,9 +1,12 @@
 === Knight Lab Timeline ===
 Contributors: miguelpeixe, zachwise, KnightLab
+Donate link: http://knightlab.northwestern.edu/
 Tags: timeline, shortcode, stamen, timeline.verite.co, verite, html5, KnightLab
 Requires at least: 2.0.2
 Tested up to: 3.7.1
 Stable tag: 1.0.0
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Use the incredible HTML5 Timeline developed by Knight Lab on your website. As easy as writing a shortcode.
 
@@ -66,6 +69,9 @@ To embed your timeline use the button located at the post content editor (TinyMC
 * Chinese
 * Taiwanese
 
+== Screenshots ==
+
+1. Example of TimelineJS in action. Visit http://timeline.knightlab.com/ to view more! 
 
 == Installation ==
 
@@ -80,9 +86,13 @@ To embed your timeline use the button located at the post content editor (TinyMC
 Alternatively, you can use the TinyMCE button to create your own shortcode as well. 
 
 == Changelog ==
-= 1.0.0 =
-* First stable release
+= 2.28.1 =
+* First stable release of Wordpress Plugin
 
+== Upgrade Notice ==
+
+= 2.28.1 =
+* First stable release of Wordpress Plugin
 
 == Shortcode options ==
 
@@ -94,3 +104,17 @@ Alternatively, you can use the TinyMCE button to create your own shortcode as we
 *	**maptype**: Custom maptype, based on [Stamen custom map styles](http://maps.stamen.com/#content "Check his website for all the styles") and Google Maps default tiles. Possibilities are:
 	* Stamen Maps: `toner`, `toner-lines`, `toner-labels`, `sterrain` and `watercolor` *(default is `toner`)*
 	* Google Maps: `ROADMAP`, `TERRAIN`, `HYBRID`, `SATELLITE`
+
+== Frequently Asked Questions ==
+
+= How do I create a timeline? =
+
+You have two options
+1. Use the shortcode `[timeline src="Your source url here"]`
+2. Use the TinyMCE to to generate the shortcode with more advanced options
+
+= Where can I find out more information about TimelineJS? =
+
+http://timelinejs.knightlab.com
+
+

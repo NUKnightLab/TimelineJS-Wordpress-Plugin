@@ -1,9 +1,14 @@
 <?php
-/*
-Plugin Name: Knight Lab TimelineJS
-Plugin URI: http://timeline.knightlab.com
-Description: A simple shortcode to display TimelineJS.
-*/
+/**
+ * Plugin Name: Knight Lab TimelineJS
+ * Plugin URI: http://timelinejs.knightlab.northwestern.edu/
+ * Description: A simple shortcode to display TimelineJS.
+ * Version: 2.28.1
+ * Author: Knight Lab
+ * Author URI: http://knightlab.northwestern.edu/
+ * License: Mozilla Public License, v. 2.0
+ */
+
 
 /*
 This Source Code Form is subject to the terms of the Mozilla Public

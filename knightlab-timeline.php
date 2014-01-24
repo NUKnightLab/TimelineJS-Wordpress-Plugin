@@ -97,7 +97,7 @@ function kl_timeline_tinymce_button($context) {
 
   //append the icon
   $context .= "<a class='thickbox button' style='background: url({$img}) no-repeat 3px 3px; padding-left: 20px' title='{$title}' id='add_timeline'
-    href='#TB_inline?width=400&inlineId={$container_id}'> Add Timeline</a>";
+    href='#TB_inline?width=600&height=495&inlineId={$container_id}'> Add Timeline</a>";
   
   return $context;
 }
@@ -117,7 +117,7 @@ function kl_timeline_tinymce() {
         }
     </script>
 
-    <div id="add_timeline_form" style="display:none;">
+    <div id="add_timeline_form" style="display:none;" class="thickbox" >
         <div class="wrap">
             <div>
                 <div style="padding:15px 15px 0 15px;">
@@ -131,8 +131,8 @@ function kl_timeline_tinymce() {
                         <tbody>
                             <tr>
                                 <td valign="top" style="padding: 0 15px 5px 0;"><label for="timeline_data_src"><?php _e('Data source', 'kl-timeline'); ?></label></td>
-                                <td style="padding: 0 0 10px;"><input type="text" id="timeline_data_src" size="75" /><br/>
-                                    <small><a href="http://timeline.verite.co/#fileformat" target="_blank"><?php _e('Learn how to create your timeline', 'kl-timeline'); ?></a></small></td>
+                                <td style="padding: 0 0 10px;"><input type="text" id="timeline_data_src" size="75" style="width:450px;"/><br/>
+                                    <small><a href="http://timeline.knightlab.com/" target="_blank"><?php _e('Learn how to create your timeline', 'kl-timeline'); ?></a></small></td>
                             </tr>
                             <tr>
                                 <td valign="top" style="padding: 0 15px 5px 0;"><label for="timeline_width"><?php _e('Width', 'kl-timeline'); ?></label></td>

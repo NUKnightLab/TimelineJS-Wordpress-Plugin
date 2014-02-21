@@ -37,23 +37,23 @@ echo "Versions match in readme.txt and $MAINFILE. Let's proceed..."
  
 if git show-ref --tags --quiet --verify -- "refs/tags/$NEWVERSION1"
     then 
-		echo "Version $NEWVERSION1 already exists as git tag. Exiting...."; 
-		exit 1; 
+		echo "Version $NEWVERSION1 already exists as git tag."; 
 	else
 		echo "Git version does not exist. Let's proceed..."
+
+        cd $GITPATH
+        echo -e "Enter a commit message for this new version: \c"
+        read COMMITMSG
+        git commit -am "$COMMITMSG"
+         
+        echo "Tagging new version in git"
+        git tag -a "$NEWVERSION1" -m "Tagging version $NEWVERSION1"
+         
+        echo "Pushing latest commit to origin, with tags"
+        git push origin master
+        git push origin master --tags
+         
 fi
- 
-cd $GITPATH
-echo -e "Enter a commit message for this new version: \c"
-read COMMITMSG
-git commit -am "$COMMITMSG"
- 
-echo "Tagging new version in git"
-git tag -a "$NEWVERSION1" -m "Tagging version $NEWVERSION1"
- 
-echo "Pushing latest commit to origin, with tags"
-git push origin master
-git push origin master --tags
  
 echo 
 echo "Creating local copy of SVN repo ..."

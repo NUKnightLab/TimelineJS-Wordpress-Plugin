@@ -39,7 +39,7 @@ if git show-ref --tags --quiet --verify -- "refs/tags/$NEWVERSION1"
     then 
 		echo "Version $NEWVERSION1 already exists as git tag."; 
 	else
-		echo "Git version does not exist. Let's proceed..."
+		echo "Git tag $NEWVERSION1 does not yet exist. Let's proceed..."
 
         cd $GITPATH
         echo -e "Enter a commit message for this new version: \c"

@@ -27,46 +27,60 @@ To embed your timeline use the button located at the post content editor (TinyMC
 **Supported languages**
 
 * Afrikaans
-* Arabic (beta)
+* Arabic
+* Armenian
+* Basque
 * Bulgarian
 * Catalan
+* Chinese
 * Czech
 * Danish
-* German / Deutsch
-* Greek
+* Dutch
 * English
-* Spanish
-* Basque/ Euskara
-* Finnish
+* English (24-hour time)
+* Esperanto
+* Estonian
 * Faroese
+* Farsi
+* Finnish
 * French
 * Galician
-* Hungarian
-* Armenian
-* Indonesian
-* Icelandic
-* Italian
-* Hebrew (beta)
-* Japanese
 * Georgian
+* German
+* Greek
+* Hebrew
+* Hungarian
+* Icelandic
+* Indonesian
+* Italian
+* Japanese
 * Korean
 * Latvian
-* Dutch
+* Lithuanian
+* Luxembourgish
+* Malay
+* Nepali
 * Norwegian
 * Polish
-* Brazilian Portuguese
 * Portuguese
+* Portuguese (Brazilian)
+* Romanian
+* Romansh
 * Russian
+* Serbian - Cyrillic
+* Serbian - Latin
+* Sinhalese
 * Slovak
 * Slovenian
-* Serbian (Cyrillic)
-* Serbian (Latin)
+* Spanish
 * Swedish
-* Tamil
 * Tagalog
-* Turkish
-* Chinese
+* Tamil
 * Taiwanese
+* Telugu
+* Thai
+* Turkish
+
 
 
 == Installation ==
@@ -83,6 +97,9 @@ Alternatively, you can use the TinyMCE button to create your own shortcode as we
 
 
 == Changelog ==
+= 2.31.0.0 =
+* Update to TimelineJS 2.31.0: Add languages: 'ro' (Romanian), 'th' (Thai); minor fixes to language files for 'es' (Spanish) 'fa' (Farsi), 'hu' (Hungarian), 'no' (Norwegian); add OpenStreetMap as a map option ('osm'); Support '.svg' as an image media type; support custom thumbnails when no media is specified; clearer warning about "compatibility mode" to IE users.
+
 
 = 2.30.0.0 =
 * Update to TimelineJS 2.30.0: Fix language code for 'zh-cn' (Chinese); add 'fa' (Farsi); Move 'remove' function from Array.prototype to a util method to avoid adverse affects on other JS code.

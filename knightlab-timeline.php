@@ -226,6 +226,7 @@ function kl_timeline_tinymce() {
                                         <option value="pl">Polish</option>
                                         <option value="pt">Portuguese</option>
                                         <option value="pt-br">Portuguese (Brazilian)</option>
+                                        <option value="ro">Romanian</option>
                                         <option value="rm">Romansh</option>
                                         <option value="ru">Russian</option>
                                         <option value="sr-cy">Serbian - Cyrillic</option>
@@ -239,6 +240,7 @@ function kl_timeline_tinymce() {
                                         <option value="ta">Tamil</option>
                                         <option value="zh-tw">Taiwanese</option>
                                         <option value="te">Telugu</option>
+                                        <option value="th">Thai</option>
                                         <option value="tr">Turkish</option>
                                     </select><br/>
                                 </td>

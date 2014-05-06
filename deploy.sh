@@ -42,7 +42,7 @@ if git show-ref --tags --quiet --verify -- "refs/tags/$NEWVERSION1"
 		echo "Git tag $NEWVERSION1 does not yet exist. Let's proceed..."
 
         cd $GITPATH
-        echo -e "Enter a commit message for this new version: \c"
+        echo -e "Enter a commit message for this new version (for git AND svn): \c"
         read COMMITMSG
         git commit -am "$COMMITMSG"
          

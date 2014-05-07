@@ -176,6 +176,7 @@ function kl_timeline_tinymce() {
                                         <option value="toner-labels">Stamen Maps: Toner Labels</option>
                                         <option value="watercolor">Stamen Maps: Watercolor</option>
                                         <option value="sterrain">Stamen Maps: Terrain</option>
+                                        <option value="osm">OpenStreetMap</option>
                                         <option value="SATELLITE">Google Maps: Satellite</option>
                                         <option value="ROADMAP">Google Maps: Roadmap</option>
                                         <option value="TERRAIN">Google Maps: Terrain</option>

@@ -4,7 +4,7 @@ Donate link: http://knightlab.northwestern.edu/
 Tags: timeline, shortcode, stamen, timeline.verite.co, verite, html5, KnightLab
 Requires at least: 2.0.2
 Tested up to: 3.9.0
-Stable tag: 2.31.0.0
+Stable tag: 2.32.0.0
 
 Use the incredible HTML5 Timeline developed by Knight Lab on your website. As easy as writing a shortcode.
 
@@ -33,6 +33,7 @@ To embed your timeline use the button located at the post content editor (TinyMC
 * Bulgarian
 * Catalan
 * Chinese
+* Croatian / Hrvatski
 * Czech
 * Danish
 * Dutch
@@ -80,6 +81,7 @@ To embed your timeline use the button located at the post content editor (TinyMC
 * Telugu
 * Thai
 * Turkish
+* Ukrainian
 
 
 
@@ -97,9 +99,11 @@ Alternatively, you can use the TinyMCE button to create your own shortcode as we
 
 
 == Changelog ==
+= 2.32.0.0 =
+* Update to TimelineJS 2.32.0: Stop YouTube players when slide changes; Better method for determining embed path root; Check for iframe and blockquote media before other url tests; Add languages: 'hr' (Croatian), 'uk' (Ukrainian); minor fixes to language files for 'fi' (Finnish) 'sl' (Slovenian). Plugin-specific: add 'OpenStreetMap' option to map-type menu in shortcode builder.
+
 = 2.31.0.0 =
 * Update to TimelineJS 2.31.0: Add languages: 'ro' (Romanian), 'th' (Thai); minor fixes to language files for 'es' (Spanish) 'fa' (Farsi), 'hu' (Hungarian), 'no' (Norwegian); add OpenStreetMap as a map option ('osm'); Support '.svg' as an image media type; support custom thumbnails when no media is specified; clearer warning about "compatibility mode" to IE users.
-
 
 = 2.30.0.0 =
 * Update to TimelineJS 2.30.0: Fix language code for 'zh-cn' (Chinese); add 'fa' (Farsi); Move 'remove' function from Array.prototype to a util method to avoid adverse affects on other JS code.

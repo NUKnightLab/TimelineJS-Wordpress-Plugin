@@ -4,7 +4,7 @@ Donate link: http://knightlab.northwestern.edu/
 Tags: timeline, shortcode, stamen, timeline.verite.co, verite, html5, KnightLab
 Requires at least: 2.0.2
 Tested up to: 3.9.0
-Stable tag: 2.32.0.0
+Stable tag: 2.33.0.0
 
 Use the incredible HTML5 Timeline developed by Knight Lab on your website. As easy as writing a shortcode.
 
@@ -99,6 +99,9 @@ Alternatively, you can use the TinyMCE button to create your own shortcode as we
 
 
 == Changelog ==
+= 2.33.0.0 =
+* Update to TimelineJS 2.33.0: better handle changes to Google Maps and Spreadsheet URLs; add 'W' token for date format; accept *.bmp as image URL; fix jQuery version check; fix untagify; more permissive on iframe markup; treat Google Streetview API images as images, not maps; set maxheight on soundcloud embeds; crush png files.
+
 = 2.32.0.0 =
 * Update to TimelineJS 2.32.0: Stop YouTube players when slide changes; Better method for determining embed path root; Check for iframe and blockquote media before other url tests; Add languages: 'hr' (Croatian), 'uk' (Ukrainian); minor fixes to language files for 'fi' (Finnish) 'sl' (Slovenian). Plugin-specific: add 'OpenStreetMap' option to map-type menu in shortcode builder.
 

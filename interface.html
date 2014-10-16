@@ -1,73 +1,52 @@
 <!doctype html>
 <head>
-  <meta charset="utf-8">
-
-  <title>My Parse App</title>
-  <meta name="description" content="My Parse App">
-  <meta name="viewport" content="width=device-width">
-  <link rel="stylesheet" href="css/reset.css">
-  <link rel="stylesheet" href="css/styles.css">
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-  <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.3.0.min.js"></script>
-  <script src="getstuff.js"></script>
+	<meta charset="utf-8">
+	<title>My Parse App</title>
+	<meta name="description" content="My Parse App">
+	<meta name="viewport" content="width=device-width">
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/styles.css">
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.3.0.min.js"></script>
+	<script src="getdata.js"></script>
 </head>
-
 <body>
+	<script type="text/javascript">
+		Parse.initialize("AkroJBS9kpJ8AL2bxcaMyNJrD6TmrKouEHWZrJGU", "jgyzkbCzZQYBJK63wZn9EWflKoxJWoh9BU9Vi5Pw");
 
+		window.fbAsyncInit = function() {
+			Parse.FacebookUtils.init({
+			appId      : '1569324956622321',
+			status     : false,
+			cookie     : true,
+			xfbml      : true,
+			version    : 'v2.1'
+			});
 
-  <script type="text/javascript">
-    Parse.initialize("AkroJBS9kpJ8AL2bxcaMyNJrD6TmrKouEHWZrJGU", "jgyzkbCzZQYBJK63wZn9EWflKoxJWoh9BU9Vi5Pw");
+			Parse.FacebookUtils.logIn(null, {
+			success: function(user) {
+			if (!user.existed()) {
+			  alert("User signed up and logged in through Facebook!");
+			} else {
+			  alert("User logged in through Facebook!");
+			}
+			},
+			error: function(user, error) {
+			alert("User cancelled the Facebook login or did not fully authorize.");
+			}
+			});
+		};
 
-    window.fbAsyncInit = function() {
-      Parse.FacebookUtils.init({
-        appId      : '1569324956622321',
-        status     : false,
-        cookie     : true,
-        xfbml      : true,
-        version    : 'v2.1'
-      });
-
-    Parse.FacebookUtils.logIn(null, {
-      success: function(user) {
-        if (!user.existed()) {
-          alert("User signed up and logged in through Facebook!");
-        } else {
-          alert("User logged in through Facebook!");
-        }
-      },
-      error: function(user, error) {
-        alert("User cancelled the Facebook login or did not fully authorize.");
-      }
-    });
-
-
-    };
-
-    (function(d, s, id){
-       var js, fjs = d.getElementsByTagName(s)[0];
-       if (d.getElementById(id)) {return;}
-       js = d.createElement(s); js.id = id;
-       js.src = "//connect.facebook.net/en_US/sdk.js";
-       fjs.parentNode.insertBefore(js, fjs);
-     }(document, 'script', 'facebook-jssdk'));
-
-
-
-
-
-  </script>  
-
-
-
-
-  <div id="main">
-    <h1>lol what am i doing</h1>
-
-  </div>
-
-    
-
-
+		(function(d, s, id){
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id)) {return;}
+		js = d.createElement(s); js.id = id;
+		js.src = "//connect.facebook.net/en_US/sdk.js";
+		fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+	</script>  
+	<div id="main">
+		<h1>lol what am i doing</h1>
+	</div>
 </body>
-
 </html>

@@ -9,24 +9,22 @@
 
 """
 import requests
+from urlparse import urljoin
 
-params = {
-  "key": "1kekecMN31fxge0j" # api key
-}
+API_KEY = "1kekecMN31fxge0j"
+BASE_URL = "http://api.asg.northwestern.edu/"
 
-def get_requests(thing): # function to get api response with specified parameters
-	return requests.get("http://api.asg.northwestern.edu/" + thing, params = params)
+def api_call(url_path, **params): # function to get api response with specified parameters
 
-# get response from api call to get json of all the terms
-terms_response = get_requests("terms")
-# turn response into a json file
-terms_response_json = terms_response.json()
+	params["key"] = API_KEY
+	response = requests.get(urljoin(BASE_URL,url_path), params = params)
+	return response.json()
 
-# latest term info is always in the first index of the json file
-latest_term = terms_response_json[0]
-# get the unique id of latest term
-latest_term_id = latest_term["id"]
+def terms():
+	return api_call("terms")
 
-# get response from api call to get json of all subjects available for each term
-subjects_response = requests.get(base_url )
+def subjects(term_id):
+	return api_call("subjects",term = term_id)
+
+
 

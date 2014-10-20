@@ -1,5 +1,5 @@
 /*
-    TimelineJS - ver. 2.33.1 - 2014-06-24
+    TimelineJS - ver. 2.34.0 - 2014-10-20
     Copyright (c) 2012-2013 Northwestern University
     a project of the Northwestern University Knight Lab, originally created by Zach Wise
     https://github.com/NUKnightLab/TimelineJS
@@ -523,22 +523,11 @@ if(typeof VMM != 'undefined') {
 			});
 			/* CHECK FOR IE
 			================================================== */
+      // Leaving for posterity - removed previous HTTPS url rewriting that was breaking IE9/10 loading data over HTTPS
 			if ( VMM.Browser.browser == "Explorer" && parseInt(VMM.Browser.version, 10) >= 7 && window.XDomainRequest) {
 				trace("IE JSON");
-				var ie_url = url;
-				if (ie_url.match('^http://')){
-					return jQuery.getJSON(ie_url, data, callback);
-				} else if (ie_url.match('^https://')) {
-					ie_url = ie_url.replace("https://","http://");
-					return jQuery.getJSON(ie_url, data, callback);
-				} else {
-					return jQuery.getJSON(url, data, callback);
-				}
-				
-			} else {
-				return jQuery.getJSON(url, data, callback);
-
 			}
+			return jQuery.getJSON(url, data, callback);
 		}
 	}
 	
@@ -4520,9 +4509,6 @@ if(typeof VMM != 'undefined' && typeof VMM.MediaElement == 'undefined') {
 				}
 			// IMAGE
 				if (m.type				==	"image") {
-					if (m.id.match("https://")) {
-						m.id = m.id.replace("https://","http://");
-					}
 					mediaElem			=	"<div class='media-image media-shadow'><img src='" + m.id + "' class='media-image'></div>";
 			// FLICKR
 				} else if (m.type		==	"flickr") {
@@ -9541,7 +9527,12 @@ if (typeof VMM.Timeline !== 'undefined' && typeof VMM.Timeline.DataObj == 'undef
 						for(var i = 0; i < d.feed.entry.length; i++) {
 							var dd		= d.feed.entry[i],
 								dd_type	= "";
-						
+
+							if (typeof(dd.gsx$startdate) == 'undefined') {
+								VMM.fireEvent(global, VMM.Timeline.Config.events.messege, "Missing start date. Make sure the headers of your Google Spreadsheet have not been changed.");
+								return;
+							}
+
 							if (typeof dd.gsx$type != 'undefined') {
 								dd_type = dd.gsx$type.$t;
 							} else if (typeof dd.gsx$titleslide != 'undefined') {

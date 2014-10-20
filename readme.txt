@@ -99,6 +99,15 @@ Alternatively, you can use the TinyMCE button to create your own shortcode as we
 
 
 == Changelog ==
+= 2.34.0 -
+* Remove HTTPS URL rewriting for older IE.
+* don't do analytics on https
+* Check to make sure that every slide has a start date, so that people get a clear warning if the spreadsheet header has been changed.
+* fix jquery version check, again. (should accept jquery 2, although TimelineJS has not been tested with jquery 2) cf. #551
+* Update ko.js translation file
+* Update fa.js translation file
+
+
 = 2.33.1.0 =
 * Update to TimelineJS 2.33.1: fix bug handling maps.google media URLs; minor updates to zh-cn localization file.
 

@@ -8,27 +8,25 @@
 		5) Use unique ID of term and subject ID to retrieve list of all courses offered for each subject being offered in that term. 
 
 """
-
 import requests
 
 params = {
-  "key": "1kekecMN31fxge0j" #api key
+  "key": "1kekecMN31fxge0j" # api key
 }
 
-base_url = "http://api.asg.northwestern.edu/"
+def get_requests(thing): # function to get api response with specified parameters
+	return requests.get("http://api.asg.northwestern.edu/" + thing, params = params)
 
 # get response from api call to get json of all the terms
-response = requests.get(base_url + "terms", params=params)
-
+terms_response = get_requests("terms")
 # turn response into a json file
-response_json = response.json()
+terms_response_json = terms_response.json()
 
 # latest term info is always in the first index of the json file
-latest_term = response_json[0]
-
+latest_term = terms_response_json[0]
 # get the unique id of latest term
 latest_term_id = latest_term["id"]
 
 # get response from api call to get json of all subjects available for each term
-print latest_term_id
+subjects_response = requests.get(base_url )
 

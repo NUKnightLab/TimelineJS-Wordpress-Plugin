@@ -1,4 +1,37 @@
 #! /bin/bash
+# http://stackoverflow.com/questions/4023830/bash-how-compare-two-strings-in-version-format
+vercomp () {
+    if [[ $1 == $2 ]]
+    then
+        return 0
+    fi
+    local IFS=.
+    local i ver1=($1) ver2=($2)
+    # fill empty fields in ver1 with zeros
+    for ((i=${#ver1[@]}; i<${#ver2[@]}; i++))
+    do
+        ver1[i]=0
+    done
+    for ((i=0; i<${#ver1[@]}; i++))
+    do
+        if [[ -z ${ver2[i]} ]]
+        then
+            # fill empty fields in ver2 with zeros
+            ver2[i]=0
+        fi
+        if ((10#${ver1[i]} > 10#${ver2[i]}))
+        then
+            return 1
+        fi
+        if ((10#${ver1[i]} < 10#${ver2[i]}))
+        then
+            return 2
+        fi
+    done
+    return 0
+}
+
+
 # A modification of Dean Clatworthy's deploy script as found here: https://github.com/deanc/wordpress-plugin-git-svn
 # The difference is that this script lives in the plugin's git repo & doesn't require an existing SVN repo.
  
@@ -27,14 +60,15 @@ echo
 # Check version in readme.txt is the same as plugin file after translating both to unix line breaks to work around grep's failure to identify mac line breaks
 NEWVERSION1=`grep "^Stable tag:" $GITPATH/readme.txt | awk -F' ' '{print $NF}'`
 echo "readme.txt version: $NEWVERSION1"
-echo "$GITPATH$MAINFILE"
 NEWVERSION2=`grep "Version:" $GITPATH$MAINFILE | awk -F' ' '{print $NF}'`
 echo "$MAINFILE version: $NEWVERSION2"
- 
-if [ "$NEWVERSION1" -ne "$NEWVERSION2" ]; then echo "Version in readme.txt & $MAINFILE don't match. Exiting...."; exit 1; fi
+
+vercomp $NEWVERSION1 $NEWVERSION2
+COMPARISON=$? # shouldn't I be able to do COMPARISON=$(vercomp...)? but doesn't work.
+if [ $COMPARISON -ne 0 ]; then echo "Version in readme.txt & $MAINFILE don't match. Exiting...."; exit 1; fi
  
 echo "Versions match in readme.txt and $MAINFILE. Let's proceed..."
- 
+
 if git show-ref --tags --quiet --verify -- "refs/tags/$NEWVERSION1"
     then 
 		echo "Version $NEWVERSION1 already exists as git tag."; 

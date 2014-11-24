@@ -4,7 +4,7 @@ Donate link: http://knightlab.northwestern.edu/
 Tags: timeline, shortcode, stamen, timeline.verite.co, verite, html5, KnightLab
 Requires at least: 2.0.2
 Tested up to: 4.0
-Stable tag: 2.35.1.0
+Stable tag: 2.35.2.0
 
 Use the incredible HTML5 Timeline developed by Knight Lab on your website. As easy as writing a shortcode.
 
@@ -99,6 +99,9 @@ Alternatively, you can use the TinyMCE button to create your own shortcode as we
 
 
 == Changelog ==
+= 2.35.2 =
+* Fix mobile display bug.
+
 = 2.35.0 =
 * Fix date initialization process to address Firefox bug in UK/Ireland (https://github.com/NUKnightLab/TimelineJS/issues/718)
 

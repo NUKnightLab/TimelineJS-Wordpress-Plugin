@@ -3,7 +3,7 @@
  * Plugin Name: Knight Lab TimelineJS
  * Plugin URI: http://timeline.knightlab.com/
  * Description: A simple shortcode to display TimelineJS.
- * Version: 2.35.1.0
+ * Version: 2.35.3.0
  * Author: Knight Lab
  * Author URI: http://knightlab.northwestern.edu/
  * License: Mozilla Public License, v. 2.0
@@ -195,6 +195,7 @@ function kl_timeline_tinymce() {
                                         <option value="ar">Arabic</option>
                                         <option value="hy">Armenian</option>
                                         <option value="eu">Basque</option>
+                                        <option value="be">Belarusian</option>
                                         <option value="bg">Bulgarian</option>
                                         <option value="ca">Catalan</option>
                                         <option value="zh-cn">Chinese</option>
@@ -208,14 +209,17 @@ function kl_timeline_tinymce() {
                                         <option value="fa">Farsi</option>
                                         <option value="fi">Finnish</option>
                                         <option value="fr">French</option>
+                                        <option value="fy">Frisian</option>
                                         <option value="gl">Galician</option>
                                         <option value="ka">Georgian</option>
                                         <option value="de">German / Deutsch</option>
                                         <option value="el">Greek</option>
                                         <option value="he">Hebrew</option>
+                                        <option value="hi">Hindi</option>
                                         <option value="hu">Hungarian</option>
                                         <option value="is">Icelandic</option>
                                         <option value="id">Indonesian</option>
+                                        <option value="ga">Irish</option>
                                         <option value="it">Italian</option>
                                         <option value="ja">Japanese</option>
                                         <option value="ko">Korean</option>

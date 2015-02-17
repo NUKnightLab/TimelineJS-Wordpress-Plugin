@@ -104,6 +104,9 @@ Alternatively, you can use the TinyMCE button to create your own shortcode as we
 
 
 == Changelog ==
+= 2.35.2 =
+* Fix mobile display bug.
+
 = 2.35.0 =
 * Fix date initialization process to address Firefox bug in UK/Ireland (https://github.com/NUKnightLab/TimelineJS/issues/718)
 

@@ -4,7 +4,7 @@ Donate link: http://knightlab.northwestern.edu/
 Tags: timeline, shortcode, stamen, timeline.verite.co, verite, html5, KnightLab
 Requires at least: 2.0.2
 Tested up to: 4.1
-Stable tag: 2.35.4.0
+Stable tag: 2.35.5.0
 
 Use the incredible HTML5 Timeline developed by Knight Lab on your website. As easy as writing a shortcode.
 
@@ -105,6 +105,9 @@ Alternatively, you can use the TinyMCE button to create your own shortcode as we
 
 == Changelog ==
 The most up to date change log for TimelineJS itself can be found at https://github.com/NUKnightLab/TimelineJS/blob/master/CHANGELOG
+
+= 2.35.5.0 =
+* Fix URL linking regression instroduced in 2.35.3
 
 = 2.35.4.0 =
 * Fix Stamen map tile URL bug

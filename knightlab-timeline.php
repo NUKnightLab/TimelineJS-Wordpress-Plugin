@@ -1,9 +1,9 @@
 <?php
 /**
- * Plugin Name: Knight Lab TimelineJS
+ * Plugin Name: Knight Lab TimelineJS 3
  * Plugin URI: http://timeline.knightlab.com/
- * Description: A simple shortcode to display TimelineJS.
- * Version: 2.35.6.0
+ * Description: A simple shortcode to display TimelineJS. Updated to use the newest version of TimelineJS. See the site for details.
+ * Version: 3.3.1.0
  * Author: Knight Lab
  * Author URI: http://knightlab.northwestern.edu/
  * License: Mozilla Public License, v. 2.0
@@ -21,7 +21,7 @@ define( 'KL_TIMELINE_URL', plugin_dir_url(__FILE__) );
 add_action('init', 'kl_timeline_scripts');
 function kl_timeline_scripts() {
     wp_enqueue_script('jquery');
-    wp_register_script('kl-timeline-embed', plugin_dir_url( __FILE__).'js/storyjs-embed.js', array('jquery'), false, TRUE);
+    wp_register_script('kl-timeline-embed', plugin_dir_url( __FILE__).'js/timeline-embed.js', array('jquery'), false, TRUE);
 }
 
 add_action('init', 'kl_timeline_textdomain');
@@ -90,7 +90,7 @@ add_action('admin_footer', 'kl_timeline_tinymce');
 
 // TinyMCE Button for the shortcode
 function kl_timeline_tinymce_button($context) {
-  
+
   $img = KL_TIMELINE_URL . "knight-diamond.png";
   $container_id = 'add_timeline_form';
   $title = __('Insert Timeline', 'kl-timeline');
@@ -98,7 +98,7 @@ function kl_timeline_tinymce_button($context) {
   //append the icon
   $context .= "<a class='thickbox button' style='background: url({$img}) no-repeat 3px 3px; padding-left: 20px' title='{$title}' id='add_timeline'
     href='#TB_inline?width=600&height=495&inlineId={$container_id}'> Add Timeline</a>";
-  
+
   return $context;
 }
 
@@ -123,7 +123,7 @@ function kl_timeline_tinymce() {
                 <div style="padding:15px 15px 0 15px;">
                     <h3 style="color:#5A5A5A!important; font-family:Georgia,Times New Roman,Times,serif!important; font-size:1.8em!important; font-weight:normal!important;"><?php _e('Insert Timeline', 'kl-timeline'); ?></h3>
                     <span>
-                        <?php _e('Configurate your Timeline and add it to your post', 'kl-timeline'); ?>
+                        <?php _e('Configure your Timeline and add it to your post', 'kl-timeline'); ?>
                     </span>
                 </div>
                 <div style="padding:15px 15px 0 15px;">
@@ -146,109 +146,91 @@ function kl_timeline_tinymce() {
                                 <td valign="top" style="padding: 0 15px 5px 0;"><label for="timeline_font"><?php _e('Fonts', 'kl-timeline'); ?></label></td>
                                 <td style="padding: 0 0 10px;">
                                     <select id="timeline_font">
-                                        <option value="Bevan-PotanoSans">Bevan & Potano Sans</option>
-                                        <option value="Georgia-Helvetica">Georgia & Helvetica Neue</option>
-                                        <option value="Merriweather-NewsCycle">Merriweather & News Cycle</option>
-                                        <option value="NewsCycle-Merriweather">News Cycle & Merriweather</option>
-                                        <option value="PoiretOne-Molengo">Poiret One & Molengo</option>
-                                        <option value="Arvo-PTSans">Arvo & PT Sans</option>
-                                        <option value="PTSerif-PTSans">PT Serif & PT Sans</option>
-                                        <option value="DroidSerif-DroidSans">Droid Serif & Droid Sans</option>
-                                        <option value="Lekton-Molengo">Lekton & Molengo</option>
-                                        <option value="NixieOne-Ledger">Nixie One & Ledger</option>
-                                        <option value="AbrilFatface-Average">Abril Fatface & Average</option>
-                                        <option value="PlayfairDisplay-Muli">Playfair Display & Muli</option>
-                                        <option value="Rancho-Gudea">Rancho & Gudea</option>
-                                        <option value="BreeSerif-OpenSans">Bree Serif & Open Sans</option>
-                                        <option value="SansitaOne-Kameron">Sansita One & Kameron</option>
-                                        <option value="Pacifico-Arimo">Pacifico & Arimo</option>
-                                        <option value="PT">PT Sans & PT Narrow & PT Serif</option>
+                                      <option value="Default">PT Narrow and PT Serif</option>
+                                      <option value="Abril-DroidSans">Abril and Droid Sans</option>
+                                      <option value="Amatic-Andika">Amatic and Andika</option>
+                                      <option value="Bitter-Raleway">Bitter and Raleway</option>
+                                      <option value="Clicker-Garamond">Clicker and Garamond</option>
+                                      <option value="Dancing-Ledger">Dancing and Ledger</option>
+                                      <option value="Fjalla-Average">Fjalla and Average</option>
+                                      <option value="Georgia-Helvetica">Georgia and Helvetica</option>
+                                      <option value="Lustria-Lato">Lustria and Lato</option>
+                                      <option value="Medula-Lato">Medula One and Lato</option>
+                                      <option value="OldStandard">Old Standard</option>
+                                      <option value="OpenSans-GentiumBook">Open Sans and Gentium Book</option>
+                                      <option value="Playfair-FaunaOne">Playfair and Fauna One</option>
+                                      <option value="Playfair">Playfair SC and Playfair</option>
+                                      <option value="PT">PT Sans, PT Sans Narrow, and PT Serif</option>
+                                      <option value="Roboto-Megrim">Roboto and Megrim</option>
+                                      <option value="Rufina-Sintony">Rufina and Sintony</option>
+                                      <option value="UnicaOne-Vollkorn">Unica One and Vollkorn</option>
                                     </select><br/>
-                                    <small><a href="http://timeline.knightlab.com/static/img/make/font-options.png" target="_blank"><?php _e('Preview the font combinations', 'kl-timeline'); ?></a></small></td>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td valign="top" style="padding: 0 15px 5px 0;"><label for="timeline_maptype"><?php _e('Maptype', 'kl-timeline'); ?></label></td>
-                                <td style="padding: 0 0 10px;">
-                                    <select id="timeline_maptype">
-                                        <option value="toner">Stamen Maps: Toner</option>
-                                        <option value="toner-lines">Stamen Maps: Toner Lines</option>
-                                        <option value="toner-labels">Stamen Maps: Toner Labels</option>
-                                        <option value="watercolor">Stamen Maps: Watercolor</option>
-                                        <option value="sterrain">Stamen Maps: Terrain</option>
-                                        <option value="osm">OpenStreetMap</option>
-                                        <option value="SATELLITE">Google Maps: Satellite</option>
-                                        <option value="ROADMAP">Google Maps: Roadmap</option>
-                                        <option value="TERRAIN">Google Maps: Terrain</option>
-                                        <option value="HYBRID">Google Maps: Hybrid</option>
-                                    </select><br/>
-                                    <small><a href="http://maps.stamen.com/" target="_blank"><?php _e('Learn more about the map styles', 'kl-timeline'); ?></a></small></td>
                                 </td>
                             </tr>
                             <tr>
                                 <td valign="top" style="padding: 0 15px 5px 0;"><label for="timeline_lang"><?php _e('Language', 'kl-timeline'); ?></label></td>
                                 <td style="padding: 0 0 10px;">
                                     <select id="timeline_lang">
-                                        <option value="en">English</option>
-                                        <option value="en-24hr">English (24-hour time)</option>
-                                        <option value="af">Afrikaans</option>
-                                        <option value="ar">Arabic</option>
-                                        <option value="hy">Armenian</option>
-                                        <option value="eu">Basque</option>
-                                        <option value="be">Belarusian</option>
-                                        <option value="bg">Bulgarian</option>
-                                        <option value="ca">Catalan</option>
-                                        <option value="zh-cn">Chinese</option>
-                                        <option value="hr">Croatian / Hrvatski</option>
-                                        <option value="cz">Czech</option>
-                                        <option value="da">Danish</option>
-                                        <option value="nl">Dutch</option>
-                                        <option value="eo">Esperanto</option>
-                                        <option value="et">Estonian</option>
-                                        <option value="fo">Faroese</option>
-                                        <option value="fa">Farsi</option>
-                                        <option value="fi">Finnish</option>
-                                        <option value="fr">French</option>
-                                        <option value="fy">Frisian</option>
-                                        <option value="gl">Galician</option>
-                                        <option value="ka">Georgian</option>
-                                        <option value="de">German / Deutsch</option>
-                                        <option value="el">Greek</option>
-                                        <option value="he">Hebrew</option>
-                                        <option value="hi">Hindi</option>
-                                        <option value="hu">Hungarian</option>
-                                        <option value="is">Icelandic</option>
-                                        <option value="id">Indonesian</option>
-                                        <option value="ga">Irish</option>
-                                        <option value="it">Italian</option>
-                                        <option value="ja">Japanese</option>
-                                        <option value="ko">Korean</option>
-                                        <option value="lv">Latvian</option>
-                                        <option value="lt">Lithuanian</option>
-                                        <option value="lb">Luxembourgish</option>
-                                        <option value="ms">Malay</option>
-                                        <option value="ne">Nepali</option>
-                                        <option value="no">Norwegian</option>
-                                        <option value="pl">Polish</option>
-                                        <option value="pt">Portuguese</option>
-                                        <option value="pt-br">Portuguese (Brazilian)</option>
-                                        <option value="ro">Romanian</option>
-                                        <option value="rm">Romansh</option>
-                                        <option value="ru">Russian</option>
-                                        <option value="sr-cy">Serbian - Cyrillic</option>
-                                        <option value="sr">Serbian - Latin</option>
-                                        <option value="si">Sinhalese</option>
-                                        <option value="sk">Slovak</option>
-                                        <option value="sl">Slovenian</option>
-                                        <option value="es">Spanish</option>
-                                        <option value="sv">Swedish</option>
-                                        <option value="tl">Tagalog</option>
-                                        <option value="ta">Tamil</option>
-                                        <option value="zh-tw">Taiwanese</option>
-                                        <option value="te">Telugu</option>
-                                        <option value="th">Thai</option>
-                                        <option value="tr">Turkish</option>
-                                        <option value="uk">Ukrainian</option>
+                                      <option value="en" data-lang="English">English</option>
+                                      <option value="en-24hr" data-lang="English (24-hour time)">English (24-hour time)</option>
+                                      <option value="ar" data-lang="Arabic">العربية</option>
+                                      <option value="af" data-lang="Afrikaans">Afrikaans</option>
+                                      <option value="id" data-lang="Indonesian">Bahasa Indonesia</option>
+                                      <option value="ms" data-lang="Malay">Bahasa Melayu</option>
+                                      <option value="be" data-lang="Belarusian">Беларуская мова</option>
+                                      <option value="bg" data-lang="Bulgarian">български език</option>
+                                      <option value="ca" data-lang="Catalan">Català</option>
+                                      <option value="cz" data-lang="Czech">Čeština</option>
+                                      <option value="da" data-lang="Danish">Dansk</option>
+                                      <option value="hi" data-lang="Hindi">हिन्दी</option>
+                                      <option value="de" data-lang="German">Deutsch</option>
+                                      <option value="et" data-lang="Estonian">Eesti keel</option>
+                                      <option value="el" data-lang="Greek">ελληνικά</option>
+                                      <option value="es" data-lang="Spanish">Español</option>
+                                      <option value="eo" data-lang="Esperanto">Esperanto</option>
+                                      <option value="eu" data-lang="Basque">Euskara</option>
+                                      <option value="fo" data-lang="Faroese">Føroyskt</option>
+                                      <option value="fr" data-lang="French">Français</option>
+                                      <option value="fy" data-lang="Frisian">Frysk</option>
+                                      <option value="ga" data-lang="Irish">Gaeilge</option>
+                                      <option value="gl" data-lang="Galician">Galego</option>
+                                      <option value="ko" data-lang="Korean">한국어</option>
+                                      <option value="hr" data-lang="Croatian">Hrvatski</option>
+                                      <option value="hy" data-lang="Armenian">Հայերէն</option>
+                                      <option value="is" data-lang="Icelandic">Íslenska</option>
+                                      <option value="it" data-lang="Italian">Italiano</option>
+                                      <option value="he" data-lang="Hebrew">עברית</option>
+                                      <option value="ka" data-lang="Georgian">ქართული</option>
+                                      <option value="lv" data-lang="Latvian">Latviešu valoda</option>
+                                      <option value="lb" data-lang="Luxembourgish">Lëtzebuergesch</option>
+                                      <option value="lt" data-lang="Lithuanian">Lietuvių kalba</option>
+                                      <option value="ro" data-lang="Romanian">Limba română</option>
+                                      <option value="hu" data-lang="Hungarian">Magyar</option>
+                                      <option value="nl" data-lang="Dutch">Nederlands</option>
+                                      <option value="ne" data-lang="Nepali">नेपाली</option>
+                                      <option value="ja" data-lang="Japanese">日本語</option>
+                                      <option value="no" data-lang="Norwegian">Norsk</option>
+                                      <option value="th" data-lang="Thai">ภาษาไทย</option>
+                                      <option value="pl" data-lang="Polish">Polski</option>
+                                      <option value="pt" data-lang="Portuguese">Português</option>
+                                      <option value="pt-br" data-lang="Portuguese - Brazilian">Português (Brasil)</option>
+                                      <option value="rm" data-lang="Romansh">Rumantsch</option>
+                                      <option value="ru" data-lang="Russian">Русский язык</option>
+                                      <option value="si" data-lang="Sinhalese">සිංහල</option>
+                                      <option value="sl" data-lang="Slovenian">Slovenščina</option>
+                                      <option value="sk" data-lang="Slovak">Slovenčina</option>
+                                      <option value="sr" data-lang="Serbian - Latin">Srpski</option>
+                                      <option value="sr-cy" data-lang="Serbian - Cyrillic">српски</option>
+                                      <option value="fi" data-lang="Finnish">Suomi</option>
+                                      <option value="sv" data-lang="Swedish">Svenska</option>
+                                      <option value="zh-tw" data-lang="Taiwanese">Taiwanese</option>
+                                      <option value="tl" data-lang="Tagalog">Tagalog</option>
+                                      <option value="ta" data-lang="Tamil">தமிழ்</option>
+                                      <option value="te" data-lang="Telugu">తెలుగు</option>
+                                      <option value="tr" data-lang="Turkish">Türkçe</option>
+                                      <option value="uk" data-lang="Ukrainian">Українська</option>
+                                      <option value="fa" data-lang="Farsi">فارسی</option>
+                                      <option value="zh-cn" data-lang="Chinese">中文</option>
                                     </select><br/>
                                 </td>
                             </tr>

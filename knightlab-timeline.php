@@ -38,7 +38,6 @@ function kl_timeline_shortcode($atts, $content=null) {
             'width' => '100%',
             'height' => 650,
             'font' => '',
-            'maptype' => 'toner',
             'lang' => 'en',
             'src'=> '',
             'start_at_end' => 'false',
@@ -109,11 +108,10 @@ function kl_timeline_tinymce() {
             var data_src = jQuery('#timeline_data_src').val();
             var width = jQuery('#timeline_width').val();
             var height = jQuery('#timeline_height').val();
-            var maptype = jQuery('#timeline_maptype').val();
             var lang = jQuery('#timeline_lang').val();
             var font = jQuery('#timeline_font').val();
 
-            window.send_to_editor("[timeline src=\"" + data_src + "\" width=\"" + width + "\" height=\"" + height + "\" font=\"" + font + "\" maptype=\"" + maptype + "\" lang=\"" + lang + "\" ]");
+            window.send_to_editor("[timeline src=\"" + data_src + "\" width=\"" + width + "\" height=\"" + height + "\" font=\"" + font + "\" lang=\"" + lang + "\" ]");
         }
     </script>
 

@@ -21,7 +21,6 @@ define( 'KL_TIMELINE_URL', plugin_dir_url(__FILE__) );
 
 add_action('init', 'kl_timeline_scripts');
 function kl_timeline_scripts() {
-    wp_enqueue_script('jquery');
     wp_register_script('kl-timeline-embed', plugin_dir_url( __FILE__).'js/timeline-embed.js', array('jquery'), false, TRUE);
 }
 
@@ -131,7 +130,7 @@ function kl_timeline_tinymce() {
                             <tr>
                                 <td valign="top" style="padding: 0 15px 5px 0;"><label for="timeline_data_src"><?php _e('Data source', 'kl-timeline'); ?></label></td>
                                 <td style="padding: 0 0 10px;"><input type="text" id="timeline_data_src" size="75" style="width:450px;"/><br/>
-                                    <small><a href="http://timeline.knightlab.com/" target="_blank"><?php _e('Learn how to create your timeline', 'kl-timeline'); ?></a></small></td>
+                                    <small><a href="http://timeline.knightlab.com/docs/using-spreadsheets.html" target="_blank"><?php _e('Learn how to create your timeline', 'kl-timeline'); ?></a></small></td>
                             </tr>
                             <tr>
                                 <td valign="top" style="padding: 0 15px 5px 0;"><label for="timeline_width"><?php _e('Width', 'kl-timeline'); ?></label></td>

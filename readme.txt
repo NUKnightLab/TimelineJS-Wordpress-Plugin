@@ -54,5 +54,6 @@ Version numbers for this plugin primarily align with versions of TimelineJS. Thi
 `[timeline width="800" height="600" src="Your source url here"]`
 
 *	**src**: Data source url, either to a [published Google spreadsheet](http://timeline.knightlab.com/docs/using-spreadsheets.html#publishing) or [properly formatted JSON file](http://timeline.knightlab.com/docs/json-format.html). **[required]**
+*	**lang**: Optionally, specify an alternate language for Timeline to use for dates and messages. Value should be a supported language code. See [the github repository](https://github.com/NUKnightLab/TimelineJS3/tree/master/source/js/language/locale) for a list of codes. The code is the filename without the '.json' extension.  *(default is 'en')*
 *	**width**: Custom width in percentage or pixels *(default is 100%)*
 *	**height**: Custom height in pixels *(default is 650)*

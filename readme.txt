@@ -1,9 +1,9 @@
-=== Knight Lab Timeline 3.x ===
+=== Knight Lab TimelineJS 3 ===
 Contributors: miguelpeixe, zachwise, KnightLab
 Donate link: http://knightlab.northwestern.edu/
 Tags: timeline, shortcode, html5, KnightLab
 Requires at least: 2.0.2
-Tested up to: 4.1
+Tested up to: 4.3.1
 Stable tag: 3.3.2.0
 
 Use Northwestern University Knight Lab's TimelineJS on your wordpress site. As easy as writing a shortcode. Updated for TimelineJS3.
@@ -40,11 +40,16 @@ The source URL can either be to a [published Google Spreadsheet](http://timeline
 
 Alternatively, you can use the TinyMCE button to create your own shortcode as well.
 
+== Screenshots ==
+
+1. An example Timeline, about women in computing. You can see the whole thing on the [TimelineJS website](https://timeline.knightlab.com)
+2. Creating a Timeline is as easy as [copying our Google Spreadsheet template](https://drive.google.com/previewtemplate?id=1pHBvXN7nmGkiG8uQSUB82eNlnL8xHu6kydzH_-eguHQ&mode=public) and adding a row for each event in your Timeline. See
+[our documentation](https://timeline.knightlab.com/docs/using-spreadsheets.html) for details of the format and instructions for publishing your spreadsheet so that TimelineJS can read it.
 
 == Changelog ==
-The most up to date change log for TimelineJS itself can be found at https://github.com/NUKnightLab/TimelineJS/blob/master/CHANGELOG
+The most up to date change log for TimelineJS itself can be found at https://github.com/NUKnightLab/TimelineJS3/blob/master/CHANGELOG
 
-Version numbers for this plugin primarily align with versions of TimelineJS. This is why we start at 3.3.2.0. The first three parts of the version number match the version of TimelineJS; the last number is for changes to this plugin when the TimelineJS version doesn't change.
+Version numbers for this plugin primarily align with versions of TimelineJS. The first three parts of the version number match the version of TimelineJS; the last number is for changes to this plugin when the TimelineJS version doesn't change. This plugin rarely changes except to incorporate improvements to TimelineJS.
 
 = 3.3.2.0 =
 * Initial release of Wordpress plugin for Timeline JS3

@@ -2,8 +2,8 @@
 /**
  * Plugin Name: Knight Lab TimelineJS 3
  * Plugin URI: http://timeline.knightlab.com/
- * Description: A simple shortcode to display TimelineJS. Updated to use the newest version of TimelineJS. See the site for details.
- * Version: 3.3.1.0
+ * Description: A simple shortcode to display TimelineJS. Updated to use the newest version of TimelineJS. See timeline.knightlab.com for details.
+ * Version: 3.3.2.0
  * Author: Knight Lab
  * Author URI: http://knightlab.northwestern.edu/
  * License: Mozilla Public License, v. 2.0
@@ -51,7 +51,11 @@ function kl_timeline_shortcode($atts, $content=null) {
         if(!$src) return false;
 
         wp_enqueue_script('kl-timeline-embed');
-        $js_path = plugin_dir_url( __FILE__).'js/timeline-min.js';
+        if ($debug == 'true') {
+          $js_path = plugin_dir_url( __FILE__).'js/timeline.js';
+        } else {
+          $js_path = plugin_dir_url( __FILE__).'js/timeline-min.js';
+        }
         $css_path = plugin_dir_url( __FILE__).'css/timeline.css';
 
         $shortcode = '
@@ -71,7 +75,8 @@ function kl_timeline_shortcode($atts, $content=null) {
             lang: "' . $lang . '",
             maptype: "' . $maptype . '",
             css: "' . $css_path . '",
-            js: "' . $js_path . '"
+            js: "' . $js_path . '",
+            script_path: "' . plugin_dir_url( __FILE__).'js' . '"
         }
         // ]]></script>
         ';

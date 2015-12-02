@@ -4,15 +4,15 @@ Donate link: http://knightlab.northwestern.edu/
 Tags: timeline, shortcode, stamen, timeline.verite.co, verite, html5, KnightLab
 Requires at least: 2.0.2
 Tested up to: 4.1
-Stable tag: 2.35.6.0
+Stable tag: 3.3.10.0
 
 Use the incredible HTML5 Timeline developed by Knight Lab on your website. As easy as writing a shortcode.
 
 == Description ==
 
-A simple shortcode plugin to add the TimelineJS made by Knight Lab.
+A simple shortcode plugin to add the TimelineJS made by Knight Lab. Now updated to support TimelineJS3.
 
-Supports custom width and height, [custom map styles by Stamen](http://maps.stamen.com/#content "Check the website for all the possible styles"), [Google Spreadsheet and JSON data sources](http://timeline.knightlab.com/ "Learn how to create your data source") and many more.
+Supports custom width and height, [Google Spreadsheet and JSON data sources](http://timeline.knightlab.com/ "Learn how to create your data source") and many more.
 
 Checkout how to create your amazing Timeline at http://timeline.knightlab.com/
 
@@ -100,11 +100,15 @@ To embed your timeline use the button located at the post content editor (TinyMC
 **Extra tip** - If you want do embed outside of a post, use the following code on your template:
 `<?php echo do_shortcode('[timeline src="Your source url here"]'); ?>`
 
-Alternatively, you can use the TinyMCE button to create your own shortcode as well. 
+Alternatively, you can use the TinyMCE button to create your own shortcode as well.
 
 
 == Changelog ==
 The most up to date change log for TimelineJS itself can be found at https://github.com/NUKnightLab/TimelineJS/blob/master/CHANGELOG
+
+= 3.3.10.0 =
+* Major update: this plugin now supports the TimelineJS3 rewrite. To preserve backwards compatibility, you must include this in your shortcode to use the new version of Timeline: `version="timeline3"`. This will be done automatically if you use the "Add Timeline" button in the editing interface.
+
 
 = 2.35.6.0 =
 * Revert animation changes introduced in 2.35.5

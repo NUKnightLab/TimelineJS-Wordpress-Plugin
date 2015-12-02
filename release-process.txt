@@ -1,16 +1,16 @@
 Until we can figure out how to automate it, be sure to follow these steps to update the WP plugin for a TimelineJS update. Each separate step may not always apply, so use your judgment.
 
-1. in the TimelineJS project, run 'fab stage_wp' (this copies the latest TimelineJS into this repository)
+1. in the TimelineJS3 project, run 'fab stage_wp' (this copies the latest TimelineJS into this repository)
 
-2. Update the list of available languages. Should be as simple as copy/paste the menu <option> items from 
-		TimelineJS/website/templates/_make.html 
-	to 
+2. Update the list of available languages. Should be as simple as copy/paste the menu <option> items from
+		TimelineJS/website/templates/_make.html
+	to
 		TimelineJS-Wordpress-Plugin/knightlab-timeline.php
 
 Languages are also listed in readme.txt so add them there too.
 
 3. Increment the Version number in the knightlab-timeline.php and the Stable Tag in readme.txt to the same version.
-		Note: When updating from a TimelineJS release, append a 0 to the end of the version number. Otherwise, increment normally (2.28.1.0 --> 2.28.1.1) 
+		Note: When updating from a TimelineJS release, append a 0 to the end of the version number. Otherwise, increment normally (2.28.1.0 --> 2.28.1.1)
 			Ex. TimelineJS version is 2.28.1 turns into 2.28.1.0 (used to separate the TimelineJS versioning from the WP Plugin version)
 
 4. Execute deploy.sh to deploy changes to the Wordpress SVN

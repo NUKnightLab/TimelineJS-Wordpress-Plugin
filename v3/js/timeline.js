@@ -1,5 +1,5 @@
 /*
-    TimelineJS - ver. 3.3.10 - 2015-12-02
+    TimelineJS - ver. 3.3.11 - 2015-12-03
     Copyright (c) 2012-2015 Northwestern University
     a project of the Northwestern University Knight Lab, originally created by Zach Wise
     https://github.com/NUKnightLab/TimelineJS3
@@ -3509,26 +3509,27 @@ TL.TimelineConfig = TL.Class.extend({
             throw new TL.Error("empty_feed_err");
         }
         var entry = data.feed.entry[0];
-        
-        if (typeof entry.gsx$startdate !== 'undefined') { 
+
+        if (typeof entry.gsx$startdate !== 'undefined') {
             // check headers V1
-            var headers_V1 = ['startdate', 'enddate', 'headline','text','media','mediacredit','mediacaption','mediathumbnail','media','type','tag'];
-            for (var i = 0; i < headers_V1.length; i++) {
-                if (typeof entry['gsx$' + headers_V1[i]] == 'undefined') {
-                    throw new TL.Error("invalid_data_format_err");
-                }
-            }
+            // var headers_V1 = ['startdate', 'enddate', 'headline','text','media','mediacredit','mediacaption','mediathumbnail','media','type','tag'];
+            // for (var i = 0; i < headers_V1.length; i++) {
+            //     if (typeof entry['gsx$' + headers_V1[i]] == 'undefined') {
+            //         throw new TL.Error("invalid_data_format_err");
+            //     }
+            // }
             return extractGoogleEntryData_V1;
-        } else if (typeof entry.gsx$year !== 'undefined') { 
+        } else if (typeof entry.gsx$year !== 'undefined') {
             // check rest of V3 headers
             var headers_V3 = ['month', 'day', 'time', 'endmonth', 'endyear', 'endday', 'endtime', 'displaydate', 'headline','text','media','mediacredit','mediacaption','mediathumbnail','type','group','background'];
-            for (var i = 0; i < headers_V3.length; i++) {
-                if (typeof entry['gsx$' + headers_V3[i]] == 'undefined') {
-                    throw new TL.Error("invalid_data_format_err");
-                }
-            }
+            // for (var i = 0; i < headers_V3.length; i++) {
+            //     if (typeof entry['gsx$' + headers_V3[i]] == 'undefined') {
+            //         throw new TL.Error("invalid_data_format_err");
+            //     }
+            // }
             return extractGoogleEntryData_V3;
-        }        
+        }
+        throw new TL.Error("invalid_data_format_err");
     }
 
     var buildGoogleFeedURL = function(parts) {
@@ -3615,7 +3616,7 @@ TL.TimelineConfig = TL.Class.extend({
                     tc = new TL.TimelineConfig(data);
                 } catch(e) {
                     tc = new TL.TimelineConfig();
-                    tc.logError(e);                    
+                    tc.logError(e);
                 }
                 callback(tc);
             });

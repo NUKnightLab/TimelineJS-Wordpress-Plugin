@@ -4,7 +4,7 @@ Donate link: http://knightlab.northwestern.edu/
 Tags: timeline, shortcode, stamen, timeline.verite.co, verite, html5, KnightLab
 Requires at least: 2.0.2
 Tested up to: 4.3.1
-Stable tag: 3.3.11.1
+Stable tag: 3.3.11.2
 
 Use the incredible HTML5 Timeline developed by Knight Lab on your website. As easy as writing a shortcode.
 
@@ -106,6 +106,10 @@ Alternatively, you can use the TinyMCE button to create your own shortcode as we
 == Changelog ==
 The most up to date change log for TimelineJS itself can be found at https://github.com/NUKnightLab/TimelineJS/blob/master/CHANGELOG
 
+= 3.3.11.2 =
+* Minor TimelineJS3 version update
+* Fixes to plugin deployment/working out kinks in update
+
 = 3.3.10.0 =
 * Major update: this plugin now supports the TimelineJS3 rewrite. To preserve backwards compatibility, you must include this in your shortcode to use the new version of Timeline: `version="timeline3"`. This will be done automatically if you use the "Add Timeline" button in the editing interface.
 
@@ -170,9 +174,7 @@ The most up to date change log for TimelineJS itself can be found at https://git
 
 `[timeline width="800" height="600" maptype="watercolor" src="Your source url here"]`
 
-*	**src**: Data source url, based on [Verite Timeline File Formats](http://timeline.verite.co/#fileformat "Learn how to create your data source"). **[required]**
+*	**src**: Data source url, typically to a Google Spreadsheet as [documented on the TimelineJS website](https://timeline.knightlab.com/docs/using-spreadsheets.html). Alternatively, you may use [JSON](http://timeline.knightlab.com/docs/json-format.html) to configure your timeline. **[required]**
 *	**width**: Custom width *(default is 100%)*
 *	**height**: Custom height *(default is 650)*
-*	**maptype**: Custom maptype, based on [Stamen custom map styles](http://maps.stamen.com/#content "Check his website for all the styles") and Google Maps default tiles. Possibilities are:
-	* Stamen Maps: `toner`, `toner-lines`, `toner-labels`, `sterrain` and `watercolor` *(default is `toner`)*
-	* Google Maps: `ROADMAP`, `TERRAIN`, `HYBRID`, `SATELLITE`
+*	**version**: Optional. If set to 'timeline3', then the current version of TimelineJS will be used. If omitted, TimelineJS 2.35.6 will be used. This version of TimelineJS is no longer supported, but is preserved for backwards compatibility.

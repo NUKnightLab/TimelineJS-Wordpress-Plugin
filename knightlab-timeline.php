@@ -45,6 +45,7 @@ function kl_timeline_shortcode($atts, $content=null) {
 			'maptype' => '',
             'start_at_slide' => 0,
 			'start_zoom_adjust' => null,
+      'initial_zoom' => 2,
 			'version' => '',
 			'script_path' => plugin_dir_url( __FILE__)
                 ), $atts
@@ -78,6 +79,7 @@ function kl_timeline_shortcode($atts, $content=null) {
             start_at_end: ' . $start_at_end . ',
             start_at_slide: "' . $start_at_slide . '",
             start_zoom_adjust: "' . $start_zoom_adjust . '",
+            initial_zoom:"' . $initial_zoom . '",
             hash_bookmark: ' . $hash_bookmark .',
             font: "' . $font . '",
             debug: ' . $debug . ',

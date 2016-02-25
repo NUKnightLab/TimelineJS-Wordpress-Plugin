@@ -1,5 +1,5 @@
 /*
-    TimelineJS - ver. 3.3.11 - 2015-12-03
+    TimelineJS - ver. 3.3.13 - 2016-02-25
     Copyright (c) 2012-2015 Northwestern University
     a project of the Northwestern University Knight Lab, originally created by Zach Wise
     https://github.com/NUKnightLab/TimelineJS3
@@ -110,6 +110,11 @@ TL.Util = {
 
 	isEven: function(n) {
 	  return n == parseFloat(n)? !(n%2) : void 0;
+	},
+
+	isTrue: function(s) {
+		if (s == null) return false;
+		return s == true || String(s).toLowerCase() == 'true' || Number(s) == 1;
 	},
 
 	findArrayNumberByUniqueID: function(id, array, prop, defaultVal) {
@@ -3373,12 +3378,14 @@ TL.TimelineConfig = TL.Class.extend({
             worksheet: 0 // not really sure how to use this to get the feed for that sheet, so this is not ready except for first sheet right now
         }
         // key as url parameter (old-fashioned)
-        var pat = /\bkey=([-_A-Za-z0-9]+)&?/i;
-        if (url.match(pat)) {
-            parts.key = url.match(pat)[1];
+        var key_pat = /\bkey=([-_A-Za-z0-9]+)&?/i;
+        var url_pat = /docs.google.com\/spreadsheets(.*?)\/d\//; // fixing issue of URLs with u/0/d 
+
+        if (url.match(key_pat)) {
+            parts.key = url.match(key_pat)[1];
             // can we get a worksheet from this form?
-        } else if (url.match("docs.google.com/spreadsheets/d/")) {
-            var pos = url.indexOf("docs.google.com/spreadsheets/d/") + "docs.google.com/spreadsheets/d/".length;
+        } else if (url.match(url_pat)) {
+            var pos = url.search(url_pat) + url.match(url_pat)[0].length;
             var tail = url.substr(pos);
             parts.key = tail.split('/')[0]
             if (url.match(/\?gid=(\d+)/)) {
@@ -3898,18 +3905,19 @@ TL.Language.languages = {
       twitterembed_invalidurl_err:    "Invalid Twitter Embed url",
       wikipedia_load_err:             "Unable to load Wikipedia entry",
       youtube_invalidurl_err:         "Invalid YouTube URL",
+      spotify_invalid_url:            "Invalid Spotify URL",
       template_value_err:             "No value provided for variable",
       invalid_rgb_err:                "Invalid RGB argument",
       time_scale_scale_err:           "Don't know how to get date from time for scale",
       axis_helper_no_options_err:     "Axis helper must be configured with options",
       axis_helper_scale_err:          "No AxisHelper available for scale",
-			invalid_integer_option: 				"Invalid option value—must be a whole number."
+      invalid_integer_option:       	"Invalid option value—must be a whole number."
 		},
 		date: {
-			month: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-			month_abbr: ["Jan.", "Feb.", "March", "April", "May", "June", "July", "Aug.", "Sept.", "Oct.", "Nov.", "Dec."],
-			day: ["Sunday","Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-			day_abbr: ["Sun.","Mon.", "Tues.", "Wed.", "Thurs.", "Fri.", "Sat."]
+      month: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+      month_abbr: ["Jan.", "Feb.", "March", "April", "May", "June", "July", "Aug.", "Sept.", "Oct.", "Nov.", "Dec."],
+      day: ["Sunday","Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+      day_abbr: ["Sun.","Mon.", "Tues.", "Wed.", "Thurs.", "Fri.", "Sat."]
 		},
 		era_labels: { // specify prefix or suffix to apply to formatted date. Blanks mean no change.
 	        positive_year: {
@@ -6559,13 +6567,13 @@ TL.Swipable = TL.Class.extend({
 /*	TL.MenuBar
 	Draggable component to control size
 ================================================== */
- 
+
 TL.MenuBar = TL.Class.extend({
-	
+
 	includes: [TL.Events, TL.DomMixins],
-	
+
 	_el: {},
-	
+
 	/*	Constructor
 	================================================== */
 	initialize: function(elem, parent_elem, options) {
@@ -6581,19 +6589,19 @@ TL.MenuBar = TL.Class.extend({
 			coverbar: {},
 			grip: {}
 		};
-		
+
 		this.collapsed = false;
-		
+
 		if (typeof elem === 'object') {
 			this._el.container = elem;
 		} else {
 			this._el.container = TL.Dom.get(elem);
 		}
-		
+
 		if (parent_elem) {
 			this._el.parent = parent_elem;
 		}
-	
+
 		//Options
 		this.options = {
 			width: 					600,
@@ -6602,21 +6610,21 @@ TL.MenuBar = TL.Class.extend({
 			ease: 					TL.Ease.easeInOutQuint,
 			menubar_default_y: 		0
 		};
-		
+
 		// Animation
 		this.animator = {};
-		
+
 		// Merge Data and Options
 		TL.Util.mergeData(this.options, options);
-		
+
 		this._initLayout();
 		this._initEvents();
 	},
-	
+
 	/*	Public
 	================================================== */
 	show: function(d) {
-		
+
 		var duration = this.options.duration;
 		if (d) {
 			duration = d;
@@ -6629,7 +6637,7 @@ TL.MenuBar = TL.Class.extend({
 		});
 		*/
 	},
-	
+
 	hide: function(top) {
 		/*
 		this.animator = TL.Animate(this._el.container, {
@@ -6639,31 +6647,27 @@ TL.MenuBar = TL.Class.extend({
 		});
 		*/
 	},
-		
+
 	toogleZoomIn: function(show) {
 		if (show) {
-			this._el.button_zoomin.className = "tl-menubar-button";
-			this._el.button_zoomout.className = "tl-menubar-button";
+      TL.DomUtil.removeClass(this._el.button_zoomin,'tl-menubar-button-inactive');
 		} else {
-			this._el.button_zoomin.className = "tl-menubar-button tl-menubar-button-inactive";
-			this._el.button_zoomout.className = "tl-menubar-button";
+      TL.DomUtil.addClass(this._el.button_zoomin,'tl-menubar-button-inactive');
 		}
 	},
-	
+
 	toogleZoomOut: function(show) {
 		if (show) {
-			this._el.button_zoomout.className = "tl-menubar-button";
-			this._el.button_zoomin.className = "tl-menubar-button";
+      TL.DomUtil.removeClass(this._el.button_zoomout,'tl-menubar-button-inactive');
 		} else {
-			this._el.button_zoomout.className = "tl-menubar-button tl-menubar-button-inactive";
-			this._el.button_zoomin.className = "tl-menubar-button";
+      TL.DomUtil.addClass(this._el.button_zoomout,'tl-menubar-button-inactive');
 		}
 	},
-	
+
 	setSticky: function(y) {
 		this.options.menubar_default_y = y;
 	},
-	
+
 	/*	Color
 	================================================== */
 	setColor: function(inverted) {
@@ -6673,58 +6677,58 @@ TL.MenuBar = TL.Class.extend({
 			this._el.container.className = 'tl-menubar';
 		}
 	},
-	
+
 	/*	Update Display
 	================================================== */
 	updateDisplay: function(w, h, a, l) {
 		this._updateDisplay(w, h, a, l);
 	},
-	
+
 
 	/*	Events
 	================================================== */
 	_onButtonZoomIn: function(e) {
 		this.fire("zoom_in", e);
 	},
-	
+
 	_onButtonZoomOut: function(e) {
 		this.fire("zoom_out", e);
 	},
-	
+
 	_onButtonBackToStart: function(e) {
 		this.fire("back_to_start", e);
 	},
-	
-	
+
+
 	/*	Private Methods
 	================================================== */
 	_initLayout: function () {
-		
+
 		// Create Layout
 		this._el.button_zoomin 							= TL.Dom.create('span', 'tl-menubar-button', this._el.container);
 		this._el.button_zoomout 						= TL.Dom.create('span', 'tl-menubar-button', this._el.container);
 		this._el.button_backtostart 					= TL.Dom.create('span', 'tl-menubar-button', this._el.container);
-		
+
 		if (TL.Browser.mobile) {
 			this._el.container.setAttribute("ontouchstart"," ");
 		}
-		
+
 		this._el.button_backtostart.innerHTML		= "<span class='tl-icon-goback'></span>";
 		this._el.button_zoomin.innerHTML			= "<span class='tl-icon-zoom-in'></span>";
 		this._el.button_zoomout.innerHTML			= "<span class='tl-icon-zoom-out'></span>";
-		
-		
+
+
 	},
-	
+
 	_initEvents: function () {
 		TL.DomEvent.addListener(this._el.button_backtostart, 'click', this._onButtonBackToStart, this);
 		TL.DomEvent.addListener(this._el.button_zoomin, 'click', this._onButtonZoomIn, this);
 		TL.DomEvent.addListener(this._el.button_zoomout, 'click', this._onButtonZoomOut, this);
 	},
-	
+
 	// Update Display
 	_updateDisplay: function(width, height, animate) {
-		
+
 		if (width) {
 			this.options.width = width;
 		}
@@ -6732,8 +6736,9 @@ TL.MenuBar = TL.Class.extend({
 			this.options.height = height;
 		}
 	}
-	
+
 });
+
 
 /* **********************************************
      Begin TL.Message.js
@@ -7491,40 +7496,40 @@ TL.Media.Blockquote = TL.Media.extend({
 ================================================== */
 
 TL.Media.DailyMotion = TL.Media.extend({
-	
+
 	includes: [TL.Events],
-	
+
 	/*	Load the media
 	================================================== */
 	_loadMedia: function() {
 		var api_url,
 			self = this;
-				
+
 		// Create Dom element
 		this._el.content_item	= TL.Dom.create("div", "tl-media-item tl-media-iframe tl-media-dailymotion", this._el.content);
-		
+
 		// Get Media ID
 		if (this.data.url.match("video")) {
 			this.media_id = this.data.url.split("video\/")[1].split(/[?&]/)[0];
 		} else {
 			this.media_id = this.data.url.split("embed\/")[1].split(/[?&]/)[0];
 		}
-		
+
 		// API URL
-		api_url = "http://www.dailymotion.com/embed/video/" + this.media_id;
-		
+		api_url = "https://www.dailymotion.com/embed/video/" + this.media_id;
+
 		// API Call
-		this._el.content_item.innerHTML = "<iframe autostart='false' frameborder='0' width='100%' height='100%' src='" + api_url + "'></iframe>"		
-		
+		this._el.content_item.innerHTML = "<iframe autostart='false' frameborder='0' width='100%' height='100%' src='" + api_url + "'></iframe>"
+
 		// After Loaded
 		this.onLoaded();
 	},
-	
+
 	// Update Media Display
 	_updateMediaDisplay: function() {
 		this._el.content_item.style.height = TL.Util.ratio.r16_9({w:this._el.content_item.offsetWidth}) + "px";
 	}
-	
+
 });
 
 
@@ -7999,34 +8004,34 @@ TL.Media.Imgur = TL.Media.extend({
 ================================================== */
 
 TL.Media.Instagram = TL.Media.extend({
-	
+
 	includes: [TL.Events],
-	
+
 	/*	Load the media
 	================================================== */
-	_loadMedia: function() {		
+	_loadMedia: function() {
 		// Get Media ID
 		this.media_id = this.data.url.split("\/p\/")[1].split("/")[0];
-		
+
 		if(!this.options.background) {
 		    this.createMedia();
 		}
-						
+
 		// After Loaded
 		this.onLoaded();
 	},
 
     createMedia: function() {
         var self = this;
-        
+
 		// Link
 		this._el.content_link 				= TL.Dom.create("a", "", this._el.content);
 		this._el.content_link.href 			= this.data.url;
 		this._el.content_link.target 		= "_blank";
-		
+
 		// Photo
 		this._el.content_item				= TL.Dom.create("img", "tl-media-item tl-media-image tl-media-instagram tl-media-shadow", this._el.content_link);
-		
+
 		// Media Loaded Event
 		this._el.content_item.addEventListener('load', function(e) {
 			self.onMediaLoaded();
@@ -8036,16 +8041,16 @@ TL.Media.Instagram = TL.Media.extend({
     },
 
     getImageURL: function(w, h) {
-        return "http://instagr.am/p/" + this.media_id + "/media/?size=" + this.sizes(w);
+        return "https://instagram.com/p/" + this.media_id + "/media/?size=" + this.sizes(w);
     },
-    	
+
 	_getMeta: function() {
 		var self = this,
 		    api_url;
-		
+
 		// API URL
-		api_url = "http://api.instagram.com/oembed?url=http://instagr.am/p/" + this.media_id + "&callback=?";
-		
+		api_url = "https://api.instagram.com/oembed?url=https://instagr.am/p/" + this.media_id + "&callback=?";
+
 		// API Call
 		TL.getJSON(api_url, function(d) {
 			self.data.credit_alternate = "<a href='" + d.author_url + "' target='_blank'>" + d.author_name + "</a>";
@@ -8053,7 +8058,7 @@ TL.Media.Instagram = TL.Media.extend({
 			self.updateMeta();
 		});
 	},
-	
+
 	sizes: function(s) {
 		var _size = "";
 		if (s <= 150) {
@@ -8063,12 +8068,12 @@ TL.Media.Instagram = TL.Media.extend({
 		} else {
 			_size = "l";
 		}
-		
+
 		return _size;
 	}
-	
-	
-	
+
+
+
 });
 
 
@@ -8337,38 +8342,38 @@ TL.Media.Slider = TL.Media.extend({
 ================================================== */
 
 TL.Media.SoundCloud = TL.Media.extend({
-	
+
 	includes: [TL.Events],
-	
+
 	/*	Load the media
 	================================================== */
 	_loadMedia: function() {
 		var api_url,
 			self = this;
-				
+
 		// Create Dom element
 		this._el.content_item	= TL.Dom.create("div", "tl-media-item tl-media-iframe tl-media-soundcloud tl-media-shadow", this._el.content);
-		
+
 		// Get Media ID
 		this.media_id = this.data.url;
-		
+
 		// API URL
-		api_url = "http://soundcloud.com/oembed?url=" + this.media_id + "&format=js&callback=?"
-		
+		api_url = "https://soundcloud.com/oembed?url=" + this.media_id + "&format=js&callback=?"
+
 		// API Call
 		TL.getJSON(api_url, function(d) {
 			self.createMedia(d);
 		});
-		
+
 	},
-	
+
 	createMedia: function(d) {
 		this._el.content_item.innerHTML = d.html;
-		
+
 		// After Loaded
 		this.onLoaded();
 	}
-	
+
 });
 
 
@@ -8380,56 +8385,61 @@ TL.Media.SoundCloud = TL.Media.extend({
 ================================================== */
 
 TL.Media.Spotify = TL.Media.extend({
-	
+
 	includes: [TL.Events],
-	
+
 	/*	Load the media
 	================================================== */
 	_loadMedia: function() {
 		var api_url,
 			self = this;
-		
+
 		// Create Dom element
 		this._el.content_item	= TL.Dom.create("div", "tl-media-item tl-media-iframe tl-media-spotify", this._el.content);
-		
+
 		// Get Media ID
-		if (this.data.url.match("open.spotify.com/track/")) {
-			this.media_id = "spotify:track:" + this.data.url.split("open.spotify.com/track/")[1];
-		} else if (this.data.url.match("spotify:track:")) {
-			this.media_id = this.data.url;
-		} else if (this.data.url.match("/playlist/")) {
-			var user = this.data.url.split("open.spotify.com/user/")[1].split("/playlist/")[0];
-			this.media_id = "spotify:user:" + user + ":playlist:" + this.data.url.split("/playlist/")[1];
-		} else if (this.data.url.match(":playlist:")) {
+		if (this.data.url.match(/^spotify:track/) || this.data.url.match(/^spotify:user:.+:playlist:/)) {
 			this.media_id = this.data.url;
 		}
-		
-		// API URL
-		api_url = "http://embed.spotify.com/?uri=" + this.media_id + "&theme=white&view=coverart";
-				
-		this.player = TL.Dom.create("iframe", "tl-media-shadow", this._el.content_item);
-		this.player.width 		= "100%";
-		this.player.height 		= "100%";
-		this.player.frameBorder = "0";
-		this.player.src 		= api_url;
-		
-		// After Loaded
-		this.onLoaded();
+		if (this.data.url.match(/spotify.com\/track\/(.+)/)) {
+			this.media_id = "spotify:track:" + this.data.url.match(/spotify.com\/track\/(.+)/)[1];
+		} else if (this.data.url.match(/spotify.com\/user\/(.+?)\/playlist\/(.+)/)) {
+			var user = this.data.url.match(/spotify.com\/user\/(.+?)\/playlist\/(.+)/)[1];
+			var playlist = this.data.url.match(/spotify.com\/user\/(.+?)\/playlist\/(.+)/)[2];
+			this.media_id = "spotify:user:" + user + ":playlist:" + playlist;
+		}
+
+		if (this.media_id) {
+			// API URL
+			api_url = "https://embed.spotify.com/?uri=" + this.media_id + "&theme=white&view=coverart";
+
+			this.player = TL.Dom.create("iframe", "tl-media-shadow", this._el.content_item);
+			this.player.width 		= "100%";
+			this.player.height 		= "100%";
+			this.player.frameBorder = "0";
+			this.player.src 		= api_url;
+
+			// After Loaded
+			this.onLoaded();
+
+		} else {
+				this.loadErrorDisplay(this._('spotify_invalid_url'));
+		}
 	},
-	
+
 	// Update Media Display
-	
+
 	_updateMediaDisplay: function(l) {
 		var _height = this.options.height,
 			_player_height = 0,
 			_player_width = 0;
-			
+
 		if (TL.Browser.mobile) {
 			_height = (this.options.height/2);
 		} else {
 			_height = this.options.height - this.options.credit_height - this.options.caption_height - 30;
 		}
-		
+
 		this._el.content_item.style.maxHeight = "none";
 		trace(_height);
 		trace(this.options.width)
@@ -8443,11 +8453,11 @@ TL.Media.Spotify = TL.Media.extend({
 			_player_height = _height + "px";
 			_player_width = _height - 80 + "px";
 		}
-		
+
 
 		this.player.style.width = _player_width;
 		this.player.style.height = _player_height;
-		
+
 		if (this._el.credit) {
 			this._el.credit.style.width		= _player_width;
 		}
@@ -8455,13 +8465,13 @@ TL.Media.Spotify = TL.Media.extend({
 			this._el.caption.style.width		= _player_width;
 		}
 	},
-	
-	
+
+
 	_stopMedia: function() {
 		// Need spotify stop code
-		
+
 	}
-	
+
 });
 
 
@@ -8621,10 +8631,12 @@ TL.Media.Text = TL.Class.extend({
 		if (this.data.text != "") {
 			var text_content = "";
 
-      text_content += TL.Util.htmlify(this.options.autolink == true ? TL.Util.linkify(this.data.text) : this.data.text);
-
+			text_content += TL.Util.htmlify(this.options.autolink == true ? TL.Util.linkify(this.data.text) : this.data.text);
+			trace(this.data.text);
 			this._el.content				= TL.Dom.create("div", "tl-text-content", this._el.content_container);
 			this._el.content.innerHTML		= text_content;
+			trace(text_content);
+			trace(this._el.content)
 		}
 
 		// Fire event that the slide is loaded
@@ -8918,37 +8930,37 @@ TL.Media.Vimeo = TL.Media.extend({
 ================================================== */
 
 TL.Media.Vine = TL.Media.extend({
-	
+
 	includes: [TL.Events],
-	
+
 	/*	Load the media
 	================================================== */
 	_loadMedia: function() {
 		var api_url,
 			self = this;
-				
+
 		// Create Dom element
 		this._el.content_item	= TL.Dom.create("div", "tl-media-item tl-media-iframe tl-media-vine tl-media-shadow", this._el.content);
-		
+
 		// Get Media ID
 		this.media_id = this.data.url.split("vine.co/v/")[1];
-		
+
 		// API URL
 		api_url = "https://vine.co/v/" + this.media_id + "/embed/simple";
-		
+
 		// API Call
-		this._el.content_item.innerHTML = "<iframe frameborder='0' width='100%' height='100%' src='" + api_url + "'></iframe><script async src='http://platform.vine.co/static/scripts/embed.js' charset='utf-8'></script>"		
-		
+		this._el.content_item.innerHTML = "<iframe frameborder='0' width='100%' height='100%' src='" + api_url + "'></iframe><script async src='https://platform.vine.co/static/scripts/embed.js' charset='utf-8'></script>"		
+
 		// After Loaded
 		this.onLoaded();
 	},
-	
+
 	// Update Media Display
 	_updateMediaDisplay: function() {
 		var size = TL.Util.ratio.square({w:this._el.content_item.offsetWidth , h:this.options.height});
 		this._el.content_item.style.height = size.h + "px";
 	}
-	
+
 });
 
 
@@ -8962,21 +8974,21 @@ TL.Media.Vine = TL.Media.extend({
 ================================================== */
 
 TL.Media.Website = TL.Media.extend({
-	
+
 	includes: [TL.Events],
-	
+
 	/*	Load the media
 	================================================== */
 	_loadMedia: function() {
 		var self = this;
-		
+
 		// Get Media ID
 		this.media_id = this.data.url.replace(/.*?:\/\//g, "");
 
 		if (this.options.api_key_embedly) {
 			// API URL
-			api_url = "http://api.embed.ly/1/extract?key=" + this.options.api_key_embedly + "&url=" + this.media_id + "&callback=?";
-			
+			api_url = "https://api.embed.ly/1/extract?key=" + this.options.api_key_embedly + "&url=" + this.media_id + "&callback=?";
+
 			// API Call
 			TL.getJSON(api_url, function(d) {
 				self.createMedia(d);
@@ -8985,7 +8997,7 @@ TL.Media.Website = TL.Media.extend({
 			this.createCardContent();
 		}
 	},
-	
+
 	createCardContent: function() {
 		(function(w, d){
 			var id='embedly-platform', n = 'script';
@@ -9004,8 +9016,8 @@ TL.Media.Website = TL.Media.extend({
 	},
 	createMedia: function(d) { // this costs API credits...
 		var content = "";
-		
-		
+
+
 		content		+=	"<h4><a href='" + this.data.url + "' target='_blank'>" + d.title + "</a></h4>";
 		if (d.images) {
 			if (d.images[0]) {
@@ -9018,7 +9030,7 @@ TL.Media.Website = TL.Media.extend({
 		}
 		content		+=	"<span class='tl-media-website-description'>" + d.provider_name + "</span><br/>";
 		content		+=	"<p>" + d.description + "</p>";
-		
+
 		this._setContent(content);
 	},
 
@@ -9027,21 +9039,21 @@ TL.Media.Website = TL.Media.extend({
 		this._el.content_item	= TL.Dom.create("div", "tl-media-item tl-media-website", this._el.content);
 		this._el.content_container.className = "tl-media-content-container tl-media-content-container-text";
 		this._el.content_item.innerHTML = content;
-		
+
 		// After Loaded
 		this.onLoaded();
 
 	},
-	
+
 	updateMediaDisplay: function() {
-		
+
 	},
-	
+
 	_updateMediaDisplay: function() {
-		
+
 	}
-	
-	
+
+
 });
 
 
@@ -10486,21 +10498,11 @@ TL.TimeNav = TL.Class.extend({
 
 	zoomIn: function() { // move the the next "higher" scale factor
 		var new_scale = TL.Util.findNextGreater(this.options.zoom_sequence, this.options.scale_factor);
-		if (new_scale == this.options.zoom_sequence[this.options.zoom_sequence.length-1]) {
-			this.fire("zoomtoggle", {zoom:"in", show:false});
-		} else {
-			this.fire("zoomtoggle", {zoom:"in", show:true});
-		}
 		this.setZoomFactor(new_scale);
 	},
 
 	zoomOut: function() { // move the the next "lower" scale factor
 		var new_scale = TL.Util.findNextLesser(this.options.zoom_sequence, this.options.scale_factor);
-		if (new_scale == this.options.zoom_sequence[0]) {
-			this.fire("zoomtoggle", {zoom:"out", show:false});
-		} else {
-			this.fire("zoomtoggle", {zoom:"out", show:true});
-		}
 		this.setZoomFactor(new_scale);
 	},
 
@@ -10509,11 +10511,27 @@ TL.TimeNav = TL.Class.extend({
 		if (typeof(zoom_factor) == 'number') {
 			this.setZoomFactor(zoom_factor);
 		} else {
-			console.warn("Invalid zoom level. Please use a number between 0 and " + (this.options.zoom_sequence.length - 1));
+			console.warn("Invalid zoom level. Please use an index number between 0 and " + (this.options.zoom_sequence.length - 1));
 		}
 	},
 
 	setZoomFactor: function(factor) {
+		if (factor <= this.options.zoom_sequence[0]) {
+			this.fire("zoomtoggle", {zoom:"out", show:false});
+		} else {
+			this.fire("zoomtoggle", {zoom:"out", show:true});
+		}
+
+		if (factor >= this.options.zoom_sequence[this.options.zoom_sequence.length-1]) {
+			this.fire("zoomtoggle", {zoom:"in", show:false});
+		} else {
+			this.fire("zoomtoggle", {zoom:"in", show:true});
+		}
+
+		if (factor == 0) {
+			console.warn("Zoom factor must be greater than zero. Using 0.1");
+			factor = 0.1;
+		}
 		this.options.scale_factor = factor;
 		//this._updateDrawTimeline(true);
 		this.goToId(this.current_id, !this._updateDrawTimeline(true), true);
@@ -10640,7 +10658,7 @@ TL.TimeNav = TL.Class.extend({
 			marker_height 		= this._calculateMarkerHeight(available_height);
 
 
-		this._positionGroups();		
+		this._positionGroups();
 
 		this._calculated_row_height = this._calculateRowHeight(available_height);
 
@@ -12424,7 +12442,7 @@ TL.AxisHelper = TL.Class.extend({
         }
         
         var prev = null;
-        for (var idx in helpers) {
+        for (var idx = 0; idx < helpers.length; idx++) {
             var curr = helpers[idx];
             var pixels_per_tick = curr.getPixelsPerTick(ts._pixels_per_milli);
             if (pixels_per_tick > optimal_tick_width)  {
@@ -12796,7 +12814,7 @@ TL.Timeline = TL.Class.extend({
 			}
 
 			var event = this.config.events.splice(n, 1);
-
+			delete this.config.event_dict[event[0].unique_id];
 			this._storyslider.destroySlide(this.config.title ? n+1 : n);
 			this._storyslider._updateDrawSlides();
 
@@ -13093,7 +13111,7 @@ TL.Timeline = TL.Class.extend({
 				if (typeof(value) == 'number') {
 					valid = (value == parseInt(value))
 				} else if (typeof(value) == "string") {
-					valid = (value.match(/^\s*\-?\d+\s*$/));
+					valid = (value.match(/^\s*(\-?\d+)?\s*$/));
 				}
 				if (!valid) {
 					this.config.logError({ message_key: 'invalid_integer_option', detail: opt });
@@ -13346,7 +13364,7 @@ TL.Timeline = TL.Class.extend({
 			if (this.options.hash_bookmark && window.location.hash != "") {
 				this.goToId(window.location.hash.replace("#event-", ""));
 			} else {
-				if(this.options.start_at_end == "true" || this.options.start_at_slide > this.config.events.length ) {
+				if( TL.Util.isTrue(this.options.start_at_end) || this.options.start_at_slide > this.config.events.length ) {
 					this.goToEnd();
 				} else {
 					this.goTo(this.options.start_at_slide);

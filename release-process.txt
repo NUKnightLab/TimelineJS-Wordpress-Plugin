@@ -3,7 +3,7 @@ Until we can figure out how to automate it, be sure to follow these steps to upd
 1. in the TimelineJS3 project, run 'fab stage_wp' (this copies the latest TimelineJS into this repository)
 
 2. Update the list of available languages. Should be as simple as copy/paste the menu <option> items from
-		TimelineJS/website/templates/_make.html
+		TimelineJS3/website/templates/_make.html (DON'T copy the <select> because the values of the 'id' attribute are different.)
 	to
 		TimelineJS-Wordpress-Plugin/knightlab-timeline.php
 

@@ -3,8 +3,8 @@ Contributors: miguelpeixe, zachwise, KnightLab
 Donate link: http://knightlab.northwestern.edu/
 Tags: timeline, shortcode, stamen, timeline.verite.co, verite, html5, KnightLab
 Requires at least: 2.0.2
-Tested up to: 4.3.1
-Stable tag: 3.3.13.0
+Tested up to: 4.4.2
+Stable tag: 3.3.13.1
 
 Use the incredible HTML5 Timeline developed by Knight Lab on your website. As easy as writing a shortcode.
 
@@ -107,6 +107,14 @@ Alternatively, you can use the TinyMCE button to create your own shortcode as we
 If you find this changelog out of date, you can assume that the plugin update is merely to pull in a new version of TimelineJS (especially if the plugin version number is 3.x.y.0)
 
 The most up to date change log for TimelineJS itself can be found at https://github.com/NUKnightLab/TimelineJS3/blob/master/CHANGELOG
+
+= 3.3.13.1 =
+* Experimental: register a TimelineJS oembed provider. You can now embed a timeline just by getting the URL for "get link to preview" from https://timeline.knightlab.com and putting it in a post on a line by itself. We're not clear why width/height parameters are not being honored.
+
+= 3.3.11.2 =
+* Minor TimelineJS3 version update
+* Fixes to plugin deployment/working out kinks in update
+
 
 = 3.3.11.2 =
 * Minor TimelineJS3 version update

@@ -108,8 +108,9 @@ If you find this changelog out of date, you can assume that the plugin update is
 
 The most up to date change log for TimelineJS itself can be found at https://github.com/NUKnightLab/TimelineJS3/blob/master/CHANGELOG
 
-= 3.3.13.1 =
-* Experimental: register a TimelineJS oembed provider. You can now embed a timeline just by getting the URL for "get link to preview" from https://timeline.knightlab.com and putting it in a post on a line by itself. We're not clear why width/height parameters are not being honored.
+= 3.3.14.0 =
+* Update to TimelineJS 3.3.14 -- fixes Imgur bug
+* Experimental: register a TimelineJS oembed provider. You can now embed a timeline just by getting the URL for "get link to preview" from https://timeline.knightlab.com and putting it in a post on a line by itself. We're not entirely clear why width/height parameters are not being honored.
 
 = 3.3.11.2 =
 * Minor TimelineJS3 version update

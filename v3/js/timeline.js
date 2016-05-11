@@ -1,6 +1,6 @@
 /*
-    TimelineJS - ver. 3.3.14 - 2016-03-22
-    Copyright (c) 2012-2015 Northwestern University
+    TimelineJS - ver. 3.3.15 - 2016-05-11
+    Copyright (c) 2012-2016 Northwestern University
     a project of the Northwestern University Knight Lab, originally created by Zach Wise
     https://github.com/NUKnightLab/TimelineJS3
     This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
@@ -11309,11 +11309,16 @@ TL.TimeMarker = TL.Class.extend({
 		// Thumbnail or Icon
 		if (this.data.media) {
 			this._el.media_container	= TL.Dom.create("div", "tl-timemarker-media-container", this._el.content);
-
-			if (this.data.media.thumbnail && this.data.media.thumbnail != "") {
-				this._el.media				= TL.Dom.create("img", "tl-timemarker-media", this._el.media_container);
-				this._el.media.src			= TL.Util.transformImageURL(this.data.media.thumbnail);
-
+			// ugh. needs an overhaul
+			var mtd = {url: this.data.media.thumbnail};
+			var thumbnail_media_type = (this.data.media.thumbnail) ? TL.MediaType(mtd, true) : null;
+			if (thumbnail_media_type) {
+				var thumbnail_media = new thumbnail_media_type.cls(mtd);
+				thumbnail_media.on("loaded", function() {
+					this._el.media				= TL.Dom.create("img", "tl-timemarker-media", this._el.media_container);
+					this._el.media.src			= thumbnail_media.getImageURL();
+				}.bind(this));
+				thumbnail_media.loadMedia();
 			} else {
 				var media_type = TL.MediaType(this.data.media).type;
 				this._el.media				= TL.Dom.create("span", "tl-icon-" + media_type, this._el.media_container);

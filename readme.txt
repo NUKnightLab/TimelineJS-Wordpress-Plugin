@@ -1,10 +1,10 @@
 === Knight Lab Timeline ===
-Contributors: miguelpeixe, zachwise, KnightLab
+Contributors: miguelpeixe, zachwise, KnightLab, joegermuska
 Donate link: http://knightlab.northwestern.edu/
 Tags: timeline, shortcode, stamen, timeline.verite.co, verite, html5, KnightLab
 Requires at least: 2.0.2
 Tested up to: 4.5.2
-Stable tag: 3.3.16.0
+Stable tag: 3.4.0.0
 
 Use the incredible HTML5 Timeline developed by Knight Lab on your website. As easy as writing a shortcode.
 
@@ -64,6 +64,7 @@ To embed your timeline use the button located at the post content editor (TinyMC
 * Lithuanian
 * Luxembourgish
 * Malay
+* Myanmar
 * Nepali
 * Norwegian
 * Polish

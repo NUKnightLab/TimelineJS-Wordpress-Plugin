@@ -1,5 +1,5 @@
 /*
-    TimelineJS - ver. 3.3.16 - 2016-05-31
+    TimelineJS - ver. 3.4.0 - 2016-08-30
     Copyright (c) 2012-2016 Northwestern University
     a project of the Northwestern University Knight Lab, originally created by Zach Wise
     https://github.com/NUKnightLab/TimelineJS3
@@ -2339,9 +2339,9 @@ TL.Util = {
         getComputedStyle(undefined)
       } catch(e) {
         var nativeGetComputedStyle = getComputedStyle;
-        window.getComputedStyle = function(element){
+        window.getComputedStyle = function(element, pseudoElement){
           try {
-            return nativeGetComputedStyle(element)
+            return nativeGetComputedStyle(element, pseudoElement)
           } catch(e) {
             return null
           }
@@ -3379,7 +3379,7 @@ TL.TimelineConfig = TL.Class.extend({
         }
         // key as url parameter (old-fashioned)
         var key_pat = /\bkey=([-_A-Za-z0-9]+)&?/i;
-        var url_pat = /docs.google.com\/spreadsheets(.*?)\/d\//; // fixing issue of URLs with u/0/d 
+        var url_pat = /docs.google.com\/spreadsheets(.*?)\/d\//; // fixing issue of URLs with u/0/d
 
         if (url.match(key_pat)) {
             parts.key = url.match(key_pat)[1];
@@ -3618,15 +3618,30 @@ TL.TimelineConfig = TL.Class.extend({
             }
             callback(tc);
         } else {
-            TL.getJSON(url, function(data){
-                try {
-                    tc = new TL.TimelineConfig(data);
-                } catch(e) {
-                    tc = new TL.TimelineConfig();
-                    tc.logError(e);
-                }
-                callback(tc);
-            });
+          TL.ajax({
+            url: url,
+            dataType: 'json',
+            success: function(data){
+            try {
+                tc = new TL.TimelineConfig(data);
+            } catch(e) {
+                tc = new TL.TimelineConfig();
+                tc.logError(e);
+            }
+            callback(tc);
+            },
+            error: function(xhr, errorType, error) {
+              tc = new TL.TimelineConfig();
+              if (errorType == 'parsererror') {
+                var error = new TL.Error("invalid_url_err");
+              } else {
+                var error = new TL.Error("unknown_read_err", errorType)
+              }
+              tc.logError(error);
+              callback(tc);
+            }
+          });
+
         }
     }
 
@@ -3883,6 +3898,7 @@ TL.Language.languages = {
       loading_timeline:               "Loading Timeline... ",
       swipe_to_navigate:              "Swipe to Navigate<br><span class='tl-button'>OK</span>",
       unknown_read_err:               "An unexpected error occurred trying to read your spreadsheet data",
+			invalid_url_err: 								"Unable to read Timeline data. Make sure your URL is for a Google Spreadsheet or a Timeline JSON file.",
       network_err:                    "Unable to read your Google Spreadsheet. Make sure you have published it to the web.",
       empty_feed_err:                 "No data entries found",
       missing_start_date_err:         "Missing start_date",
@@ -12734,6 +12750,7 @@ TL.Timeline = TL.Class.extend({
 	_loadLanguage: function(data) {
 		try {
 		    this.options.language = new TL.Language(this.options);
+
 		    this._initData(data);
 		} catch(e) {
 		    this.showMessage(this._translateError(e));
@@ -13050,6 +13067,11 @@ TL.Timeline = TL.Class.extend({
 		// Update Component Displays
 		this._timenav.updateDisplay(this.options.width, this.options.timenav_height, animate);
 		this._storyslider.updateDisplay(this.options.width, this.options.storyslider_height, animate, this.options.layout);
+
+		if (this.options.language.direction == 'rtl') {
+			display_class += ' tl-rtl';
+		}
+
 
 		// Apply class
 		this._el.container.className = display_class;

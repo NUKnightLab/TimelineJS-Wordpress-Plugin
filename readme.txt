@@ -109,6 +109,9 @@ If you find this changelog out of date, you can assume that the plugin update is
 
 The most up to date change log for TimelineJS itself can be found at https://github.com/NUKnightLab/TimelineJS3/blob/master/CHANGELOG
 
+= 3.6.2.0 =
+* Update to TimelineJS 3.6.2, verify plugin works with WP5
+
 = 3.6.0.0 =
 * Update to TimelineJS 3.6.0, which anonymizes IP addresses when tracking Timeline events in accordance with the GDPR.
 

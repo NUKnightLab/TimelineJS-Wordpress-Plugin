@@ -35,7 +35,7 @@ add_action( 'init', 'kl_timeline_textdomain' );
  * Set textdomain.
  */
 function kl_timeline_textdomain() {
-	$plugin_dir = basename( dirname(__FILE__) );
+	$plugin_dir = basename( dirname( __FILE__ ) );
 	load_plugin_textdomain( 'kl-timeline', false, $plugin_dir . '/languages/' );
 }
 
@@ -44,8 +44,8 @@ add_shortcode( 'timeline', 'kl_timeline_shortcode' );
 /**
  * Output shortcode.
  *
- * @param array $atts The shortcode attributes.
- * @param [type] $content
+ * @param array  $atts The shortcode attributes.
+ * @param string $content The shortcode content.
  * @return mixed
  */
 function kl_timeline_shortcode( $atts, $content = null ) {
@@ -86,7 +86,6 @@ function kl_timeline_shortcode( $atts, $content = null ) {
 
 	$css_path = plugin_dir_url( __FILE__ ) . 'css/timeline.css';
 
-
 	wp_enqueue_script( 'kl-timeline-embed' );
 	$shortcode = '
 		<div id="timeline-embed"></div>
@@ -106,7 +105,7 @@ function kl_timeline_shortcode( $atts, $content = null ) {
 				maptype: "' . $atts['maptype'] . '",
 				script_path: "' . $atts['script_path'] . '"
 			}
-	// ]]></script>
+		// ]]></script>
 	';
 	return $shortcode;
 }
@@ -138,6 +137,9 @@ function kl_timeline_tinymce_button( $context ) {
 	return $context;
 }
 
+/**
+ * Add tinyMCE scripts.
+ */
 function kl_timeline_tinymce() {
 ?>
 <script type="text/javascript">

@@ -67,7 +67,7 @@
         "empty_feed_err": "Nebyly nalezeny žádné údaje",
         "missing_start_date_err": "Chybí start_date",
         "invalid_data_format_err": "Řádky záhlaví byly změněny.",
-        "date_compare_err": "Nelze porovnat TL. Data jsou v různých měřítkách",
+        "date_compare_err": "Nelze porovnat timeline date objects jsou v různých měřítkách",
         "invalid_scale_err": "Neplatná stupnice",
         "invalid_date_err": "Neplatné datum: měsíc, den a rok musí být čísla.",
         "invalid_separator_error": "Neplatný čas: chybné použití : nebo . jako oddělovače.",

@@ -68,7 +68,7 @@
         "empty_feed_err": "No data entries found",
         "missing_start_date_err": "Missing start_date",
         "invalid_data_format_err": "Header row has been modified.",
-        "date_compare_err": "Can't compare TL.Dates on different scales",
+        "date_compare_err": "Can't compare timeline date objects on different scales",
         "invalid_scale_err": "Invalid scale",
         "invalid_date_err": "Invalid date: month, day and year must be numbers.",
         "invalid_separator_error": "Invalid time: misuse of : or . as separator.",

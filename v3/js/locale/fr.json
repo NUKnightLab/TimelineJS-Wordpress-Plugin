@@ -67,7 +67,7 @@
         "empty_feed_err": "Aucune donnée trouvée",
         "missing_start_date_err": "Date de début manquante",
         "invalid_data_format_err": "Erreur : La ligne d'entête a été modifiée.",
-        "date_compare_err": "Impossible de comparer les TL.Dates à différentes échelles",
+        "date_compare_err": "Impossible de comparer les Timeline date objects à différentes échelles",
         "invalid_scale_err": "Echelle invalide",
         "invalid_date_err": "Date invalide : les jours, mois et années doivent être des nombres.",
         "invalid_hour_err": "Erreur : Heure invalide",

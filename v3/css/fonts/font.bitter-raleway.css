@@ -23,7 +23,7 @@ https://www.google.com/fonts/specimen/Raleway
   font-family: 'Bitter';
   font-style: normal;
   font-weight: 700;
-  src: local('Bitter Bold'), local('Bitter-Bold'), url(https://fonts.gstatic.com/s/bitter/v15/rax_HiqOu8IVPmnzxKl8Axha.ttf) format('truetype');
+  src: url(https://fonts.gstatic.com/s/bitter/v16/raxhHiqOu8IVPmnRc6SY1KXhnF_Y8RHYOLjOWA.ttf) format('truetype');
 }
 @font-face {
   font-family: 'Raleway';

@@ -93,7 +93,7 @@ echo
 echo "Creating local copy of SVN repo ..."
 svn co $SVNURL $SVNPATH
 
-if [$? -ne 0]
+if [ $? -ne 0 ]
     then
         echo "Subversion error. Exiting";
         exit 1;

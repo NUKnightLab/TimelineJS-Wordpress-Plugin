@@ -12,7 +12,7 @@ Use the incredible HTML5 Timeline developed by Knight Lab on your website. As ea
 
 A simple shortcode plugin to add the TimelineJS made by Knight Lab. Now updated to support TimelineJS3.
 
-Supports custom width and height, [Google Spreadsheet and JSON data sources](http://timeline.knightlab.com/ "Learn how to create your data source") and many more.
+Supports custom width and height, [Google Spreadsheet and JSON data sources](http://timeline.knightlab.com/) "Learn how to create your data source") and many more.
 
 Checkout how to create your amazing Timeline at http://timeline.knightlab.com/
 

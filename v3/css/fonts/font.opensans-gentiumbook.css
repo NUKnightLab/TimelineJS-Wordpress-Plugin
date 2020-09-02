@@ -23,13 +23,13 @@ http://www.google.com/webfonts/specimen/Gentium+Book+Basic
   font-family: 'Gentium Book Basic';
   font-style: italic;
   font-weight: 400;
-  src: local('Gentium Book Basic Italic'), local('GentiumBookBasic-Italic'), url(https://fonts.gstatic.com/s/gentiumbookbasic/v10/pe0xMJCbPYBVokB1LHA9bbyaQb8ZGjc4VYF466c.ttf) format('truetype');
+  src: local('Gentium Book Basic Italic'), local('GentiumBookBasic-Italic'), url(https://fonts.gstatic.com/s/gentiumbookbasic/v11/pe0xMJCbPYBVokB1LHA9bbyaQb8ZGjc4VYF466c.ttf) format('truetype');
 }
 @font-face {
   font-family: 'Gentium Book Basic';
   font-style: normal;
   font-weight: 400;
-  src: local('Gentium Book Basic'), local('GentiumBookBasic'), url(https://fonts.gstatic.com/s/gentiumbookbasic/v10/pe0zMJCbPYBVokB1LHA9bbyaQb8ZGjc4ULF_.ttf) format('truetype');
+  src: local('Gentium Book Basic'), local('GentiumBookBasic'), url(https://fonts.gstatic.com/s/gentiumbookbasic/v11/pe0zMJCbPYBVokB1LHA9bbyaQb8ZGjc4ULF_.ttf) format('truetype');
 }
 @font-face {
   font-family: 'Open Sans';

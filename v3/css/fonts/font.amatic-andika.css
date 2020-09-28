@@ -23,13 +23,13 @@ https://www.google.com/fonts/specimen/Andika
   font-family: 'Amatic SC';
   font-style: normal;
   font-weight: 400;
-  src: local('Amatic SC Regular'), local('AmaticSC-Regular'), url(https://fonts.gstatic.com/s/amaticsc/v14/TUZyzwprpvBS1izr_vOECuSa.ttf) format('truetype');
+  src: local('Amatic SC Regular'), local('AmaticSC-Regular'), url(https://fonts.gstatic.com/s/amaticsc/v15/TUZyzwprpvBS1izr_vOECuSa.ttf) format('truetype');
 }
 @font-face {
   font-family: 'Amatic SC';
   font-style: normal;
   font-weight: 700;
-  src: local('Amatic SC Bold'), local('AmaticSC-Bold'), url(https://fonts.gstatic.com/s/amaticsc/v14/TUZ3zwprpvBS1izr_vOMscGKfrUH.ttf) format('truetype');
+  src: local('Amatic SC Bold'), local('AmaticSC-Bold'), url(https://fonts.gstatic.com/s/amaticsc/v15/TUZ3zwprpvBS1izr_vOMscGKfrUH.ttf) format('truetype');
 }
 @font-face {
   font-family: 'Andika';

@@ -23,19 +23,19 @@ https://www.google.com/fonts/specimen/Lato
   font-family: 'Lato';
   font-style: italic;
   font-weight: 400;
-  src: local('Lato Italic'), local('Lato-Italic'), url(https://fonts.gstatic.com/s/lato/v17/S6u8w4BMUTPHjxsAXC-v.ttf) format('truetype');
+  src: url(https://fonts.gstatic.com/s/lato/v17/S6u8w4BMUTPHjxsAXC-v.ttf) format('truetype');
 }
 @font-face {
   font-family: 'Lato';
   font-style: normal;
   font-weight: 400;
-  src: local('Lato Regular'), local('Lato-Regular'), url(https://fonts.gstatic.com/s/lato/v17/S6uyw4BMUTPHjx4wWw.ttf) format('truetype');
+  src: url(https://fonts.gstatic.com/s/lato/v17/S6uyw4BMUTPHjx4wWw.ttf) format('truetype');
 }
 @font-face {
   font-family: 'Lustria';
   font-style: normal;
   font-weight: 400;
-  src: local('Lustria'), local('Lustria-Regular'), url(https://fonts.gstatic.com/s/lustria/v8/9oRONYodvDEyjuhOnC8zNg.ttf) format('truetype');
+  src: url(https://fonts.gstatic.com/s/lustria/v8/9oRONYodvDEyjuhOnC8zNg.ttf) format('truetype');
 }
 /*	Font Base
 ----------------------------------------------------- */

@@ -4,7 +4,7 @@ Donate link: http://knightlab.northwestern.edu/
 Tags: timeline, shortcode, stamen, timeline.verite.co, verite, html5, KnightLab
 Requires at least: 2.0.2
 Tested up to: 5.5.1
-Stable tag: 3.8.10.0
+Stable tag: 3.8.11.0
 
 Use the incredible HTML5 Timeline developed by Knight Lab on your website. As easy as writing a shortcode.
 
@@ -114,6 +114,9 @@ Alternatively, you can use the TinyMCE button to create your own shortcode as we
 If you find this changelog out of date, you can assume that the plugin update is merely to pull in a new version of TimelineJS (especially if the plugin version number is 3.x.y.0)
 
 The most up to date change log for TimelineJS itself can be found at https://github.com/NUKnightLab/TimelineJS3/blob/master/CHANGELOG
+
+= 3.8.11.0 =
+* Update error messaging to give clearer instructions when encountering Google CSV permissions bug.
 
 = 3.8.10.0 =
 * Update to TimelineJS 3.8.10. Fixes Instagram MediaType in response to API changes.

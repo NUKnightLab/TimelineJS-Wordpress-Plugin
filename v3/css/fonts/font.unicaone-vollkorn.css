@@ -35,7 +35,7 @@ https://www.google.com/fonts/specimen/Unica+One
   font-family: 'Unica One';
   font-style: normal;
   font-weight: 400;
-  src: local('Unica One'), local('UnicaOne-Regular'), url(https://fonts.gstatic.com/s/unicaone/v8/DPEuYwWHyAYGVTSmalsRcd3b.ttf) format('truetype');
+  src: url(https://fonts.gstatic.com/s/unicaone/v8/DPEuYwWHyAYGVTSmalsRcd3b.ttf) format('truetype');
 }
 /*	Font Base
 ----------------------------------------------------- */

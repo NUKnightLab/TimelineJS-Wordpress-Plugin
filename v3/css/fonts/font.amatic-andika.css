@@ -23,19 +23,19 @@ https://www.google.com/fonts/specimen/Andika
   font-family: 'Amatic SC';
   font-style: normal;
   font-weight: 400;
-  src: local('Amatic SC Regular'), local('AmaticSC-Regular'), url(https://fonts.gstatic.com/s/amaticsc/v15/TUZyzwprpvBS1izr_vOECuSa.ttf) format('truetype');
+  src: url(https://fonts.gstatic.com/s/amaticsc/v15/TUZyzwprpvBS1izr_vOECuSa.ttf) format('truetype');
 }
 @font-face {
   font-family: 'Amatic SC';
   font-style: normal;
   font-weight: 700;
-  src: local('Amatic SC Bold'), local('AmaticSC-Bold'), url(https://fonts.gstatic.com/s/amaticsc/v15/TUZ3zwprpvBS1izr_vOMscGKfrUH.ttf) format('truetype');
+  src: url(https://fonts.gstatic.com/s/amaticsc/v15/TUZ3zwprpvBS1izr_vOMscGKfrUH.ttf) format('truetype');
 }
 @font-face {
   font-family: 'Andika';
   font-style: normal;
   font-weight: 400;
-  src: local('Andika Regular'), local('Andika-Regular'), url(https://fonts.gstatic.com/s/andika/v12/mem_Ya6iyW-LwqgwarYV.ttf) format('truetype');
+  src: url(https://fonts.gstatic.com/s/andika/v12/mem_Ya6iyW-LwqgwarYV.ttf) format('truetype');
 }
 /*	Font Base
 ----------------------------------------------------- */

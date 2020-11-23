@@ -35,7 +35,7 @@ https://www.google.com/fonts/specimen/Playfair+Display+SC
   font-family: 'Playfair Display SC';
   font-style: normal;
   font-weight: 400;
-  src: local('Playfair Display SC Regular'), local('PlayfairDisplaySC-Regular'), url(https://fonts.gstatic.com/s/playfairdisplaysc/v10/ke85OhoaMkR6-hSn7kbHVoFf7ZfgMPr_lbkMFQ.ttf) format('truetype');
+  src: url(https://fonts.gstatic.com/s/playfairdisplaysc/v10/ke85OhoaMkR6-hSn7kbHVoFf7ZfgMPr_lbkMFQ.ttf) format('truetype');
 }
 /*	Font Base
 ----------------------------------------------------- */

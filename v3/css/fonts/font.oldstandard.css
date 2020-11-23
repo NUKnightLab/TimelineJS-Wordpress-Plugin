@@ -21,13 +21,13 @@ https://www.google.com/fonts/specimen/Old+Standard+TT
   font-family: 'Old Standard TT';
   font-style: italic;
   font-weight: 400;
-  src: local('Old Standard TT Italic'), local('OldStandardTT-Italic'), url(https://fonts.gstatic.com/s/oldstandardtt/v13/MwQsbh3o1vLImiwAVvYawgcf2eVer2q6bHY.ttf) format('truetype');
+  src: url(https://fonts.gstatic.com/s/oldstandardtt/v13/MwQsbh3o1vLImiwAVvYawgcf2eVer2q6bHY.ttf) format('truetype');
 }
 @font-face {
   font-family: 'Old Standard TT';
   font-style: normal;
   font-weight: 400;
-  src: local('Old Standard TT Regular'), local('OldStandardTT-Regular'), url(https://fonts.gstatic.com/s/oldstandardtt/v13/MwQubh3o1vLImiwAVvYawgcf2eVeqlq9.ttf) format('truetype');
+  src: url(https://fonts.gstatic.com/s/oldstandardtt/v13/MwQubh3o1vLImiwAVvYawgcf2eVeqlq9.ttf) format('truetype');
 }
 /*	Font Base
 ----------------------------------------------------- */

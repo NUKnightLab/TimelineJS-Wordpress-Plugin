@@ -11,6 +11,7 @@
 /* Includes 
 ================================================== */
 /*	VARIABLES
+	BASE
 ----------------------------------------------------- */
 /* ICON PATH
 ================================================== */
@@ -196,8 +197,6 @@
 .tl-storyjs canvas,
 .tl-storyjs video {
   display: inline-block;
-  *display: inline;
-  *zoom: 1;
 }
 .tl-storyjs audio:not([controls]) {
   display: none;
@@ -446,7 +445,6 @@
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 15px;
   line-height: 15px;
-  *zoom: 1;
   margin-bottom: 15px;
   margin-top: 10px;
 }
@@ -2250,10 +2248,6 @@
 	       -ms-hyphens: auto;
 	           hyphens: auto;
 		*/
-  filter: alpha(opacity=15);
-  -khtml-opacity: 0.15;
-  -moz-opacity: 0.15;
-  opacity: 0.15;
 }
 .tl-slidenav-previous .tl-slidenav-title small,
 .tl-slidenav-next .tl-slidenav-title small,
@@ -2264,6 +2258,10 @@
 .tl-slidenav-previous .tl-slidenav-title,
 .tl-slidenav-next .tl-slidenav-title {
   margin-top: 10px;
+  filter: alpha(opacity=15);
+  -khtml-opacity: 0.15;
+  -moz-opacity: 0.15;
+  opacity: 0.15;
   font-size: 11px;
   line-height: 11px;
 }
@@ -2551,7 +2549,6 @@
 }
 .tl-media .tl-media-content-container .tl-media-content {
   position: relative;
-  *zoom: 1;
 }
 .tl-media .tl-media-content-container .tl-media-content:before,
 .tl-media .tl-media-content-container .tl-media-content:after {

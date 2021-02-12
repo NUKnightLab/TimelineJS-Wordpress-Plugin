@@ -3,12 +3,12 @@ Contributors: miguelpeixe, zachwise, KnightLab, joegermuska
 Donate link: http://knightlab.northwestern.edu/
 Tags: timeline, shortcode, stamen, timeline.verite.co, verite, html5, KnightLab
 Requires at least: 2.0.2
-Tested up to: 5.5.1
-Stable tag: 3.8.12.0
+Tested up to: 5.6.1
+Stable tag: 3.8.13.0
 
 Use the incredible HTML5 Timeline developed by Knight Lab on your website. As easy as writing a shortcode.
 
-After January 26, 2021, if you configure your timelines with Google Sheets, you must use 
+After June 8, 2021, if you configure your timelines with Google Sheets, you must use 
 version 3.8.2.0 of this plugin, or newer. Changes to the Google Sheets API mean that older 
 versions of TimelineJS (which are included in older versions of this plugin) will no longer work.
 See [our blog post](https://knightlab.northwestern.edu/2020/09/16/timelinejs-update-2/index.html) 

@@ -3,7 +3,7 @@
  * Plugin Name: Knight Lab TimelineJS
  * Plugin URI: http://timeline.knightlab.com/
  * Description: A simple shortcode to display TimelineJS.
- * Version: 3.8.18.0
+ * Version: 3.8.21.0
  * Author: Knight Lab
  * Author URI: http://knightlab.northwestern.edu/
  * License: Mozilla Public License, v. 2.0
@@ -232,6 +232,8 @@ function kl_timeline_tinymce() {
                                     <option value="ne" data-lang="Nepali">नेपाली</option>
                                     <option value="ja" data-lang="Japanese">日本語</option>
                                     <option value="no" data-lang="Norwegian">Norsk</option>
+                                    <option value="nb" data-lang="Norwegian - Bokmal">Norsk (bokmål)</option>
+                                    <option value="nn" data-lang="Norwegian - Nynorsk">Norsk (nynorsk)</option>
                                     <option value="th" data-lang="Thai">ภาษาไทย</option>
                                     <option value="pl" data-lang="Polish">Polski</option>
                                     <option value="pt" data-lang="Portuguese">Português</option>

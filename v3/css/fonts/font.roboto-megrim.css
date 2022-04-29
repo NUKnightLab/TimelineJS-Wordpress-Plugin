@@ -24,19 +24,19 @@ https://www.google.com/fonts/specimen/Megrim
   font-family: 'Megrim';
   font-style: normal;
   font-weight: 400;
-  src: url(https://fonts.gstatic.com/s/megrim/v11/46kulbz5WjvLqJZVam_k.ttf) format('truetype');
+  src: url(https://fonts.gstatic.com/s/megrim/v16/46kulbz5WjvLqJZVam_k.ttf) format('truetype');
 }
 @font-face {
   font-family: 'Roboto Slab';
   font-style: normal;
   font-weight: 300;
-  src: url(https://fonts.gstatic.com/s/robotoslab/v13/BngbUXZYTXPIvIBgJJSb6s3BzlRRfKOFbvjo0oSmb2Rm.ttf) format('truetype');
+  src: url(https://fonts.gstatic.com/s/robotoslab/v23/BngbUXZYTXPIvIBgJJSb6s3BzlRRfKOFbvjo0oSmb2Rm.ttf) format('truetype');
 }
 @font-face {
   font-family: 'Roboto Slab';
   font-style: normal;
   font-weight: 400;
-  src: url(https://fonts.gstatic.com/s/robotoslab/v13/BngbUXZYTXPIvIBgJJSb6s3BzlRRfKOFbvjojISmb2Rm.ttf) format('truetype');
+  src: url(https://fonts.gstatic.com/s/robotoslab/v23/BngbUXZYTXPIvIBgJJSb6s3BzlRRfKOFbvjojISmb2Rm.ttf) format('truetype');
 }
 /*	Font Base
 ----------------------------------------------------- */
@@ -53,7 +53,7 @@ https://www.google.com/fonts/specimen/Megrim
 .tl-timeline h5,
 .tl-timeline h6 {
   font-family: 'Megrim', 'Helvetica Neue', Helvetica, Arial, "MS Trebuchet", sans-serif;
-  text-transform: normal;
+  text-transform: none;
   font-weight: 400;
   font-size: 46px;
   line-height: 46px;
@@ -92,7 +92,7 @@ https://www.google.com/fonts/specimen/Megrim
 .tl-timeline .tl-timegroup-message {
   font-family: 'Megrim', 'Helvetica Neue', Helvetica, Arial, "MS Trebuchet", sans-serif;
   font-weight: 400;
-  text-transform: normal;
+  text-transform: none;
 }
 .tl-timeline .tl-slidenav-next .tl-slidenav-title,
 .tl-timeline .tl-slidenav-previous .tl-slidenav-title,
@@ -104,7 +104,7 @@ https://www.google.com/fonts/specimen/Megrim
 .tl-timeline h3.tl-headline-date {
   font-family: 'Roboto Slab', Georgia, serif !important;
   font-weight: normal !important;
-  text-transform: normal !important;
+  text-transform: none !important;
 }
 .tl-timeline .tl-headline-date small,
 .tl-timeline h3.tl-headline-date small {
@@ -122,7 +122,7 @@ https://www.google.com/fonts/specimen/Megrim
 .tl-timeline .tl-timenav-slider .tl-timeaxis {
   font-family: 'Megrim', 'Helvetica Neue', Helvetica, Arial, "MS Trebuchet", sans-serif;
   font-weight: 400;
-  text-transform: normal;
+  text-transform: none;
 }
 .tl-timeline .tl-menubar {
   font-family: 'Megrim', 'Helvetica Neue', Helvetica, Arial, "MS Trebuchet", sans-serif;
@@ -136,7 +136,7 @@ https://www.google.com/fonts/specimen/Megrim
 }
 input[type="text"].editor-headline {
   font-family: 'Megrim', 'Helvetica Neue', Helvetica, Arial, "MS Trebuchet", sans-serif;
-  text-transform: normal;
+  text-transform: none;
   font-weight: 400;
   font-size: 46px;
   line-height: 46px;

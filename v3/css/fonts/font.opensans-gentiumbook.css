@@ -24,25 +24,27 @@ http://www.google.com/webfonts/specimen/Gentium+Book+Basic
   font-family: 'Gentium Book Basic';
   font-style: italic;
   font-weight: 400;
-  src: url(https://fonts.gstatic.com/s/gentiumbookbasic/v11/pe0xMJCbPYBVokB1LHA9bbyaQb8ZGjc4VYF466c.ttf) format('truetype');
+  src: url(https://fonts.gstatic.com/s/gentiumbookbasic/v16/pe0xMJCbPYBVokB1LHA9bbyaQb8ZGjc4VYF466c.ttf) format('truetype');
 }
 @font-face {
   font-family: 'Gentium Book Basic';
   font-style: normal;
   font-weight: 400;
-  src: url(https://fonts.gstatic.com/s/gentiumbookbasic/v11/pe0zMJCbPYBVokB1LHA9bbyaQb8ZGjc4ULF_.ttf) format('truetype');
+  src: url(https://fonts.gstatic.com/s/gentiumbookbasic/v16/pe0zMJCbPYBVokB1LHA9bbyaQb8ZGjc4ULF_.ttf) format('truetype');
 }
 @font-face {
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 400;
-  src: url(https://fonts.gstatic.com/s/opensans/v20/mem8YaGs126MiZpBA-UFVZ0e.ttf) format('truetype');
+  font-stretch: normal;
+  src: url(https://fonts.gstatic.com/s/opensans/v28/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsjZ0B4gaVc.ttf) format('truetype');
 }
 @font-face {
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 800;
-  src: url(https://fonts.gstatic.com/s/opensans/v20/mem5YaGs126MiZpBA-UN8rsOUuhs.ttf) format('truetype');
+  font-stretch: normal;
+  src: url(https://fonts.gstatic.com/s/opensans/v28/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgshZ1x4gaVc.ttf) format('truetype');
 }
 /*	Font Base
 ----------------------------------------------------- */

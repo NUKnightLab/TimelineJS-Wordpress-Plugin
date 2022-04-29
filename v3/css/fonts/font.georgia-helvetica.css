@@ -33,7 +33,7 @@
 .tl-timeline h5,
 .tl-timeline h6 {
   font-family: Georgia, Times, serif;
-  text-transform: normal;
+  text-transform: none;
   font-weight: 800;
   font-size: 42px;
   line-height: 42px;
@@ -72,7 +72,7 @@
 .tl-timeline .tl-timegroup-message {
   font-family: 'Helvetica Neue', Helvetica, Arial, "MS Trebuchet", sans-serif;
   font-weight: 800;
-  text-transform: normal;
+  text-transform: none;
 }
 .tl-timeline .tl-slidenav-next .tl-slidenav-title,
 .tl-timeline .tl-slidenav-previous .tl-slidenav-title,
@@ -84,7 +84,7 @@
 .tl-timeline h3.tl-headline-date {
   font-family: 'Helvetica Neue', Helvetica, Arial, "MS Trebuchet", sans-serif !important;
   font-weight: normal !important;
-  text-transform: normal !important;
+  text-transform: none !important;
 }
 .tl-timeline .tl-headline-date small,
 .tl-timeline h3.tl-headline-date small {
@@ -97,12 +97,12 @@
 .tl-timeline .tl-timenav-slider h2.tl-headline {
   font-family: Georgia, Times, serif;
   font-weight: 800;
-  text-transform: normal;
+  text-transform: none;
 }
 .tl-timeline .tl-timenav-slider .tl-timeaxis {
   font-family: 'Helvetica Neue', Helvetica, Arial, "MS Trebuchet", sans-serif;
   font-weight: 800;
-  text-transform: normal;
+  text-transform: none;
 }
 .tl-timeline .tl-menubar {
   font-family: 'Helvetica Neue', Helvetica, Arial, "MS Trebuchet", sans-serif;
@@ -116,7 +116,7 @@
 }
 input[type="text"].editor-headline {
   font-family: Georgia, Times, serif;
-  text-transform: normal;
+  text-transform: none;
   font-weight: 800;
   font-size: 42px;
   line-height: 42px;

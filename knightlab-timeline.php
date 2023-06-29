@@ -78,7 +78,7 @@ function kl_timeline_shortcode( $atts, $content = null ) {
 	if ( ! $src ) {
 		return false;
 	}
-	if ( $version == 'timeline2' ) {
+	if ( 'timeline2' === $version ) {
 		$script_path .= 'js/';
 		wp_register_script( 'kl-timeline-embed', $script_path . 'storyjs-embed.js', [ 'jquery' ], KL_TIMELINE_VERSION, true );
 	} else {

@@ -1,5 +1,11 @@
 <?php
 /**
+ * Knight Lab TimelineJS.
+ *
+ * @package knightlab/timeline
+ */
+
+/**
  * Plugin Name: Knight Lab TimelineJS
  * Plugin URI: http://timeline.knightlab.com/
  * Description: A simple shortcode to display TimelineJS.
@@ -21,17 +27,30 @@ define( 'KL_TIMELINE_URL', plugin_dir_url( __FILE__ ) );
 wp_oembed_add_provider( 'cdn.knightlab.com/libs/timeline3/*', 'https://oembed.knightlab.com/timeline/' );
 
 add_action( 'init', 'kl_timeline_scripts' );
+/**
+ * Ensure jQuery is loaded.
+ */
 function kl_timeline_scripts() {
 	wp_enqueue_script( 'jquery' );
 }
 
 add_action( 'init', 'kl_timeline_textdomain' );
+/**
+ * Set the localization text domain.
+ */
 function kl_timeline_textdomain() {
 	$plugin_dir = basename( dirname( __FILE__ ) );
 	load_plugin_textdomain( 'kl-timeline', false, $plugin_dir . '/languages/' );
 }
 
 add_shortcode( 'timeline', 'kl_timeline_shortcode' );
+/**
+ * Handle the [timeline] shortcode.
+ *
+ * @param array $atts    Array of shortcode attributes.
+ * @param int   $content  Shortcode content.
+ * @return string
+ */
 function kl_timeline_shortcode( $atts, $content = null ) {
 		extract(
 			shortcode_atts(
@@ -99,29 +118,34 @@ function kl_timeline_shortcode( $atts, $content = null ) {
 		return $shortcode;
 }
 
-/*
-	TinyMCE
-*/
-
+// TinyMCE.
 add_action( 'media_buttons_context', 'kl_timeline_tinymce_button' );
 
-// Add content for creating a timeline
+// Add content for creating a timeline.
 add_action( 'admin_footer', 'kl_timeline_tinymce' );
 
-// TinyMCE Button for the shortcode
+/**
+ * TinyMCE Button for the shortcode
+ *
+ * @param string $context Media buttons context. Default empty.
+ * @return string
+ */
 function kl_timeline_tinymce_button( $context ) {
 
 	$img          = KL_TIMELINE_URL . 'knight-diamond.png';
 	$container_id = 'add_timeline_form';
 	$title        = __( 'Insert Timeline', 'kl-timeline' );
 
-	// append the icon
+	// Append the icon.
 	$context .= "<a class='thickbox button' style='background: url({$img}) no-repeat 3px 3px; padding-left: 20px' title='{$title}' id='add_timeline'
     href='#TB_inline?width=600&height=495&inlineId={$container_id}'> Add Timeline</a>";
 
 	return $context;
 }
 
+/**
+ * Print JavaScript for the timeline.
+ */
 function kl_timeline_tinymce() {
 	?>
 <script type="text/javascript">

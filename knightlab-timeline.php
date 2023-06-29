@@ -86,7 +86,8 @@ function kl_timeline_shortcode( $atts, $content = null ) {
 		$script_path .= 'v3/js/';
 		wp_register_script( 'kl-timeline-embed', $script_path . 'timeline-embed.js', [ 'jquery' ], KL_TIMELINE_VERSION, true );
 	}
-	if ( $debug ) {
+
+	if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
 		$js_path = $script_path . 'timeline.js';
 	} else {
 		$js_path = $script_path . 'timeline-min.js';

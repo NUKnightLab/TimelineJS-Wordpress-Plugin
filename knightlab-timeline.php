@@ -170,29 +170,29 @@ function kl_timeline_tinymce() {
 		<div class="wrap">
 			<div>
 				<div style="padding:15px 15px 0 15px;">
-					<h3 style="color:#5A5A5A!important; font-family:Georgia,Times New Roman,Times,serif!important; font-size:1.8em!important; font-weight:normal!important;"><?php _e( 'Insert Timeline', 'kl-timeline' ); ?></h3>
+					<h3 style="color:#5A5A5A!important; font-family:Georgia,Times New Roman,Times,serif!important; font-size:1.8em!important; font-weight:normal!important;"><?php esc_html_e( 'Insert Timeline', 'kl-timeline' ); ?></h3>
 					<span>
-						<?php _e( 'Configurate your Timeline and add it to your post', 'kl-timeline' ); ?>
+						<?php esc_html_e( 'Configure your Timeline and add it to your post', 'kl-timeline' ); ?>
 					</span>
 				</div>
 				<div style="padding:15px 15px 0 15px;">
 					<table>
 						<tbody>
 							<tr>
-								<td valign="top" style="padding: 0 15px 5px 0;"><label for="timeline_data_src"><?php _e( 'Data source', 'kl-timeline' ); ?></label></td>
+								<td valign="top" style="padding: 0 15px 5px 0;"><label for="timeline_data_src"><?php esc_html_e( 'Data source', 'kl-timeline' ); ?></label></td>
 								<td style="padding: 0 0 10px;"><input type="text" id="timeline_data_src" size="75" style="width:450px;"/><br/>
-									<small><a href="http://timeline.knightlab.com/" target="_blank"><?php _e( 'Learn how to create your timeline', 'kl-timeline' ); ?></a></small></td>
+									<small><a href="http://timeline.knightlab.com/" target="_blank"><?php esc_html_e( 'Learn how to create your timeline', 'kl-timeline' ); ?></a></small></td>
 							</tr>
 							<tr>
-								<td valign="top" style="padding: 0 15px 5px 0;"><label for="timeline_width"><?php _e( 'Width', 'kl-timeline' ); ?></label></td>
+								<td valign="top" style="padding: 0 15px 5px 0;"><label for="timeline_width"><?php esc_html_e( 'Width', 'kl-timeline' ); ?></label></td>
 								<td style="padding: 0 0 10px;"><input type="text" id="timeline_width" size="5" value="100%" /></td>
 							</tr>
 							<tr>
-								<td valign="top" style="padding: 0 15px 5px 0;"><label for="timeline_height"><?php _e( 'Height', 'kl-timeline' ); ?></label></td>
+								<td valign="top" style="padding: 0 15px 5px 0;"><label for="timeline_height"><?php esc_html_e( 'Height', 'kl-timeline' ); ?></label></td>
 								<td style="padding: 0 0 10px;"><input type="text" id="timeline_height" size="5" value="650" /></td>
 							</tr>
 							<tr>
-								<td valign="top" style="padding: 0 15px 5px 0;"><label for="timeline_font"><?php _e( 'Fonts', 'kl-timeline' ); ?></label></td>
+								<td valign="top" style="padding: 0 15px 5px 0;"><label for="timeline_font"><?php esc_html_e( 'Fonts', 'kl-timeline' ); ?></label></td>
 								<td style="padding: 0 0 10px;">
 									<select id="timeline_font">
 										<option value="Default">PT Narrow & PT Serif</option>
@@ -218,7 +218,7 @@ function kl_timeline_tinymce() {
 								</td>
 							</tr>
 							<tr>
-								<td valign="top" style="padding: 0 15px 5px 0;"><label for="timeline_lang"><?php _e( 'Language', 'kl-timeline' ); ?></label></td>
+								<td valign="top" style="padding: 0 15px 5px 0;"><label for="timeline_lang"><?php esc_html_e( 'Language', 'kl-timeline' ); ?></label></td>
 								<td style="padding: 0 0 10px;">
 									<select id="timeline_lang">
 									<option value="en" data-lang="English">English</option>
@@ -292,8 +292,8 @@ function kl_timeline_tinymce() {
 					</table>
 				</div>
 				<div style="padding:15px;">
-					<input type="button" class="button-primary" value="<?php _e( 'Insert Timeline', 'kl-timeline' ); ?>" onclick="insertTimeline();"/>
-					<a class="button" style="color:#bbb;" href="#" onclick="tb_remove(); return false;"><?php _e( 'Cancel', 'kl-timeline' ); ?></a>
+					<input type="button" class="button-primary" value="<?php esc_attr_e( 'Insert Timeline', 'kl-timeline' ); ?>" onclick="insertTimeline();"/>
+					<a class="button" style="color:#bbb;" href="#" onclick="tb_remove(); return false;"><?php esc_html_e( 'Cancel', 'kl-timeline' ); ?></a>
 				</div>
 			</div>
 		</div>

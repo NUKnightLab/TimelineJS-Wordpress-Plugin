@@ -75,9 +75,18 @@ function kl_timeline_shortcode( $atts, $content = null ) {
 		)
 	);
 
-	if ( ! $src ) {
+	if ( empty( $src ) ) {
 		return false;
 	}
+
+	if ( empty( $width ) ) {
+		$width = 0;
+	}
+
+	if ( empty( $height ) ) {
+		$height = 0;
+	}
+
 	if ( 'timeline2' === $version ) {
 		$script_path .= 'js/';
 		wp_register_script( 'kl-timeline-embed', $script_path . 'storyjs-embed.js', [ 'jquery' ], KL_TIMELINE_VERSION, true );
@@ -97,21 +106,20 @@ function kl_timeline_shortcode( $atts, $content = null ) {
 
 		wp_enqueue_script( 'kl-timeline-embed' );
 		$shortcode = '
-    <div id="timeline-embed"></div>
-    <script type="text/javascript">// <![CDATA[
-        var timeline_config = {
-            width: "' . $width . '",
-            height: "' . $height . '",
-            source: "' . $src . '",
-            embed_id: "timeline-embed",
-            start_at_end: ' . $start_at_end . ',
-            start_at_slide: "' . $start_at_slide . '",
-            start_zoom_adjust: "' . $start_zoom_adjust . '",
-            initial_zoom:"' . $initial_zoom . '",
-            hash_bookmark: ' . $hash_bookmark . ',
-            font: "' . $font . '",
-            debug: ' . $debug . ',
-            lang: "' . $lang . '",
+	<div id="timeline-embed"></div>
+	<script type="text/javascript">// <![CDATA[
+		var timeline_config = {
+			width: "' . intval( $width ) . '",
+			height: "' . intval( $height ) . '",
+			source: "' . $src . '",
+			embed_id: "timeline-embed",
+			start_at_end: ' . $start_at_end . ',
+			start_at_slide: "' . $start_at_slide . '",
+			start_zoom_adjust: "' . $start_zoom_adjust . '",
+			initial_zoom:"' . $initial_zoom . '",
+			hash_bookmark: ' . $hash_bookmark . ',
+			font: "' . $font . '",
+			lang: "' . $lang . '",
 			maptype: "' . $maptype . '",
 			script_path: "' . $script_path . '"
 		}

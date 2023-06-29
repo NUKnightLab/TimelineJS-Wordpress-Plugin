@@ -23,6 +23,7 @@ file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
 
 define( 'KL_TIMELINE_URL', plugin_dir_url( __FILE__ ) );
+define( 'KL_TIMELINE_VERSION', '3.8.22.0' );
 
 wp_oembed_add_provider( 'cdn.knightlab.com/libs/timeline3/*', 'https://oembed.knightlab.com/timeline/' );
 
@@ -80,10 +81,10 @@ function kl_timeline_shortcode( $atts, $content = null ) {
 	}
 	if ( $version == 'timeline2' ) {
 		$script_path .= 'js/';
-		wp_register_script( 'kl-timeline-embed', $script_path . 'storyjs-embed.js', [ 'jquery' ], false, true );
+		wp_register_script( 'kl-timeline-embed', $script_path . 'storyjs-embed.js', [ 'jquery' ], KL_TIMELINE_VERSION, true );
 	} else {
 		$script_path .= 'v3/js/';
-		wp_register_script( 'kl-timeline-embed', $script_path . 'timeline-embed.js', [ 'jquery' ], false, true );
+		wp_register_script( 'kl-timeline-embed', $script_path . 'timeline-embed.js', [ 'jquery' ], KL_TIMELINE_VERSION, true );
 	}
 	if ( $debug ) {
 		$js_path = $script_path . 'timeline.js';

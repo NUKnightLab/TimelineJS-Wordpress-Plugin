@@ -15,7 +15,6 @@
  * License: Mozilla Public License, v. 2.0
  */
 
-
 /*
 This Source Code Form is subject to the terms of the Mozilla Public
 License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -53,28 +52,28 @@ add_shortcode( 'timeline', 'kl_timeline_shortcode' );
  * @return string
  */
 function kl_timeline_shortcode( $atts, $content = null ) {
-		extract(
-			shortcode_atts(
-				[
-					'title'             => '',
-					'width'             => '100%',
-					'height'            => 650,
-					'font'              => '',
-					'lang'              => 'en',
-					'src'               => '',
-					'start_at_end'      => 'false',
-					'hash_bookmark'     => 'false',
-					'debug'             => 'false',
-					'maptype'           => '',
-					'start_at_slide'    => 0,
-					'start_zoom_adjust' => null,
-					'initial_zoom'      => 2,
-					'version'           => '',
-					'script_path'       => plugin_dir_url( __FILE__ ),
-				],
-				$atts
-			)
-		);
+	extract(
+		shortcode_atts(
+			[
+				'title'             => '',
+				'width'             => '100%',
+				'height'            => 650,
+				'font'              => '',
+				'lang'              => 'en',
+				'src'               => '',
+				'start_at_end'      => 'false',
+				'hash_bookmark'     => 'false',
+				'debug'             => 'false',
+				'maptype'           => '',
+				'start_at_slide'    => 0,
+				'start_zoom_adjust' => null,
+				'initial_zoom'      => 2,
+				'version'           => '',
+				'script_path'       => plugin_dir_url( __FILE__ ),
+			],
+			$atts
+		)
+	);
 
 	if ( ! $src ) {
 		return false;
@@ -92,7 +91,8 @@ function kl_timeline_shortcode( $atts, $content = null ) {
 	} else {
 		$js_path = $script_path . 'timeline-min.js';
 	}
-		$css_path = plugin_dir_url( __FILE__ ) . 'css/timeline.css';
+
+	$css_path = plugin_dir_url( __FILE__ ) . 'css/timeline.css';
 
 
 		wp_enqueue_script( 'kl-timeline-embed' );
@@ -114,9 +114,9 @@ function kl_timeline_shortcode( $atts, $content = null ) {
             lang: "' . $lang . '",
 			maptype: "' . $maptype . '",
 			script_path: "' . $script_path . '"
-        }
+		}
 // ]]></script>
-        ';
+		';
 		return $shortcode;
 }
 
@@ -140,7 +140,7 @@ function kl_timeline_tinymce_button( $context ) {
 
 	// Append the icon.
 	$context .= "<a class='thickbox button' style='background: url({$img}) no-repeat 3px 3px; padding-left: 20px' title='{$title}' id='add_timeline'
-    href='#TB_inline?width=600&height=495&inlineId={$container_id}'> Add Timeline</a>";
+	href='#TB_inline?width=600&height=495&inlineId={$container_id}'> Add Timeline</a>";
 
 	return $context;
 }

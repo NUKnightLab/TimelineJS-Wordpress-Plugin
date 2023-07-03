@@ -31,19 +31,19 @@ http://www.google.com/webfonts/specimen/PT+Serif
   font-family: 'PT Sans Narrow';
   font-style: normal;
   font-weight: 700;
-  src: url(https://fonts.gstatic.com/s/ptsansnarrow/v17/BngSUXNadjH0qYEzV7ab-oWlsbg95AiFW_g.ttf) format('truetype');
+  src: url(https://fonts.gstatic.com/s/ptsansnarrow/v18/BngSUXNadjH0qYEzV7ab-oWlsbg95AiFW_g.ttf) format('truetype');
 }
 @font-face {
   font-family: 'PT Serif';
   font-style: italic;
   font-weight: 400;
-  src: url(https://fonts.gstatic.com/s/ptserif/v17/EJRTQgYoZZY2vCFuvAFT_r21dw.ttf) format('truetype');
+  src: url(https://fonts.gstatic.com/s/ptserif/v18/EJRTQgYoZZY2vCFuvAFT_r21dw.ttf) format('truetype');
 }
 @font-face {
   font-family: 'PT Serif';
   font-style: normal;
   font-weight: 400;
-  src: url(https://fonts.gstatic.com/s/ptserif/v17/EJRVQgYoZZY2vCFuvAFWzro.ttf) format('truetype');
+  src: url(https://fonts.gstatic.com/s/ptserif/v18/EJRVQgYoZZY2vCFuvAFWzro.ttf) format('truetype');
 }
 /*	Font Base
 ----------------------------------------------------- */

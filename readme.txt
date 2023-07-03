@@ -3,8 +3,8 @@ Contributors: miguelpeixe, zachwise, KnightLab, joegermuska
 Donate link: http://knightlab.northwestern.edu/
 Tags: timeline, shortcode, stamen, timeline.verite.co, verite, html5, KnightLab
 Requires at least: 2.0.2
-Tested up to: 5.7.1
-Stable tag: 3.8.21.0
+Tested up to: 6.2.2
+Stable tag: 3.9.3.0
 
 Use the incredible HTML5 Timeline developed by Knight Lab on your website. As easy as writing a shortcode.
 
@@ -17,6 +17,8 @@ for more information.
 == Description ==
 
 A simple shortcode plugin to add the TimelineJS made by Knight Lab.
+
+**NOTE** While this plugin works up to the listed "tested" version of WordPress, it does not work as it originally did. Knight Lab does not have dedicated PHP development resources, and has not been able to fully adapt this plugin to the new Gutenberg blocks editor in WordPress. The original plugin provided an interface for customizing a timeline in WordPress, but that doesn't work in the new editor. In short, if you've been using the Timeline plugin for WordPress, your existing timelines should continue to work. We would love help from the WordPress community in updating or replacing this plugin with something which is better suited to the new editor paradigm.
 
 Supports custom width and height, [Google Spreadsheet and JSON data sources](http://timeline.knightlab.com/) "Learn how to create your data source") and many more.
 

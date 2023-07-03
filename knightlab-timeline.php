@@ -9,7 +9,7 @@
  * Plugin Name: Knight Lab TimelineJS
  * Plugin URI: http://timeline.knightlab.com/
  * Description: A simple shortcode to display TimelineJS.
- * Version: 3.8.22.0
+ * Version: 3.9.3.0
  * Author: Knight Lab
  * Author URI: http://knightlab.northwestern.edu/
  * License: Mozilla Public License, v. 2.0
@@ -24,7 +24,7 @@ file, You can obtain one at http://mozilla.org/MPL/2.0/.
 define( 'KL_TIMELINE_URL', plugin_dir_url( __FILE__ ) );
 define( 'KL_TIMELINE_VERSION', '3.8.22.0' );
 
-wp_oembed_add_provider( 'cdn.knightlab.com/libs/timeline3/*', 'https://oembed.knightlab.com/timeline/' );
+wp_oembed_add_provider( '#https?://cdn.knightlab.com/libs/timeline3/.*#i', 'https://oembed.knightlab.com/timeline/' );
 
 add_action( 'init', 'kl_timeline_scripts' );
 /**

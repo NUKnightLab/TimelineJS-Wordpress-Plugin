@@ -4,7 +4,7 @@ Donate link: http://knightlab.northwestern.edu/
 Tags: timeline, shortcode, stamen, timeline.verite.co, verite, html5, KnightLab
 Requires at least: 2.0.2
 Tested up to: 6.2.2
-Stable tag: 3.9.3.2
+Stable tag: 3.9.3.3
 
 Use the incredible HTML5 Timeline developed by Knight Lab on your website. As easy as writing a shortcode.
 
@@ -116,6 +116,9 @@ Alternatively, you can use the TinyMCE button to create your own shortcode as we
 If you find this changelog out of date, you can assume that the plugin update is merely to pull in a new version of TimelineJS (especially if the plugin version number is 3.x.y.0)
 
 The most up to date change log for TimelineJS itself can be found at https://github.com/NUKnightLab/TimelineJS3/blob/master/CHANGELOG
+= 3.9.3.3 =
+* Revert to pre-code formatter plugin since it seems to have introduced more regressions than realized.
+
 = 3.9.3.2 =
 * Fix regression introduced by codeformatter which forced percentage-based width/height values to integers instead.
 

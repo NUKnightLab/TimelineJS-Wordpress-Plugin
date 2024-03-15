@@ -3,7 +3,7 @@
  * Plugin Name: Knight Lab TimelineJS
  * Plugin URI: http://timeline.knightlab.com/
  * Description: A simple shortcode to display TimelineJS.
- * Version: 3.9.3.3
+ * Version: 3.9.3.4
  * Author: Knight Lab
  * Author URI: http://knightlab.northwestern.edu/
  * License: Mozilla Public License, v. 2.0
@@ -74,20 +74,20 @@ function kl_timeline_shortcode($atts, $content=null) {
     <div id="timeline-embed"></div>
     <script type="text/javascript">// <![CDATA[
         var timeline_config = {
-            width: "' . $width .'",
-            height: "' . $height . '",
-            source: "' . $src . '",
+            width: "' . esc_js($width) .'",
+            height: "' . esc_js($height) . '",
+            source: "' . esc_js($src) . '",
             embed_id: "timeline-embed",
-            start_at_end: ' . $start_at_end . ',
-            start_at_slide: "' . $start_at_slide . '",
-            start_zoom_adjust: "' . $start_zoom_adjust . '",
-            initial_zoom:"' . $initial_zoom . '",
-            hash_bookmark: ' . $hash_bookmark .',
-            font: "' . $font . '",
-            debug: ' . $debug . ',
-            lang: "' . $lang . '",
-			maptype: "' . $maptype . '",
-			script_path: "' . $script_path .'"
+            start_at_end: ' . esc_js($start_at_end) . ',
+            start_at_slide: "' . esc_js($start_at_slide) . '",
+            start_zoom_adjust: "' . esc_js($start_zoom_adjust) . '",
+            initial_zoom:"' . esc_js($initial_zoom) . '",
+            hash_bookmark: ' . esc_js($hash_bookmark) .',
+            font: "' . esc_js($font) . '",
+            debug: ' . esc_js($debug) . ',
+            lang: "' . esc_js($lang) . '",
+			maptype: "' . esc_js($maptype) . '",
+			script_path: "' . esc_js($script_path) .'"
         }
 // ]]></script>
         ';
